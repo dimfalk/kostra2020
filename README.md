@@ -1,4 +1,4 @@
-# KOSTRA-DWD-2010R
+# kostra-dwd-2010R
 
 
 Getting Started
