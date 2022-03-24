@@ -1,5 +1,154 @@
 # KOSTRA-DWD-2010R
+---
+output: 
+  github_document:
+    html_preview: true
+---
 
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "tools/readme/README-",
+  out.width = "100%"
+)
+```
+
+# kiwisR <img src="tools/readme/kiwisR_small.png" align="right" />
+
+![Travis-CI Build Status](https://travis-ci.org/rywhale/kiwisR.svg?branch=master)
+[![LICENSE](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/kiwisR)](https://cran.r-project.org/package=kiwisR) [![CRAN Download](https://cranlogs.r-pkg.org/badges/kiwisR?color=brightgreen)](https://CRAN.R-project.org/package=kiwisR)
+
+## Overview
+A wrapper for querying [KISTERS WISKI databases](https://www.kisters.net/NA/products/wiski/) via the [KiWIS API](https://water.kisters.de/en/technology-trends/kisters-and-open-data/). Users can toggle between various databases by specifying the `hub` argument. Currently, the default hubs are:
+
+* _kisters_ : [KISTERS KiWIS Example Server](http://kiwis.kisters.de/KiWIS2/index.html)
+* _swmc_ : [Ontario Surface Water Monitoring Centre](https://www.ontario.ca/page/surface-water-monitoring)
+* _quinte_ : [Quinte Conservation Authority](http://quinteconservation.ca/site/)
+
+All data is returned as tidy [tibbles](https://CRAN.R-project.org/package=tibble). 
+
+## Installation
+You can install ```kiwisR``` from CRAN:
+
+```{r eval = FALSE}
+install.packages('kiwisR')
+```
+
+To install the development version of ```kiwisR``` you first need to install ```devtools```. 
+
+```{r eval = FALSE}
+if(!requireNamespace("devtools")) install.packages("devtools")
+devtools::install_github('rywhale/kiwisR')
+```
+
+Then load the package with
+
+```{r eval = FALSE,message=FALSE,warning=FALSE}
+library(kiwisR)
+```
+
+```{r eval=TRUE,message=FALSE,warning=FALSE, include=FALSE}
+devtools::load_all()
+```
+
+## Usage
+
+### Get Station Information
+
+By default, ```ki_station_list()``` returns a tibble containing information for all available stations for the selected hub. 
+
+```{r}
+# With swmc as the hub
+ki_station_list(hub = 'swmc')
+```
+
+### Get Time Series Information
+
+You can use the ```station_id``` column returned using ```ki_station_list()``` to figure out
+which time series are available for a given station. 
+
+
+#### One Station
+
+```{r}
+# Single station_id
+available_ts <- ki_timeseries_list(
+  hub = 'swmc', 
+  station_id = "144659"
+  )
+available_ts
+```
+
+#### Multiple Stations
+If you provide a vector to ```station_id```, the returned tibble will have all the
+available time series from _all_ stations. They can be differentiated using the 
+```station_name``` column.
+```{r}
+# Vector of station_ids
+my_station_ids <- c("144659", "144342")
+available_ts <- ki_timeseries_list(
+  hub = 'swmc', 
+  station_id = my_station_ids
+  )
+available_ts
+```
+
+### Get Time Series Values
+
+You can now use the ```ts_id``` column in the tibble produced by ```ki_timeseries_list()``` to query values for
+chosen time series. 
+
+By default this will return values for the past 24 hours. You can specify the dates you're interested in
+by setting ```start_date``` and ```end_date```. These should be set as date strings with the format 'YYYY-mm-dd'. 
+
+You can pass either a single or multiple ```ts_id```(s). 
+
+#### One Time Series
+
+```{r}
+# Past 24 hours
+my_values <- ki_timeseries_values(
+  hub = 'swmc', 
+  ts_id = '966435042'
+  )
+my_values
+```
+
+#### Multiple Time Series
+
+```{r}
+# Specified date, multiple time series
+my_ts_ids <- c("1125831042","908195042")
+my_values <- ki_timeseries_values(
+  hub = 'swmc',
+  ts_id = my_ts_ids,
+  start_date = "2015-08-28",
+  end_date = "2018-09-13"
+  )
+my_values
+```
+
+## Using Other Hubs
+You can use this package for a KiWIS hub not included in this list by feeding the location of the API service to the ```hub``` argument.
+
+For instance:
+If your URL looks like 
+
+`http://kiwis.kisters.de/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo`
+
+specify the ```hub``` argument with
+
+`http://kiwis.kisters.de/KiWIS/KiWIS?`
+
+If you'd like to have a hub added to the defaults, please [Submit an Issue](https://github.com/rywhale/kiwisR/issues)
+
+
+## Contributing
+See [here](https://github.com/rywhale/kiwisR/blob/master/.github/CONTRIBUTING.md) if you'd like to contribute.
 
 Getting Started
 
