@@ -1,157 +1,84 @@
-# KOSTRA-DWD-2010R
----
-output: 
-  github_document:
-    html_preview: true
----
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-```{r setup, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "tools/readme/README-",
-  out.width = "100%"
-)
-```
+# kostra2010R
 
-# kiwisR <img src="tools/readme/kiwisR_small.png" align="right" />
+<!-- badges: start -->
+<!-- badges: end -->
 
-![Travis-CI Build Status](https://travis-ci.org/rywhale/kiwisR.svg?branch=master)
-[![LICENSE](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/kiwisR)](https://cran.r-project.org/package=kiwisR) [![CRAN Download](https://cranlogs.r-pkg.org/badges/kiwisR?color=brightgreen)](https://CRAN.R-project.org/package=kiwisR)
+The main goal of kostra2010R is to provide access to KOSTRA-DWD-2010R
+dataset from within R.
 
-## Overview
-A wrapper for querying [KISTERS WISKI databases](https://www.kisters.net/NA/products/wiski/) via the [KiWIS API](https://water.kisters.de/en/technology-trends/kisters-and-open-data/). Users can toggle between various databases by specifying the `hub` argument. Currently, the default hubs are:
+Official description:
 
-* _kisters_ : [KISTERS KiWIS Example Server](http://kiwis.kisters.de/KiWIS2/index.html)
-* _swmc_ : [Ontario Surface Water Monitoring Centre](https://www.ontario.ca/page/surface-water-monitoring)
-* _quinte_ : [Quinte Conservation Authority](http://quinteconservation.ca/site/)
+These vector data sets for GIS contain statistical precipitation values
+as a function of the duration and the return period. The scope of the
+data is the engineering dimensioning of water management structures.
+These include, sewerage networks, sewage treatment plants, pumping
+stations and retention basins. They are also often used for the
+dimensioning of drainage systems and infiltration systems. With the help
+of the data, however, it is also possible to estimate the precipitation
+level of severe haevy precipitation events with regard to their return
+periods. This estimation is often used to assess damage events.
 
-All data is returned as tidy [tibbles](https://CRAN.R-project.org/package=tibble). 
+The data set contains the vector data sets of all 18 duration levels. A
+vecor data set contains the statistical precipitation (hN, design
+precipitation) of the present duration level D for nine return periods
+Tn (1-100 a) for the whole grid spanning 79 × 107 cells. INDEX_RC
+describes the unique identifier of a grid cell.
 
 ## Installation
-You can install ```kiwisR``` from CRAN:
 
-```{r eval = FALSE}
-install.packages('kiwisR')
-```
+You can install the development version of kostra2010R from
+[GitHub](https://github.com/) with:
 
-To install the development version of ```kiwisR``` you first need to install ```devtools```. 
-
-```{r eval = FALSE}
-if(!requireNamespace("devtools")) install.packages("devtools")
-devtools::install_github('rywhale/kiwisR')
+``` r
+# install.packages("devtools")
+# devtools::install_github("falk-env/kostra2010R")
 ```
 
 Then load the package with
 
-```{r eval = FALSE,message=FALSE,warning=FALSE}
-library(kiwisR)
-```
-
-```{r eval=TRUE,message=FALSE,warning=FALSE, include=FALSE}
-devtools::load_all()
+``` r
+library(kostra2010R)
 ```
 
 ## Usage
 
-### Get Station Information
+### idx_exists()
 
-By default, ```ki_station_list()``` returns a tibble containing information for all available stations for the selected hub. 
+Let’s say you got a unique grid ID from some report and you want to
+check, if this is still present in the recent data set of KOSTRA-DWD.
 
-```{r}
-# With swmc as the hub
-ki_station_list(hub = 'swmc')
+``` r
+# Is the following "INDEX_RC" entry present in the data set?
+idx_exists("49011")
+#> [1] TRUE
 ```
 
-### Get Time Series Information
+Nice. You can be safe to generate statistics for this ID.
 
-You can use the ```station_id``` column returned using ```ki_station_list()``` to figure out
-which time series are available for a given station. 
+### build_idx()
 
+Sometimes identification of the grid cells is not accomplished using
+“INDEX_RC” but rather a combination of X and Y information (e.g. column
+11, row 49). This information can easily be used to generate the
+accordant “INDEX_RC” field.
 
-#### One Station
-
-```{r}
-# Single station_id
-available_ts <- ki_timeseries_list(
-  hub = 'swmc', 
-  station_id = "144659"
-  )
-available_ts
+``` r
+# Generate "INDEX_RC" out of X and Y information.
+build_idx(11, 49)
+#> [1] "49011"
 ```
 
-#### Multiple Stations
-If you provide a vector to ```station_id```, the returned tibble will have all the
-available time series from _all_ stations. They can be differentiated using the 
-```station_name``` column.
-```{r}
-# Vector of station_ids
-my_station_ids <- c("144659", "144342")
-available_ts <- ki_timeseries_list(
-  hub = 'swmc', 
-  station_id = my_station_ids
-  )
-available_ts
-```
+### get_idx()
 
-### Get Time Series Values
+The most common use case will be to get “INDEX_RC” based on specific
+coordinates, e.g. for the location of a precipitation station in order
+to be able classify measured precipitation heights.
 
-You can now use the ```ts_id``` column in the tibble produced by ```ki_timeseries_list()``` to query values for
-chosen time series. 
-
-By default this will return values for the past 24 hours. You can specify the dates you're interested in
-by setting ```start_date``` and ```end_date```. These should be set as date strings with the format 'YYYY-mm-dd'. 
-
-You can pass either a single or multiple ```ts_id```(s). 
-
-#### One Time Series
-
-```{r}
-# Past 24 hours
-my_values <- ki_timeseries_values(
-  hub = 'swmc', 
-  ts_id = '966435042'
-  )
-my_values
-```
-
-#### Multiple Time Series
-
-```{r}
-# Specified date, multiple time series
-my_ts_ids <- c("1125831042","908195042")
-my_values <- ki_timeseries_values(
-  hub = 'swmc',
-  ts_id = my_ts_ids,
-  start_date = "2015-08-28",
-  end_date = "2018-09-13"
-  )
-my_values
-```
-
-## Using Other Hubs
-You can use this package for a KiWIS hub not included in this list by feeding the location of the API service to the ```hub``` argument.
-
-For instance:
-If your URL looks like 
-
-`http://kiwis.kisters.de/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo`
-
-specify the ```hub``` argument with
-
-`http://kiwis.kisters.de/KiWIS/KiWIS?`
-
-If you'd like to have a hub added to the defaults, please [Submit an Issue](https://github.com/rywhale/kiwisR/issues)
-
-
-## Contributing
-See [here](https://github.com/rywhale/kiwisR/blob/master/.github/CONTRIBUTING.md) if you'd like to contribute.
-
-Getting Started
-
+``` r
+# Sf object created based on specified coordinates. Don't forget to pass the CRS.
 p <- sf::st_sfc(
   sf::st_point(
     c(367773, 5703579)
@@ -165,30 +92,99 @@ p <- sf::st_sfc(
     ),
   crs = 4326
   )
-  
 
+# Topological intersection between location point and grid cells.
 get_idx(p)
+#> [1] "49011"
+```
 
-idx_exists("49011")
-idx_exists("foobar")
+Ok, this seems to work also.
 
+### build_table()
+
+Now that we have messed a lot with the grid cell identifiers, let’s get
+a sneak peek into the data set itself based on “INDEX_RC”.
+
+``` r
+# Build a tibble containing precipitation heights as a function of duration and 
+# return period for the grid cell specified.
 build_table("49011")
+#> # A tibble: 18 x 11
+#>    D_min D_hour HN_001A_ HN_002A_ HN_003A_ HN_005A_ HN_010A_ HN_020A_ HN_030A_
+#>    <dbl>  <dbl>    <dbl>    <dbl>    <dbl>    <dbl>    <dbl>    <dbl>    <dbl>
+#>  1     5   NA        5.6      6.9      7.7      8.7     10       11.3     12.1
+#>  2    10   NA        8.6     10.6     11.7     13.1     15.1     17.1     18.2
+#>  3    15   NA       10.5     13       14.4     16.2     18.6     21.1     22.5
+#>  4    20   NA       11.8     14.7     16.4     18.5     21.4     24.3     25.9
+#>  5    30   NA       13.5     17.1     19.2     21.9     25.5     29.1     31.2
+#>  6    45   NA       14.9     19.4     22.1     25.4     29.9     34.4     37.1
+#>  7    60    1       15.7     21       24.1     28       33.3     38.7     41.8
+#>  8    90    1.5     17.4     22.9     26.2     30.2     35.7     41.2     44.4
+#>  9   120    2       18.8     24.4     27.7     31.9     37.5     43.1     46.4
+#> 10   180    3       20.9     26.7     30.1     34.4     40.2     46       49.4
+#> 11   240    4       22.5     28.5     32       36.4     42.3     48.3     51.8
+#> 12   360    6       25       31.2     34.8     39.3     45.5     51.7     55.3
+#> 13   540    9       27.8     34.2     37.9     42.6     49       55.3     59.1
+#> 14   720   12       30       36.5     40.3     45.1     51.6     58.2     62  
+#> 15  1080   18       33.3     40.1     44       49       55.7     62.5     66.4
+#> 16  1440   24       35.9     42.8     46.8     51.9     58.8     65.8     69.8
+#> 17  2880   48       44.1     52.2     57       62.9     71       79.1     83.8
+#> 18  4320   72       49.8     58.6     63.7     70.2     79       87.7     92.9
+#> # ... with 2 more variables: HN_050A_ <dbl>, HN_100A_ <dbl>
+```
 
+The value of “INDEX_RC” has been assigned as an attribute to the tibble.
+
+``` r
+# Create tibble
 data <- build_table("49011")
 
-#
-write.csv2(data, 
-           paste0("KOSTRA-DWD-2010R_", attr(data, "index_rc"), ".csv"), 
-           row.names = FALSE,
-           na = "")
+attr(data, "index_rc")
+#> [1] "49011"
+```
 
-#
+### Further utilization
+
+Data can now be visualized in form of plots…
+
+``` r
+# Create tibble
+data <- build_table("49011")
+
 plot(data$D_min, 
      data$HN_100A_,
      xlab="interval [min]",
      ylab="precipitation height [mm]")
+```
 
+<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />
 
-Reference:
-https://www.dwd.de/DE/leistungen/kostra_dwd_rasterwerte/kostra_dwd_rasterwerte.html
-https://opendata.dwd.de/climate_environment/CDC/grids_germany/return_periods/precipitation/KOSTRA/KOSTRA_DWD_2010R/gis/
+… or exported to disk using `write.csv2()`.
+
+## Contributing
+
+See
+[here](https://github.com/rywhale/kiwisR/blob/master/.github/CONTRIBUTING.md)
+if you’d like to contribute.
+
+## Legal information
+
+According to the [terms of
+use](https://opendata.dwd.de/climate_environment/CDC/Terms_of_use.pdf)
+for data from GWS’ CDC-OpenData area, reely accessible data may be
+re-used without any restrictions provided that the source reference is
+indicated, as laid down in the
+[GeoNutzV](http://www.gesetze-im-internet.de/geonutzv/index.html)
+ordinance.
+
+Copyright: [Deutscher
+Wetterdienst](https://www.dwd.de/EN/service/copyright/templates_dwd_as_source.html)
+
+## References
+
+-   Deutscher Wetterdienst > Leistungen >
+    [KOSTRA-DWD](https://www.dwd.de/DE/leistungen/kostra_dwd_rasterwerte/kostra_dwd_rasterwerte.html)
+-   Deutscher Wetterdienst > OpenData > [KOSTRA-DWD
+    Rasterdaten](https://opendata.dwd.de/climate_environment/CDC/grids_germany/return_periods/precipitation/KOSTRA/KOSTRA_DWD_2010R/)
+-   Deutscher Wetterdienst > KOSTRA-DWD
+    [Datensatzbeschreibung](https://opendata.dwd.de/climate_environment/CDC/grids_germany/return_periods/precipitation/KOSTRA/KOSTRA_DWD_2010R/gis/DESCRIPTION_gridsgermany_return_periods_precipitation_KOSTRA_KOSTRA_DWD_2010R_gis_en.pdf)

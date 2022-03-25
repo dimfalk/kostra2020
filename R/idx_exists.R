@@ -22,5 +22,5 @@ idx_exists <- function(idx) {
   shp <- sf::st_read(files[1], quiet = TRUE)
 
   # return boolean
-  idx %in% shp$INDEX_RC
+  idx %in% shp[["INDEX_RC"]]
 }

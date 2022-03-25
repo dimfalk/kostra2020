@@ -21,7 +21,7 @@ build_table <- function(grid_index) {
 
   # parse intervals from file names
   intervals <- files %>%
-    stringr::str_sub(start = 58, end = 61) %>%
+    stringr::str_sub(start = 65, end = 68) %>%
     as.numeric()
 
   # read shapefile
