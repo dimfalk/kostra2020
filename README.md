@@ -9,8 +9,8 @@
 The main goal of kostra2010R is to provide access to KOSTRA-DWD-2010R
 dataset from within R.
 
-Abstract from the official
-[description](https://opendata.dwd.de/climate_environment/CDC/grids_germany/return_periods/precipitation/KOSTRA/KOSTRA_DWD_2010R/gis/DESCRIPTION_gridsgermany_return_periods_precipitation_KOSTRA_KOSTRA_DWD_2010R_gis_en.pdf):
+Abstract from the [official
+description](https://opendata.dwd.de/climate_environment/CDC/grids_germany/return_periods/precipitation/KOSTRA/KOSTRA_DWD_2010R/gis/DESCRIPTION_gridsgermany_return_periods_precipitation_KOSTRA_KOSTRA_DWD_2010R_gis_en.pdf):
 
 These vector data sets for GIS contain statistical precipitation values
 as a function of the duration and the return period. The scope of the
@@ -30,8 +30,7 @@ describes the unique identifier of a grid cell.
 
 ## Installation
 
-You can install the development version of kostra2010R from
-[GitHub](https://github.com/) with:
+You can install the development version of kostra2010R with:
 
 ``` r
 # install.packages("devtools")

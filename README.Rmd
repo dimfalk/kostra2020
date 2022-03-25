@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 
 The main goal of kostra2010R is to provide access to KOSTRA-DWD-2010R dataset from within R.
 
-Abstract from the official [description](https://opendata.dwd.de/climate_environment/CDC/grids_germany/return_periods/precipitation/KOSTRA/KOSTRA_DWD_2010R/gis/DESCRIPTION_gridsgermany_return_periods_precipitation_KOSTRA_KOSTRA_DWD_2010R_gis_en.pdf): 
+Abstract from the [official description](https://opendata.dwd.de/climate_environment/CDC/grids_germany/return_periods/precipitation/KOSTRA/KOSTRA_DWD_2010R/gis/DESCRIPTION_gridsgermany_return_periods_precipitation_KOSTRA_KOSTRA_DWD_2010R_gis_en.pdf): 
 
 These vector data sets for GIS contain statistical precipitation values as a function of the duration and the return period. The scope of the data is the engineering dimensioning of water management structures. These include, sewerage networks, sewage treatment plants, pumping stations and retention basins. They are also often used for the dimensioning of drainage systems and infiltration systems. With the help of the data, however, it is also possible to estimate the precipitation level of severe heavy precipitation events with regard to their return periods. This estimation is often used to assess damage events.
 
@@ -28,7 +28,7 @@ The data set contains the vector data sets of all 18 duration levels. A vecor da
 
 ## Installation
 
-You can install the development version of kostra2010R from [GitHub](https://github.com/) with:
+You can install the development version of kostra2010R with:
 
 ```{r}
 # install.packages("devtools")

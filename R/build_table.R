@@ -30,6 +30,7 @@ build_table <- function(grid_index) {
   # get recurrence intervals from column names
   cnames <- colnames(shp)[colnames(shp) %>% stringr::str_detect("HN_*")]
 
+  # NOT USED YET
   freq <- cnames %>%
     stringr::str_sub(start = 4, end = 6) %>%
     as.numeric()
@@ -62,6 +63,8 @@ build_table <- function(grid_index) {
       df <- rbind(df, temp)
     }
   }
+  # tidy data for NA values
+  df <- df %>% replace(. == -99.9, NA)
 
   # append index as attribute
   attr(df, "index_rc") <- grid_index
