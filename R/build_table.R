@@ -1,4 +1,4 @@
-#' Get interval/frequency statistics for the KOSTRA-2010R grid specified
+#' Get cell-specific statistics from the KOSTRA-2010R data set
 #'
 #' @param grid_index A String representing the relevant "INDEX_RC" field.
 #'

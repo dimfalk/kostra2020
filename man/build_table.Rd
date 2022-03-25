@@ -2,7 +2,7 @@
 % Please edit documentation in R/build_table.R
 \name{build_table}
 \alias{build_table}
-\title{Get interval/frequency statistics for the KOSTRA-2010R grid specified}
+\title{Get cell-specific statistics from the KOSTRA-2010R data set}
 \usage{
 build_table(grid_index)
 }
@@ -14,7 +14,7 @@ A tibble containing precipitation height interval/frequency
 statistics for a defined KOSTRA-2010R grid.
 }
 \description{
-Get interval/frequency statistics for the KOSTRA-2010R grid specified
+Get cell-specific statistics from the KOSTRA-2010R data set
 }
 \examples{
 \dontrun{

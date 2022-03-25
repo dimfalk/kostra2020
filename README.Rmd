@@ -18,12 +18,11 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The main goal of kostra2010R is to provide access to KOSTRA-DWD-2010R dataset 
-from within R.
+The main goal of kostra2010R is to provide access to KOSTRA-DWD-2010R dataset from within R.
 
-Official description: 
+Abstract from the official [description](https://opendata.dwd.de/climate_environment/CDC/grids_germany/return_periods/precipitation/KOSTRA/KOSTRA_DWD_2010R/gis/DESCRIPTION_gridsgermany_return_periods_precipitation_KOSTRA_KOSTRA_DWD_2010R_gis_en.pdf): 
 
-These vector data sets for GIS contain statistical precipitation values as a function of the duration and the return period. The scope of the data is the engineering dimensioning of water management structures. These include, sewerage networks, sewage treatment plants, pumping stations and retention basins. They are also often used for the dimensioning of drainage systems and infiltration systems. With the help of the data, however, it is also possible to estimate the precipitation level of severe haevy precipitation events with regard to their return periods. This estimation is often used to assess damage events.
+These vector data sets for GIS contain statistical precipitation values as a function of the duration and the return period. The scope of the data is the engineering dimensioning of water management structures. These include, sewerage networks, sewage treatment plants, pumping stations and retention basins. They are also often used for the dimensioning of drainage systems and infiltration systems. With the help of the data, however, it is also possible to estimate the precipitation level of severe heavy precipitation events with regard to their return periods. This estimation is often used to assess damage events.
 
 The data set contains the vector data sets of all 18 duration levels. A vecor data set contains the statistical precipitation (hN, design precipitation) of the present duration level D for nine return periods Tn (1-100 a) for the whole grid spanning 79 × 107 cells. INDEX_RC describes the unique identifier of a grid cell.
 
@@ -44,34 +43,25 @@ library(kostra2010R)
 
 ## Usage
 
-### idx_exists()
+### Get "INDEX_RC" based on row and column information
 
-Let's say you got a unique grid ID from some report and you want to check, if 
-this is still present in the recent data set of KOSTRA-DWD.
+Sometimes identification of the grid cells is not accomplished using "INDEX_RC" directly but rather a combination of X and Y information (e.g. column 11, row 49). This information can easily be used to generate the necessary "INDEX_RC" field.
+
+```{r}
+# Generate "INDEX_RC" out of X and Y information.
+idx_build(11, 49)
+```
+
+If you wanted to check if this constructed "INDEX_RC" is really present in the data set (or you found an ID in some report and are not sure, if it is still being used), make use of the following function.
 
 ```{r}
 # Is the following "INDEX_RC" entry present in the data set?
 idx_exists("49011")
 ```
 
-Nice. You can be safe to generate statistics for this ID.
+### Get "INDEX_RC" based on spatial information
 
-### build_idx()
-
-Sometimes identification of the grid cells is not accomplished using "INDEX_RC"
-but rather a combination of X and Y information (e.g. column 11, row 49). This
-information can easily be used to generate the accordant "INDEX_RC" field.
-
-```{r}
-# Generate "INDEX_RC" out of X and Y information.
-build_idx(11, 49)
-```
-
-### get_idx()
-
-The most common use case will be to get "INDEX_RC" based on specific coordinates,
-e.g. for the location of a precipitation station in order to be able classify 
-measured precipitation heights.
+The most common use case will be to get the relevant "INDEX_RC" based on coordinates provided, e.g. for the location of a precipitation station in order to be able to classify duration-specific precipitation heights in terms of return periods.
 
 ```{r}
 # Sf object created based on specified coordinates. Don't forget to pass the CRS.
@@ -90,19 +80,15 @@ p <- sf::st_sfc(
   )
 
 # Topological intersection between location point and grid cells.
-get_idx(p)
+idx_get(p)
 ```
 
-Ok, this seems to work also.
+### Cell-specific statistics from KOSTRA-DWD-2010R  
 
-### build_table()
-
-Now that we have messed a lot with the grid cell identifiers, let's get a sneak
-peek into the data set itself based on "INDEX_RC".
+Now that we have messed a little with the grid cell identifiers, let's get a sneak peek into the data set itself based on the "INDEX_RC" specified.
 
 ```{r}
-# Build a tibble containing precipitation heights as a function of duration and 
-# return period for the grid cell specified.
+# Build a tibble containing precipitation heights as a function of duration and return period for the grid cell specified.
 build_table("49011")
 ```
 
@@ -144,5 +130,4 @@ Copyright: [Deutscher Wetterdienst](https://www.dwd.de/EN/service/copyright/temp
 ## References
 
 * Deutscher Wetterdienst > Leistungen > [KOSTRA-DWD](https://www.dwd.de/DE/leistungen/kostra_dwd_rasterwerte/kostra_dwd_rasterwerte.html)
-* Deutscher Wetterdienst > OpenData > [KOSTRA-DWD Rasterdaten](https://opendata.dwd.de/climate_environment/CDC/grids_germany/return_periods/precipitation/KOSTRA/KOSTRA_DWD_2010R/)
-* Deutscher Wetterdienst > KOSTRA-DWD [Datensatzbeschreibung](https://opendata.dwd.de/climate_environment/CDC/grids_germany/return_periods/precipitation/KOSTRA/KOSTRA_DWD_2010R/gis/DESCRIPTION_gridsgermany_return_periods_precipitation_KOSTRA_KOSTRA_DWD_2010R_gis_en.pdf)
+* Deutscher Wetterdienst > OpenData > [KOSTRA-DWD raster data](https://opendata.dwd.de/climate_environment/CDC/grids_germany/return_periods/precipitation/KOSTRA/KOSTRA_DWD_2010R/)
