@@ -34,7 +34,7 @@ You can install the development version of kostra2010R from
 
 ``` r
 # install.packages("devtools")
-# devtools::install_github("falk-env/kostra2010R")
+devtools::install_github("falk-env/kostra2010R")
 ```
 
 Then load the package with
@@ -186,5 +186,5 @@ Wetterdienst](https://www.dwd.de/EN/service/copyright/templates_dwd_as_source.ht
     [KOSTRA-DWD](https://www.dwd.de/DE/leistungen/kostra_dwd_rasterwerte/kostra_dwd_rasterwerte.html)
 -   Deutscher Wetterdienst > OpenData > [KOSTRA-DWD
     Rasterdaten](https://opendata.dwd.de/climate_environment/CDC/grids_germany/return_periods/precipitation/KOSTRA/KOSTRA_DWD_2010R/)
--   Deutscher Wetterdienst > KOSTRA-DWD
+-   Deutscher Wetterdienst > KOSTRA-DWD >
     [Datensatzbeschreibung](https://opendata.dwd.de/climate_environment/CDC/grids_germany/return_periods/precipitation/KOSTRA/KOSTRA_DWD_2010R/gis/DESCRIPTION_gridsgermany_return_periods_precipitation_KOSTRA_KOSTRA_DWD_2010R_gis_en.pdf)
