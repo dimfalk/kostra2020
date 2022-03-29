@@ -10,8 +10,8 @@ build_table(grid_index)
 \item{grid_index}{A String representing the relevant "INDEX_RC" field.}
 }
 \value{
-A tibble containing precipitation height interval/frequency
-statistics for a defined KOSTRA-2010R grid.
+A tibble containing precipitation heights as a function of duration
+and return period for the KOSTRA-2010R grid cell specified.
 }
 \description{
 Get cell-specific statistics from the KOSTRA-2010R data set

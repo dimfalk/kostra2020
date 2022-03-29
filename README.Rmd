@@ -22,9 +22,9 @@ The main goal of kostra2010R is to provide access to KOSTRA-DWD-2010R dataset fr
 
 Abstract from the [official description](https://opendata.dwd.de/climate_environment/CDC/grids_germany/return_periods/precipitation/KOSTRA/KOSTRA_DWD_2010R/gis/DESCRIPTION_gridsgermany_return_periods_precipitation_KOSTRA_KOSTRA_DWD_2010R_gis_en.pdf): 
 
-These vector data sets for GIS contain statistical precipitation values as a function of the duration and the return period. The scope of the data is the engineering dimensioning of water management structures. These include, sewerage networks, sewage treatment plants, pumping stations and retention basins. They are also often used for the dimensioning of drainage systems and infiltration systems. With the help of the data, however, it is also possible to estimate the precipitation level of severe heavy precipitation events with regard to their return periods. This estimation is often used to assess damage events.
+_These vector data sets for GIS contain statistical precipitation values as a function of the duration and the return period. The scope of the data is the engineering dimensioning of water management structures. These include, sewerage networks, sewage treatment plants, pumping stations and retention basins. They are also often used for the dimensioning of drainage systems and infiltration systems. With the help of the data, however, it is also possible to estimate the precipitation level of severe heavy precipitation events with regard to their return periods. This estimation is often used to assess damage events._
 
-The data set contains the vector data sets of all 18 duration levels. A vecor data set contains the statistical precipitation (hN, design precipitation) of the present duration level D for nine return periods Tn (1-100 a) for the whole grid spanning 79 × 107 cells. INDEX_RC describes the unique identifier of a grid cell.
+_The data set contains the vector data sets of all 18 duration levels. A vecor data set contains the statistical precipitation (hN, design precipitation) of the present duration level D for nine return periods Tn (1-100 a) for the whole grid spanning 79 × 107 cells. INDEX_RC describes the unique identifier of a grid cell._
 
 ## Installation
 

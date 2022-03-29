@@ -2,8 +2,8 @@
 #'
 #' @param grid_index A String representing the relevant "INDEX_RC" field.
 #'
-#' @return A tibble containing precipitation height interval/frequency
-#'   statistics for a defined KOSTRA-2010R grid.
+#' @return A tibble containing precipitation heights as a function of duration
+#'   and return period for the KOSTRA-2010R grid cell specified.
 #' @export
 #'
 #' @examples
@@ -12,7 +12,9 @@
 #' }
 build_table <- function(grid_index) {
 
-  # get file names
+  # pre-processing -------------------------------------------------------------
+
+  # get shapefile names
   files <- list.files("inst/exdata",
     pattern = "*.shp",
     full.names = TRUE,
@@ -24,37 +26,30 @@ build_table <- function(grid_index) {
     stringr::str_sub(start = 65, end = 68) %>%
     as.numeric()
 
-  # read shapefile
+  # read shapefile to extract column names and for index identification
   shp <- sf::st_read(files[1], quiet = TRUE)
 
-  # get recurrence intervals from column names
+  # get return periods from column names for subsetting
   cnames <- colnames(shp)[colnames(shp) %>% stringr::str_detect("HN_*")]
 
-  # NOT USED YET
-  freq <- cnames %>%
+  # get return periods from column names as numerical meta data
+  rperiod <- cnames %>%
     stringr::str_sub(start = 4, end = 6) %>%
     as.numeric()
 
   # determine index based on user input
   ind <- which(shp$INDEX_RC == grid_index)
 
+  # table construction ---------------------------------------------------------
+
   # built data.frame
   for (i in 1:length(files)) {
 
-    # read shapefile
+    # read shapefile as sf / data.frame
     shp <- sf::st_read(files[i], quiet = TRUE)
 
-    # subset original data.frame
+    # subset original data.frame based on index, relevant columns
     temp <- shp[ind, cnames] %>% sf::st_drop_geometry()
-
-    # append interval duration
-    temp["D_min"] <- intervals[i]
-    temp["D_hour"] <- temp[["D_min"]] / 60
-
-    temp$D_hour[temp$D_min < 60] <- NA
-
-    # re-arrange columns
-    temp <- temp[c("D_min", "D_hour", cnames)]
 
     # init data.frame, otherwise rbind
     if (i == 1) {
@@ -63,11 +58,31 @@ build_table <- function(grid_index) {
       df <- rbind(df, temp)
     }
   }
-  # tidy data for NA values
-  df <- df %>% replace(. == -99.9, NA)
 
-  # append index as attribute
+  # tidy data, return ----------------------------------------------------------
+
+  # column names
+  cnames <- cnames %>% stringr::str_sub(start = 1, end = -2)
+  colnames(df) <- cnames
+
+  # NA values
+  df <- replace(df, df == -99.9, NA)
+
+  # append interval duration
+  df["D_min"] <- intervals
+
+  # calculate hourly durations
+  df["D_hour"] <- df["D_min"] / 60
+
+  # representation in hours not relevant for durations < 60 min
+  df[["D_hour"]][which(df[["D_min"]] < 60)] <- NA
+
+  # re-arrange columns
+  df <- df[c("D_min", "D_hour", cnames)]
+
+  # append meta data as attributes
   attr(df, "index_rc") <- grid_index
+  attr(df, "returnperiods_a") <- rperiod
 
   # return tibble
   dplyr::tibble(df)
