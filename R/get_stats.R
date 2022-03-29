@@ -8,9 +8,13 @@
 #'
 #' @examples
 #' \dontrun{
-#' build_table("49011")
+#' get_stats("49011")
 #' }
-build_table <- function(grid_index) {
+get_stats <- function(grid_index) {
+
+  # debugging ------------------------------------------------------------------
+
+  # grid_index <- "49011"
 
   # pre-processing -------------------------------------------------------------
 

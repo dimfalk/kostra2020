@@ -107,7 +107,9 @@ specified.
 
 ``` r
 # Build a tibble containing precipitation heights as a function of duration and return periods for the grid cell specified.
-build_table("49011")
+kdata <- get_stats("49011")
+
+kdata
 #> # A tibble: 18 x 11
 #>    D_min D_hour HN_001A HN_002A HN_003A HN_005A HN_010A HN_020A HN_030A HN_050A
 #>    <dbl>  <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
@@ -135,30 +137,41 @@ build_table("49011")
 The value of “INDEX_RC” has been assigned as an attribute to the tibble.
 
 ``` r
-# Create tibble
-data <- build_table("49011")
-
-attr(data, "index_rc")
+# Attribute query
+attr(kdata, "index_rc")
 #> [1] "49011"
 ```
+
+### Return period determination
+
+Finally, we want to determine the return period according to the data
+set (without interpolating values at the moment) for a precipitation
+height and duration given.
+
+``` r
+# Let's assume we measured 72.3 mm in 24 h ...
+get_returnp(kdata, 72.3, 1440)
+#> [1] 30 50
+```
+
+Accordingly, the approximate corresponding recurrence interval resp.
+annuality of this event amounts to something between 30 and 50 years as
+per KOSTRA-DWD-2010R.
 
 ### Further utilization
 
 Data can now be visualized in form of plots…
 
 ``` r
-# Create tibble
-data <- build_table("49011")
-
-plot(data$D_min,
-  data$HN_100A_,
-  xlab = "interval [min]",
+# Plot duration vs. precipitation height for Tn=100a
+plot(kdata$D_min,
+  kdata$HN_100A,
+  xlab = "duration [min]",
   ylab = "precipitation height [mm]"
 )
-#> Warning: Unknown or uninitialised column: `HN_100A_`.
 ```
 
-<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
 
 … or exported to disk using `write.csv2()`.
 

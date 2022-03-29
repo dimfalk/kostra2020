@@ -90,29 +90,38 @@ Now that we have messed a little with the grid cell identifiers, let's get a sne
 
 ```{r}
 # Build a tibble containing precipitation heights as a function of duration and return periods for the grid cell specified.
-build_table("49011")
+kdata <- get_stats("49011")
+
+kdata
 ```
 
 The value of "INDEX_RC" has been assigned as an attribute to the tibble.
 
 ```{r}
-# Create tibble
-data <- build_table("49011")
-
-attr(data, "index_rc")
+# Attribute query
+attr(kdata, "index_rc")
 ```
+
+### Return period determination
+
+Finally, we want to determine the return period according to the data set (without interpolating values at the moment) for a precipitation height and duration given.
+
+```{r}
+# Let's assume we measured 72.3 mm in 24 h ...
+get_returnp(kdata, 72.3, 1440)
+```
+
+Accordingly, the approximate corresponding recurrence interval resp. annuality of this event amounts to something between 30 and 50 years as per KOSTRA-DWD-2010R.
 
 ### Further utilization
 
 Data can now be visualized in form of plots...
 
 ```{r}
-# Create tibble
-data <- build_table("49011")
-
-plot(data$D_min,
-  data$HN_100A_,
-  xlab = "interval [min]",
+# Plot duration vs. precipitation height for Tn=100a
+plot(kdata$D_min,
+  kdata$HN_100A,
+  xlab = "duration [min]",
   ylab = "precipitation height [mm]"
 )
 ```
