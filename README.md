@@ -160,15 +160,30 @@ per KOSTRA-DWD-2010R.
 
 ### Further utilization
 
-Data can now be visualized in form of plots…
+Data can now be visualized via `ggplot2` after a quick wide-to-long
+conversion…
 
 ``` r
-# Plot duration vs. precipitation height for Tn=100a
-plot(kdata$D_min,
-  kdata$HN_100A,
-  xlab = "duration [min]",
-  ylab = "precipitation height [mm]"
-)
+library(ggplot2)
+
+# column name extraction for name/value junction
+cnames <- colnames(kdata)[colnames(kdata) %>% stringr::str_detect("HN_*")]
+
+# making use of tidyr
+longdata <- tidyr::pivot_longer(kdata, cols = cnames)
+#> Note: Using an external vector in selections is ambiguous.
+#> i Use `all_of(cnames)` instead of `cnames` to silence this message.
+#> i See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>.
+#> This message is displayed once per session.
+
+# plot the whole data set, colors according to return periods
+ggplot(longdata, aes(D_min, value, colour = name)) + 
+  geom_point() +
+  geom_line() +
+  xlab("duration [min]") +
+  ylab("precipitation height [mm]") +
+  ggtitle("Precipitation height as a function of duration and return periods as per KOSTRA-2010R",
+          subtitle = paste0("INDEX_RC: ", attr(kdata, "index_rc")))
 ```
 
 <img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />

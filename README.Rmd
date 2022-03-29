@@ -115,15 +115,25 @@ Accordingly, the approximate corresponding recurrence interval resp. annuality o
 
 ### Further utilization
 
-Data can now be visualized in form of plots...
+Data can now be visualized via `ggplot2` after a quick wide-to-long conversion...
 
 ```{r}
-# Plot duration vs. precipitation height for Tn=100a
-plot(kdata$D_min,
-  kdata$HN_100A,
-  xlab = "duration [min]",
-  ylab = "precipitation height [mm]"
-)
+library(ggplot2)
+
+# column name extraction for name/value junction
+cnames <- colnames(kdata)[colnames(kdata) %>% stringr::str_detect("HN_*")]
+
+# making use of tidyr
+longdata <- tidyr::pivot_longer(kdata, cols = cnames)
+
+# plot the whole data set, colors according to return periods
+ggplot(longdata, aes(D_min, value, colour = name)) + 
+  geom_point() +
+  geom_line() +
+  xlab("duration [min]") +
+  ylab("precipitation height [mm]") +
+  ggtitle("Precipitation height as a function of duration and return periods as per KOSTRA-2010R",
+          subtitle = paste0("INDEX_RC: ", attr(kdata, "index_rc")))
 ```
 
 ... or exported to disk using `write.csv2()`.
