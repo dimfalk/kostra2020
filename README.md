@@ -170,11 +170,7 @@ library(ggplot2)
 cnames <- colnames(kdata)[colnames(kdata) %>% stringr::str_detect("HN_*")]
 
 # making use of tidyr
-longdata <- tidyr::pivot_longer(kdata, cols = cnames)
-#> Note: Using an external vector in selections is ambiguous.
-#> i Use `all_of(cnames)` instead of `cnames` to silence this message.
-#> i See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>.
-#> This message is displayed once per session.
+longdata <- tidyr::pivot_longer(kdata, cols = all_of(cnames))
 
 # plot the whole data set, colors according to return periods
 ggplot(longdata, aes(D_min, value, colour = name)) + 
@@ -182,7 +178,7 @@ ggplot(longdata, aes(D_min, value, colour = name)) +
   geom_line() +
   xlab("duration [min]") +
   ylab("precipitation height [mm]") +
-  ggtitle("Precipitation height as a function of duration and return periods as per KOSTRA-2010R",
+  ggtitle("hN as a function of duration and return periods as per KOSTRA-2010R",
           subtitle = paste0("INDEX_RC: ", attr(kdata, "index_rc")))
 ```
 
