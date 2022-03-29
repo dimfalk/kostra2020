@@ -47,10 +47,10 @@ library(kostra2010R)
 
 ### Get “INDEX_RC” based on row and column information
 
-Sometimes identification of the grid cells is not accomplished using
-“INDEX_RC” directly but rather a combination of X and Y information
-(e.g. column 11, row 49). This information can easily be used to
-generate the necessary “INDEX_RC” field.
+Sometimes identification of grid cells is not accomplished using
+“INDEX_RC” directly but rather using a combination of X and Y
+information (e.g. column 11, row 49). This information can easily be
+used to generate the necessary “INDEX_RC” field.
 
 ``` r
 # Generate "INDEX_RC" out of X and Y information.
@@ -58,9 +58,10 @@ idx_build(11, 49)
 #> [1] "49011"
 ```
 
-If you wanted to check if this constructed “INDEX_RC” is really present
-in the data set (or you found an ID in some report and are not sure, if
-it is still being used), make use of the following function.
+If you wanted to check whether this constructed “INDEX_RC” field is
+really present in the data set (or you found an ID in some report and
+are not sure, if it is still being used), make use of the following
+function.
 
 ``` r
 # Is the following "INDEX_RC" entry present in the data set?
@@ -76,24 +77,26 @@ in order to be able to classify duration-specific precipitation heights
 in terms of return periods.
 
 ``` r
-# Sf object created based on specified coordinates. Don't forget to pass the CRS.
-p <- sf::st_sfc(
+# Sf objects created based on specified coordinates. Don't forget to pass the CRS.
+p1 <- sf::st_sfc(
   sf::st_point(
     c(367773, 5703579)
-    ), 
+  ),
   crs = 25832
-  )
+)
 
-p <- sf::st_sfc(
+p2 <- sf::st_sfc(
   sf::st_point(
-    c(7.09, 51.46)
-    ),
+    c(6.09, 50.46)
+  ),
   crs = 4326
-  )
+)
 
-# Topological intersection between location point and grid cells.
-idx_get(p)
+# Get indices by topological intersection between location point and grid cells.
+idx_get(p1)
 #> [1] "49011"
+idx_get(p2)
+#> [1] "61002"
 ```
 
 ### Cell-specific statistics from KOSTRA-DWD-2010R
@@ -103,7 +106,7 @@ get a sneak peek into the data set itself based on the “INDEX_RC”
 specified.
 
 ``` r
-# Build a tibble containing precipitation heights as a function of duration and return period for the grid cell specified.
+# Build a tibble containing precipitation heights as a function of duration and return periods for the grid cell specified.
 build_table("49011")
 #> # A tibble: 18 x 11
 #>    D_min D_hour HN_001A HN_002A HN_003A HN_005A HN_010A HN_020A HN_030A HN_050A
@@ -147,10 +150,11 @@ Data can now be visualized in form of plots…
 # Create tibble
 data <- build_table("49011")
 
-plot(data$D_min, 
-     data$HN_100A_,
-     xlab="interval [min]",
-     ylab="precipitation height [mm]")
+plot(data$D_min,
+  data$HN_100A_,
+  xlab = "interval [min]",
+  ylab = "precipitation height [mm]"
+)
 #> Warning: Unknown or uninitialised column: `HN_100A_`.
 ```
 
