@@ -48,8 +48,8 @@ library(kostra2010R)
 Sometimes identification of grid cells is not accomplished using "INDEX_RC" directly but rather using a combination of X and Y information (e.g. column 11, row 49). This information can easily be used to generate the necessary "INDEX_RC" field.
 
 ```{r}
-# Generate "INDEX_RC" out of X and Y information.
-idx_build(11, 49)
+# Generate "INDEX_RC" based on X and Y information
+idx_build(col=11, row=49)
 ```
 
 If you wanted to check whether this constructed "INDEX_RC" field is really present in the data set (or you found an ID in some report and are not sure, if it is still being used), make use of the following function.
@@ -79,18 +79,18 @@ p2 <- sf::st_sfc(
   crs = 4326
 )
 
-# Get indices by topological intersection between location point and grid cells.
+# Get indices by topological intersection between location point and grid cells
 idx_get(p1)
 idx_get(p2)
 ```
 
-### Cell-specific statistics from KOSTRA-DWD-2010R  
+### Construct cell-specific statistics from KOSTRA-DWD-2010R grid 
 
 Now that we have messed a little with the grid cell identifiers, let's get a sneak peek into the data set itself based on the "INDEX_RC" specified.
 
 ```{r}
 # Build a tibble containing precipitation heights as a function of duration and 
-# return periods for the grid cell specified.
+# return periods for the grid cell specified
 kdata <- get_stats("49011")
 
 kdata
@@ -103,7 +103,7 @@ The value of "INDEX_RC" has been assigned as an attribute to the tibble.
 attr(kdata, "index_rc")
 ```
 
-### Precipitation height determination
+### Get precipitation heights
 
 If we now wanted to know the statistical precipitation height based on the constructed tibble, e.g. for an event of 4 hours duration corresponding to a recurrence interval in 1:100 years, it's just a matter of indexing. However, there is also a function helping you out.
 
@@ -113,7 +113,7 @@ If we now wanted to know the statistical precipitation height based on the const
 get_precip(kdata, 240, 100)
 ```
 
-### Return period determination
+### Get return periods
 
 Finally, we want to determine the return period according to the data set (without interpolating values at the moment) for a precipitation height and duration given.
 
@@ -131,13 +131,13 @@ Data can now be visualized via `ggplot2` after a quick wide-to-long conversion..
 ```{r}
 library(ggplot2)
 
-# column name extraction for name/value junction
+# Column name extraction for name/value junction
 cnames <- colnames(kdata)[colnames(kdata) %>% stringr::str_detect("HN_*")]
 
-# making use of tidyr
+# Making use of tidyr
 longdata <- tidyr::pivot_longer(kdata, cols = all_of(cnames))
 
-# plot the whole data set, colors according to return periods
+# Plot the whole data set, colors according to return periods
 ggplot(longdata, aes(D_min, value, colour = name)) + 
   geom_point() +
   geom_line() +

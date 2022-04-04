@@ -53,8 +53,8 @@ information (e.g. column 11, row 49). This information can easily be
 used to generate the necessary “INDEX_RC” field.
 
 ``` r
-# Generate "INDEX_RC" out of X and Y information.
-idx_build(11, 49)
+# Generate "INDEX_RC" based on X and Y information
+idx_build(col=11, row=49)
 #> [1] "49011"
 ```
 
@@ -92,14 +92,14 @@ p2 <- sf::st_sfc(
   crs = 4326
 )
 
-# Get indices by topological intersection between location point and grid cells.
+# Get indices by topological intersection between location point and grid cells
 idx_get(p1)
 #> [1] "49011"
 idx_get(p2)
 #> [1] "61002"
 ```
 
-### Cell-specific statistics from KOSTRA-DWD-2010R
+### Construct cell-specific statistics from KOSTRA-DWD-2010R grid
 
 Now that we have messed a little with the grid cell identifiers, let’s
 get a sneak peek into the data set itself based on the “INDEX_RC”
@@ -107,7 +107,7 @@ specified.
 
 ``` r
 # Build a tibble containing precipitation heights as a function of duration and 
-# return periods for the grid cell specified.
+# return periods for the grid cell specified
 kdata <- get_stats("49011")
 
 kdata
@@ -143,7 +143,7 @@ attr(kdata, "index_rc")
 #> [1] "49011"
 ```
 
-### Precipitation height determination
+### Get precipitation heights
 
 If we now wanted to know the statistical precipitation height based on
 the constructed tibble, e.g. for an event of 4 hours duration
@@ -157,7 +157,7 @@ get_precip(kdata, 240, 100)
 #> [1] 62.1
 ```
 
-### Return period determination
+### Get return periods
 
 Finally, we want to determine the return period according to the data
 set (without interpolating values at the moment) for a precipitation
@@ -181,13 +181,13 @@ conversion…
 ``` r
 library(ggplot2)
 
-# column name extraction for name/value junction
+# Column name extraction for name/value junction
 cnames <- colnames(kdata)[colnames(kdata) %>% stringr::str_detect("HN_*")]
 
-# making use of tidyr
+# Making use of tidyr
 longdata <- tidyr::pivot_longer(kdata, cols = all_of(cnames))
 
-# plot the whole data set, colors according to return periods
+# Plot the whole data set, colors according to return periods
 ggplot(longdata, aes(D_min, value, colour = name)) + 
   geom_point() +
   geom_line() +
