@@ -106,7 +106,8 @@ get a sneak peek into the data set itself based on the “INDEX_RC”
 specified.
 
 ``` r
-# Build a tibble containing precipitation heights as a function of duration and return periods for the grid cell specified.
+# Build a tibble containing precipitation heights as a function of duration and 
+# return periods for the grid cell specified.
 kdata <- get_stats("49011")
 
 kdata
@@ -150,7 +151,8 @@ corresponding to a recurrence interval in 1:100 years, it’s just a
 matter of indexing. However, there is also a function helping you out.
 
 ``` r
-# So we are interested in the rain amount [mm] for an event lasting 240 min with a return period of 100 a
+# So we are interested in the rain amount [mm] for an event lasting 240 min with 
+# a return period of 100 a
 get_precip(kdata, 240, 100)
 #> [1] 62.1
 ```
