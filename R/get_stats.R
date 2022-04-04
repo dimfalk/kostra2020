@@ -8,7 +8,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' get_stats("49011")
+#' kdata <- get_stats("49011")
 #' }
 get_stats <- function(grid_index) {
 

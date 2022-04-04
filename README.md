@@ -142,6 +142,19 @@ attr(kdata, "index_rc")
 #> [1] "49011"
 ```
 
+### Precipitation height determination
+
+If we now wanted to know the statistical precipitation height based on
+the constructed tibble, e.g. for an event of 4 hours duration
+corresponding to a recurrence interval in 1:100 years, it’s just a
+matter of indexing. However, there is also a function helping you out.
+
+``` r
+# So we are interested in the rain amount [mm] for an event lasting 240 min with a return period of 100 a
+get_precip(kdata, 240, 100)
+#> [1] 62.1
+```
+
 ### Return period determination
 
 Finally, we want to determine the return period according to the data
@@ -149,7 +162,7 @@ set (without interpolating values at the moment) for a precipitation
 height and duration given.
 
 ``` r
-# Let's assume we measured 72.3 mm in 24 h ...
+# Let's assume we measured 72.3 mm in 24 h
 get_returnp(kdata, 72.3, 1440)
 #> [1] 30 50
 ```
@@ -182,7 +195,7 @@ ggplot(longdata, aes(D_min, value, colour = name)) +
           subtitle = paste0("INDEX_RC: ", attr(kdata, "index_rc")))
 ```
 
-<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-11-1.png" width="100%" />
 
 … or exported to disk using `write.csv2()`.
 

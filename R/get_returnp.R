@@ -10,15 +10,15 @@
 #'
 #' @examples
 #' \dontrun{
-#' get_returnp(kdata, 69.3, 1440)
+#' get_returnp(kdata, hn=69.3, d=1440)
 #' }
 get_returnp <- function(tibble, hn, d) {
 
   # debugging ------------------------------------------------------------------
 
   # tibble <- kdata
-  # hn <- 21.8
-  # d <- 30
+  # hn <- 69.3
+  # d <- 1440
 
   # pre-processing -------------------------------------------------------------
 
@@ -35,8 +35,13 @@ get_returnp <- function(tibble, hn, d) {
   ind <- which.min(abs(row - hn))
   closest <- row[ind] %>% as.numeric()
 
-  # opening interval to the right or to the left?
-  if (closest > hn) {
+  # is the value explicitly mentioned as a class boundary?
+  if(closest == hn) {
+
+    rperiod[which(row == closest)]
+
+    # otherwise, is the interval opening to the right or to the left?
+  } else if (closest > hn) {
 
     c(rperiod[which(row == closest)-1], rperiod[which(row == closest)])
 

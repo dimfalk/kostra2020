@@ -22,6 +22,6 @@ Get return period class for specified precipitation height
 }
 \examples{
 \dontrun{
-get_returnp(kdata, 69.3, 1440)
+get_returnp(kdata, hn=69.3, d=1440)
 }
 }
