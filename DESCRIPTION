@@ -1,6 +1,6 @@
 Package: kostra2010R
 Title: A wrapper to access KOSTRA-DWD-2010R data from R
-Version: 0.3
+Version: 0.3.1
 Date: 2022-03-29 15:26:36
 Authors@R: 
     person("Dimitri", "Falk", , "falk.dimitri@eglv.de", role = c("aut", "cre"))
