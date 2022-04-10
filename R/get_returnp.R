@@ -38,16 +38,26 @@ get_returnp <- function(tibble, hn, d) {
   # is the value explicitly mentioned as a class boundary?
   if(closest == hn) {
 
-    rperiod[which(row == closest)]
+    c(rperiod[which(row == closest)], rperiod[which(row == closest)])
 
-    # otherwise, is the interval opening to the right or to the left?
-  } else if (closest > hn) {
+    # is tn < 1?
+  } else if (closest > hn & ind == 1) {
+
+    c(0, rperiod[which(row == closest)])
+
+    # is the interval opening to the right or to the left for tn {1:100}?
+  } else if (closest > hn & ind != 1) {
 
     c(rperiod[which(row == closest)-1], rperiod[which(row == closest)])
 
-  } else {
+  }  else if (closest < hn & ind != length(rperiod)) {
 
     c(rperiod[which(row == closest)], rperiod[which(row == closest)+1])
+
+    # is tn > 100?
+  } else if (closest < hn & ind == length(rperiod)) {
+
+    c(rperiod[which(row == closest)], Inf)
   }
 }
 

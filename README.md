@@ -152,7 +152,7 @@ matter of indexing. However, there is also a function helping you out.
 
 ``` r
 # So we are interested in the rain amount [mm] for an event lasting 240 min with 
-# a return period of 100 a
+# a return period of 100 a.
 get_precip(kdata, 240, 100)
 #> [1] 62.1
 ```
@@ -172,6 +172,26 @@ get_returnp(kdata, 72.3, 1440)
 Accordingly, the approximate corresponding recurrence interval resp.
 annuality of this event amounts to something between 30 and 50 years as
 per KOSTRA-DWD-2010R.
+
+The following edge cases are to be mentioned:
+
+``` r
+# 1) In case the specific class boundary is provided, the return period is replicated.
+get_returnp(kdata, 42.8, 1440)
+#> [1] 2 2
+```
+
+``` r
+# 2) In case the return period tn is smaller than 1, interval opens with 0.
+get_returnp(kdata, 30.2, 1440)
+#> [1] 0 1
+```
+
+``` r
+# 3) In case the return period tn is larger than 100, interval closes with Inf.
+get_returnp(kdata, 86.3, 1440)
+#> [1] 100 Inf
+```
 
 ### Further utilization
 
@@ -197,7 +217,7 @@ ggplot(longdata, aes(D_min, value, colour = name)) +
           subtitle = paste0("INDEX_RC: ", attr(kdata, "index_rc")))
 ```
 
-<img src="man/figures/README-unnamed-chunk-11-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-14-1.png" width="100%" />
 
 … or exported to disk using `write.csv2()`.
 

@@ -109,7 +109,7 @@ If we now wanted to know the statistical precipitation height based on the const
 
 ```{r}
 # So we are interested in the rain amount [mm] for an event lasting 240 min with 
-# a return period of 100 a
+# a return period of 100 a.
 get_precip(kdata, 240, 100)
 ```
 
@@ -123,6 +123,23 @@ get_returnp(kdata, 72.3, 1440)
 ```
 
 Accordingly, the approximate corresponding recurrence interval resp. annuality of this event amounts to something between 30 and 50 years as per KOSTRA-DWD-2010R.
+
+The following edge cases are to be mentioned:
+
+```{r}
+# 1) In case the specific class boundary is provided, the return period is replicated.
+get_returnp(kdata, 42.8, 1440)
+```
+
+```{r}
+# 2) In case the return period tn is smaller than 1, interval opens with 0.
+get_returnp(kdata, 30.2, 1440)
+```
+
+```{r}
+# 3) In case the return period tn is larger than 100, interval closes with Inf.
+get_returnp(kdata, 86.3, 1440)
+```
 
 ### Further utilization
 
