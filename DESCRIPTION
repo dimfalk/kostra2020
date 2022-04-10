@@ -3,6 +3,7 @@ Title: A wrapper to access KOSTRA-DWD-2010R data from R
 Version: 0.3.1
 Date: 2022-04-10 16:52:34
 Authors.R: person("Dimitri", "Falk", , "falk.dimitri@eglv.de", role = c("aut", "cre"))
+Version: 0.3.1
 Date: 2022-03-29 15:26:36
 Authors@R: 
     person("Dimitri", "Falk", , "falk.dimitri@eglv.de", role = c("aut", "cre"))
@@ -13,4 +14,4 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 Imports: magrittr, sf
 Suggests: dplyr, stringr, testthat (>= 3.0.0)
-Config.testthat.edition: 3
+Config/testthat/edition: 3
