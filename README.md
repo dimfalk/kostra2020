@@ -224,7 +224,7 @@ ggplot(longdata, aes(D_min, value, colour = name)) +
 ## Contributing
 
 See
-[here](https://github.com/rywhale/kiwisR/blob/master/.github/CONTRIBUTING.md)
+[here](https://github.com/falk-env/kostra2010R/blob/main/.github/CONTRIBUTING.md)
 if you’d like to contribute.
 
 ## Legal information
