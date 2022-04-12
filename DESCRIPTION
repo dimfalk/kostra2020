@@ -1,5 +1,5 @@
 Package: kostra2010R
-Title: R interface for KOSTRA-DWD-2010R data
+Title: R interface for KOSTRA-DWD-2010R dataset
 Version: 0.3.1
 Date: 2022-04-12 12:05:13
 Authors@R: 

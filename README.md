@@ -9,7 +9,7 @@
 The main goal of kostra2010R is to provide access to KOSTRA-DWD-2010R
 dataset from within R.
 
-Abstract from the [official
+Abstract from the [official dataset
 description](https://opendata.dwd.de/climate_environment/CDC/grids_germany/return_periods/precipitation/KOSTRA/KOSTRA_DWD_2010R/gis/DESCRIPTION_gridsgermany_return_periods_precipitation_KOSTRA_KOSTRA_DWD_2010R_gis_en.pdf):
 
 *These vector data sets for GIS contain statistical precipitation values
@@ -23,7 +23,7 @@ level of severe heavy precipitation events with regard to their return
 periods. This estimation is often used to assess damage events.*
 
 *The data set contains the vector data sets of all 18 duration levels. A
-vecor data set contains the statistical precipitation (hN, design
+vector data set contains the statistical precipitation (hN, design
 precipitation) of the present duration level D for nine return periods
 Tn (1-100 a) for the whole grid spanning 79 × 107 cells. INDEX_RC
 describes the unique identifier of a grid cell.*
@@ -59,12 +59,12 @@ idx_build(col=11, row=49)
 ```
 
 If you wanted to check whether this constructed “INDEX_RC” field is
-really present in the data set (or you found an ID in some report and
-are not sure, if it is still being used), make use of the following
+really present in the dataset (or you found an ID in some report and are
+not sure, if it is still being used), make use of the following
 function.
 
 ``` r
-# Is the following "INDEX_RC" entry present in the data set?
+# Is the following "INDEX_RC" entry present in the dataset?
 idx_exists("49011")
 #> [1] TRUE
 ```
@@ -102,7 +102,7 @@ idx_get(p2)
 ### Construct cell-specific statistics from KOSTRA-DWD-2010R grid
 
 Now that we have messed a little with the grid cell identifiers, let’s
-get a sneak peek into the data set itself based on the “INDEX_RC”
+get a sneak peek into the dataset itself based on the “INDEX_RC”
 specified.
 
 ``` r
@@ -159,9 +159,9 @@ get_precip(kdata, 240, 100)
 
 ### Get return periods
 
-Finally, we want to determine the return period according to the data
-set (without interpolating values at the moment) for a precipitation
-height and duration given.
+Finally, we want to determine the return period according to the dataset
+(without interpolating values at the moment) for a precipitation height
+and duration given.
 
 ``` r
 # Let's assume we measured 72.3 mm in 24 h
@@ -207,7 +207,7 @@ cnames <- colnames(kdata)[colnames(kdata) %>% stringr::str_detect("HN_*")]
 # Making use of tidyr
 longdata <- tidyr::pivot_longer(kdata, cols = all_of(cnames))
 
-# Plot the whole data set, colors according to return periods
+# Plot the whole dataset, colors according to return periods
 ggplot(longdata, aes(D_min, value, colour = name)) + 
   geom_point() +
   geom_line() +
@@ -231,18 +231,20 @@ if you’d like to contribute.
 
 According to the [terms of
 use](https://opendata.dwd.de/climate_environment/CDC/Terms_of_use.pdf)
-for data from GWS’ CDC-OpenData area, reely accessible data may be
-re-used without any restrictions provided that the source reference is
-indicated, as laid down in the
+for data on the CDC-OpenData area, freely accessible data may be re-used
+without any restrictions provided other than the source is referenced,
+as laid down in the
 [GeoNutzV](http://www.gesetze-im-internet.de/geonutzv/index.html)
 ordinance.
 
-Copyright: [Deutscher
+Copyright @ [Deutscher
 Wetterdienst](https://www.dwd.de/EN/service/copyright/templates_dwd_as_source.html)
 
-## References
+## Links
 
--   Deutscher Wetterdienst > Leistungen >
+-   Product description of
     [KOSTRA-DWD](https://www.dwd.de/DE/leistungen/kostra_dwd_rasterwerte/kostra_dwd_rasterwerte.html)
--   Deutscher Wetterdienst > OpenData > [KOSTRA-DWD raster
+    including supplementary material
+-   Source used to acquire [KOSTRA-DWD raster
     data](https://opendata.dwd.de/climate_environment/CDC/grids_germany/return_periods/precipitation/KOSTRA/KOSTRA_DWD_2010R/)
+    found in `inst/exdata/`
