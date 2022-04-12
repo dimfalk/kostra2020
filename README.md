@@ -148,7 +148,7 @@ attr(kdata, "index_rc")
 If we now wanted to know the statistical precipitation height based on
 the constructed tibble, e.g. for an event of 4 hours duration
 corresponding to a recurrence interval in 1:100 years, it’s just a
-matter of indexing. However, there is also a function helping you out.
+matter of indexing. However, there is a function helping you out.
 
 ``` r
 # So we are interested in the rain amount [mm] for an event lasting 240 min with 
