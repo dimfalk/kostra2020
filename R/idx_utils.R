@@ -12,7 +12,7 @@
 idx_exists <- function(idx) {
 
   # get file names
-  files <- list.files("inst/exdata",
+  files <- list.files(system.file(package = "kostra2010R"),
     pattern = "*.shp",
     full.names = TRUE,
     recursive = TRUE
@@ -63,7 +63,7 @@ idx_build <- function(col, row) {
 idx_get <- function(location) {
 
   # get file names
-  files <- list.files("inst/exdata",
+  files <- list.files(system.file(package = "kostra2010R"),
                       pattern = "*.shp",
                       full.names = TRUE,
                       recursive = TRUE

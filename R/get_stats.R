@@ -18,17 +18,24 @@ get_stats <- function(grid_index) {
 
   # pre-processing -------------------------------------------------------------
 
-  # get shapefile names
-  files <- list.files("inst/exdata",
+  # get filenames for interval determination
+  files <- list.files(system.file(package = "kostra2010R"),
     pattern = "*.shp",
-    full.names = TRUE,
+    full.names = FALSE,
     recursive = TRUE
   )
 
   # parse intervals from file names
   intervals <- files %>%
-    stringr::str_sub(start = 65, end = 68) %>%
+    stringr::str_sub(start = 60, end = 63) %>%
     as.numeric()
+
+  # overwrite filenames using full.names = TRUE for reading purposes
+  files <- list.files(system.file(package = "kostra2010R"),
+                      pattern = "*.shp",
+                      full.names = TRUE,
+                      recursive = TRUE
+  )
 
   # read shapefile to extract column names and for index identification
   shp <- sf::st_read(files[1], quiet = TRUE)
