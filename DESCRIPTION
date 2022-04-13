@@ -5,10 +5,10 @@ Date: 2022-04-12 12:05:13
 Authors@R: 
     person("Dimitri", "Falk", , "falk.dimitri@eglv.de", role = c("aut", "cre"))
 Description: Ectract cell-specific preciptation statistics based on KOSTRA-DWD-2010R.
-License: GPL (>= 3)
+License: GPL (>= 3) + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
-Imports: magrittr, sf
-Suggests: dplyr, stringr, testthat (>= 3.0.0)
+Imports: magrittr
+Suggests: dplyr, stringr, sf, testthat (>= 3.0.0)
 Config/testthat/edition: 3
