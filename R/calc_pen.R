@@ -10,8 +10,8 @@
 #' \dontrun{
 #' calc_pen(kostra)
 #' }
-#' @references Verworn & Draschoff (2006)
-#' @references Verworn & Kummer (2008)
+#' @references Verworn & Kummer (2006): Praxisrelevante Extremwerte des Niederschlages (PEN)
+#' @references Verworn & Draschoff (2008): PEN-Erweiterung
 calc_pen <- function(tibble) {
 
   # hN for Tn = 1 a and Tn = 100 a

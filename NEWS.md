@@ -1,3 +1,7 @@
+## CHANGES IN kostra2010R VERSION 0.4
+
+* `calc_pen` now allows extrapolation of statistical precipitation based on PEN-LAWA (Verworn & Kummer (2006), Verworn & Draschoff (2008))
+
 ## CHANGES IN kostra2010R VERSION 0.3.2
 
 * initial implementation of several unit tests
@@ -8,10 +12,8 @@
 * initial generation of `NEWS.md` using `bumpr::bumpGitVersion()`
 * `get_returnp()` now returns consistent output for tn < 1 and tn > 100
 
------
 
 ## CHANGES IN kostra2010R VERSION 0.3
 
 * `get_precip()` now allows to determine statistical precipitation heights
 
------
