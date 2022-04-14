@@ -9,13 +9,13 @@
 #'
 #' @examples
 #' \dontrun{
-#' get_precip(kdata, d=60, tn=50)
+#' get_precip(kostra, d=60, tn=50)
 #' }
 get_precip <- function(tibble, d, tn) {
 
   # debugging ------------------------------------------------------------------
 
-  # tibble <- kdata
+  # tibble <- kostra
   # d <- 60
   # tn <- 50
 

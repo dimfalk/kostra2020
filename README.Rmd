@@ -91,16 +91,17 @@ Now that we have messed a little with the grid cell identifiers, let's get a sne
 ```{r}
 # Build a tibble containing precipitation heights as a function of duration and 
 # return periods for the grid cell specified
-kdata <- get_stats("49011")
+kostra <- get_stats("49011")
 
-kdata
+kostra
 ```
 
-The value of "INDEX_RC" has been assigned as an attribute to the tibble.
+The value of "INDEX_RC" as well as the numerical return periods have been assigned as attributes to the tibble.
 
 ```{r}
-# Attribute query
-attr(kdata, "index_rc")
+attr(kostra, "index_rc")
+
+attr(kostra, "returnperiods_a")
 ```
 
 ### Get precipitation heights
@@ -110,7 +111,7 @@ If we now wanted to know the statistical precipitation height based on the const
 ```{r}
 # So we are interested in the rain amount [mm] for an event lasting 240 min with 
 # a return period of 100 a.
-get_precip(kdata, 240, 100)
+get_precip(kostra, 240, 100)
 ```
 
 ### Get return periods
@@ -119,7 +120,7 @@ Finally, we want to determine the return period according to the dataset (withou
 
 ```{r}
 # Let's assume we measured 72.3 mm in 24 h
-get_returnp(kdata, 72.3, 1440)
+get_returnp(kostra, 72.3, 1440)
 ```
 
 Accordingly, the approximate corresponding recurrence interval resp. annuality of this event amounts to something between 30 and 50 years as per KOSTRA-DWD-2010R.
@@ -128,17 +129,32 @@ The following edge cases are to be mentioned:
 
 ```{r}
 # 1) In case the specific class boundary is provided, the return period is replicated.
-get_returnp(kdata, 42.8, 1440)
+get_returnp(kostra, 42.8, 1440)
 ```
 
 ```{r}
 # 2) In case the return period tn is smaller than 1, interval opens with 0.
-get_returnp(kdata, 30.2, 1440)
+get_returnp(kostra, 30.2, 1440)
 ```
 
 ```{r}
 # 3) In case the return period tn is larger than 100, interval closes with Inf.
-get_returnp(kdata, 86.3, 1440)
+get_returnp(kostra, 86.3, 1440)
+```
+
+### Return period extrapolation
+
+Since KOSTRA-2010R has an upper limit of Tn = 100 a, we can make use of e.g. PEN-LAWA method in order to extrapolate statistical precipitation heights for all duration levels.
+
+```{r}
+# Output in a separate tibble to not confuse methods
+pen <- calc_pen(kostra)
+
+pen
+
+# Former attribute names are preserved
+attr(pen, "index_rc")
+attr(pen, "returnperiods_a")
 ```
 
 ### Further utilization
@@ -149,10 +165,10 @@ Data can now be visualized via `ggplot2` after a quick wide-to-long conversion..
 library(ggplot2)
 
 # Column name extraction for name/value junction
-cnames <- colnames(kdata)[colnames(kdata) %>% stringr::str_detect("HN_*")]
+cnames <- colnames(kostra)[colnames(kostra) %>% stringr::str_detect("HN_*")]
 
 # Making use of tidyr
-longdata <- tidyr::pivot_longer(kdata, cols = all_of(cnames))
+longdata <- tidyr::pivot_longer(kostra, cols = all_of(cnames))
 
 # Plot the whole dataset, colors according to return periods
 ggplot(longdata, aes(D_min, value, colour = name)) + 
@@ -161,7 +177,7 @@ ggplot(longdata, aes(D_min, value, colour = name)) +
   xlab("duration [min]") +
   ylab("precipitation height [mm]") +
   ggtitle("hN as a function of duration and return periods as per KOSTRA-2010R",
-          subtitle = paste0("INDEX_RC: ", attr(kdata, "index_rc")))
+          subtitle = paste0("INDEX_RC: ", attr(kostra, "index_rc")))
 ```
 
 ... or exported to disk using `write.csv2()`.

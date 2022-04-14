@@ -21,6 +21,6 @@ Get precipitation height for a specified duration and return period
 }
 \examples{
 \dontrun{
-get_precip(kdata, d=60, tn=50)
+get_precip(kostra, d=60, tn=50)
 }
 }

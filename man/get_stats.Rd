@@ -18,6 +18,6 @@ Get cell-specific statistics from the KOSTRA-2010R data set
 }
 \examples{
 \dontrun{
-kdata <- get_stats("49011")
+kostra <- get_stats("49011")
 }
 }

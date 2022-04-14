@@ -10,13 +10,13 @@
 #'
 #' @examples
 #' \dontrun{
-#' get_returnp(kdata, hn=69.3, d=1440)
+#' get_returnp(kostra, hn=69.3, d=1440)
 #' }
 get_returnp <- function(tibble, hn, d) {
 
   # debugging ------------------------------------------------------------------
 
-  # tibble <- kdata
+  # tibble <- kostra
   # hn <- 69.3
   # d <- 1440
 

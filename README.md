@@ -108,9 +108,9 @@ specified.
 ``` r
 # Build a tibble containing precipitation heights as a function of duration and 
 # return periods for the grid cell specified
-kdata <- get_stats("49011")
+kostra <- get_stats("49011")
 
-kdata
+kostra
 #> # A tibble: 18 x 11
 #>    D_min D_hour HN_001A HN_002A HN_003A HN_005A HN_010A HN_020A HN_030A HN_050A
 #>    <dbl>  <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
@@ -135,12 +135,15 @@ kdata
 #> # ... with 1 more variable: HN_100A <dbl>
 ```
 
-The value of “INDEX_RC” has been assigned as an attribute to the tibble.
+The value of “INDEX_RC” as well as the numerical return periods have
+been assigned as attributes to the tibble.
 
 ``` r
-# Attribute query
-attr(kdata, "index_rc")
+attr(kostra, "index_rc")
 #> [1] "49011"
+
+attr(kostra, "returnperiods_a")
+#> [1]   1   2   3   5  10  20  30  50 100
 ```
 
 ### Get precipitation heights
@@ -153,7 +156,7 @@ matter of indexing. However, there is a function helping you out.
 ``` r
 # So we are interested in the rain amount [mm] for an event lasting 240 min with 
 # a return period of 100 a.
-get_precip(kdata, 240, 100)
+get_precip(kostra, 240, 100)
 #> [1] 62.1
 ```
 
@@ -165,7 +168,7 @@ and duration given.
 
 ``` r
 # Let's assume we measured 72.3 mm in 24 h
-get_returnp(kdata, 72.3, 1440)
+get_returnp(kostra, 72.3, 1440)
 #> [1] 30 50
 ```
 
@@ -177,20 +180,60 @@ The following edge cases are to be mentioned:
 
 ``` r
 # 1) In case the specific class boundary is provided, the return period is replicated.
-get_returnp(kdata, 42.8, 1440)
+get_returnp(kostra, 42.8, 1440)
 #> [1] 2 2
 ```
 
 ``` r
 # 2) In case the return period tn is smaller than 1, interval opens with 0.
-get_returnp(kdata, 30.2, 1440)
+get_returnp(kostra, 30.2, 1440)
 #> [1] 0 1
 ```
 
 ``` r
 # 3) In case the return period tn is larger than 100, interval closes with Inf.
-get_returnp(kdata, 86.3, 1440)
+get_returnp(kostra, 86.3, 1440)
 #> [1] 100 Inf
+```
+
+### Return period extrapolation
+
+Since KOSTRA-2010R has an upper limit of Tn = 100 a, we can make use of
+e.g. PEN-LAWA method in order to extrapolate statistical precipitation
+heights for all duration levels.
+
+``` r
+# Output in a separate tibble to not confuse methods
+pen <- calc_pen(kostra)
+
+pen
+#> # A tibble: 18 x 8
+#>    D_min D_hour HN_200A HN_500A HN_1000A HN_2000A HN_5000A HN_10000A
+#>    <dbl>  <dbl>   <dbl>   <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
+#>  1     5   NA      19.1    21.6     23.4     25.2     27.7      29.5
+#>  2    10   NA      28.7    32.3     35       37.7     41.4      44.1
+#>  3    15   NA      35.6    40.1     43.5     46.9     51.5      54.9
+#>  4    20   NA      41.1    46.3     50.3     54.3     59.6      63.5
+#>  5    30   NA      49.9    56.5     61.4     66.4     72.9      77.9
+#>  6    45   NA      60.1    68.2     74.3     80.4     88.5      94.6
+#>  7    60    1      68.3    77.7     84.7     91.8    101.      108. 
+#>  8    90    1.5    72.1    81.8     89.2     96.6    106.      114. 
+#>  9   120    2      75      85.1     92.7    100.     110.      118  
+#> 10   180    3      79.5    89.9     97.9    106.     116.      124. 
+#> 11   240    4      82.7    93.5    102.     110.     121.      129. 
+#> 12   360    6      87.7    99      108.     116.     127.      136. 
+#> 13   540    9      93     105.     114.     123.     134.      143. 
+#> 14   720   12      97.1   109.     118.     128.     140.      149. 
+#> 15  1080   18     103.    116      126.     135.     148.      158. 
+#> 16  1440   24     108.    121.     131.     141      154.      164  
+#> 17  2880   48     129.    145.     156.     168.     184.      195. 
+#> 18  4320   72     142.    159.     172.     185.     202.      215.
+
+# Former attribute names are preserved
+attr(pen, "index_rc")
+#> [1] "49011"
+attr(pen, "returnperiods_a")
+#> [1]   200   500  1000  2000  5000 10000
 ```
 
 ### Further utilization
@@ -202,10 +245,10 @@ conversion…
 library(ggplot2)
 
 # Column name extraction for name/value junction
-cnames <- colnames(kdata)[colnames(kdata) %>% stringr::str_detect("HN_*")]
+cnames <- colnames(kostra)[colnames(kostra) %>% stringr::str_detect("HN_*")]
 
 # Making use of tidyr
-longdata <- tidyr::pivot_longer(kdata, cols = all_of(cnames))
+longdata <- tidyr::pivot_longer(kostra, cols = all_of(cnames))
 
 # Plot the whole dataset, colors according to return periods
 ggplot(longdata, aes(D_min, value, colour = name)) + 
@@ -214,10 +257,10 @@ ggplot(longdata, aes(D_min, value, colour = name)) +
   xlab("duration [min]") +
   ylab("precipitation height [mm]") +
   ggtitle("hN as a function of duration and return periods as per KOSTRA-2010R",
-          subtitle = paste0("INDEX_RC: ", attr(kdata, "index_rc")))
+          subtitle = paste0("INDEX_RC: ", attr(kostra, "index_rc")))
 ```
 
-<img src="man/figures/README-unnamed-chunk-14-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-15-1.png" width="100%" />
 
 … or exported to disk using `write.csv2()`.
 
