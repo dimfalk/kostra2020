@@ -157,6 +157,17 @@ attr(pen, "index_rc")
 attr(pen, "returnperiods_a")
 ```
 
+### Model rain construction
+
+Furthermore, statistical precipitation can be used to model constructed time series. Currently, Euler Type I + II are implemented.
+
+```{r}
+# Euler Type II model rain with a duration of 60 minutes and a return period of 100 a
+xts <- calc_modelrain(kostra, d = 60, tn = 100, type = "EulerII")
+
+xts
+```
+
 ### Further utilization
 
 Data can now be visualized via `ggplot2` after a quick wide-to-long conversion...

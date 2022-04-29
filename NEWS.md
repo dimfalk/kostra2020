@@ -1,3 +1,7 @@
+## CHANGES IN kostra2010R VERSION 0.5
+
+* `calc_modelrain` now allows modelling rainfall from statistical precipitation
+
 ## CHANGES IN kostra2010R VERSION 0.4
 
 * `calc_pen` now allows extrapolation of statistical precipitation based on PEN-LAWA (Verworn & Kummer (2006), Verworn & Draschoff (2008))

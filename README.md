@@ -236,6 +236,31 @@ attr(pen, "returnperiods_a")
 #> [1]   200   500  1000  2000  5000 10000
 ```
 
+### Model rain construction
+
+Furthermore, statistical precipitation can be used to model constructed
+time series. Currently, Euler Type I + II are implemented.
+
+``` r
+# Euler Type II model rain with a duration of 60 minutes and a return period of 100 a
+xts <- calc_modelrain(kostra, d = 60, tn = 100, type = "EulerII")
+
+xts
+#>                      [,1]
+#> 2000-01-01 00:00:00  3.80
+#> 2000-01-01 00:05:00  4.70
+#> 2000-01-01 00:10:00  6.50
+#> 2000-01-01 00:15:00 13.10
+#> 2000-01-01 00:20:00  2.90
+#> 2000-01-01 00:25:00  2.90
+#> 2000-01-01 00:30:00  2.17
+#> 2000-01-01 00:35:00  2.17
+#> 2000-01-01 00:40:00  2.17
+#> 2000-01-01 00:45:00  1.77
+#> 2000-01-01 00:50:00  1.77
+#> 2000-01-01 00:55:00  1.77
+```
+
 ### Further utilization
 
 Data can now be visualized via `ggplot2` after a quick wide-to-long
@@ -260,7 +285,7 @@ ggplot(longdata, aes(D_min, value, colour = name)) +
           subtitle = paste0("INDEX_RC: ", attr(kostra, "index_rc")))
 ```
 
-<img src="man/figures/README-unnamed-chunk-15-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-16-1.png" width="100%" />
 
 … or exported to disk using `write.csv2()`.
 
