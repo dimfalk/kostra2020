@@ -1,6 +1,6 @@
 #' Get precipitation height for a specified duration and return period
 #'
-#' @param tibble A tibble containing grid cell statistics from KOSTRA-2010R.
+#' @param data A tibble containing grid cell statistics from KOSTRA-2010R.
 #' @param d Duration in minutes.
 #' @param tn Return period in years.
 #'
@@ -11,18 +11,18 @@
 #' \dontrun{
 #' get_precip(kostra, d = 60, tn = 50)
 #' }
-get_precip <- function(tibble, d, tn) {
+get_precip <- function(data, d, tn) {
 
   # debugging ------------------------------------------------------------------
 
-  # tibble <- kostra
+  # data <- kostra
   # d <- 60
   # tn <- 50
 
   # main -----------------------------------------------------------------------
 
   # get index and return object
-  ind <- which(attr(tibble, "returnperiods_a") == tn)
+  ind <- which(attr(data, "returnperiods_a") == tn)
 
-  tibble[tibble$D_min == d, ind + 2] %>% as.numeric()
+  data[data[["D_min"]] == d, ind + 3] %>% as.numeric()
 }

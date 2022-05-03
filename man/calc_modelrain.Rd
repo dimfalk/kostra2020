@@ -4,10 +4,10 @@
 \alias{calc_modelrain}
 \title{Calculate model rainfall from statistical precipitation}
 \usage{
-calc_modelrain(tibble, d, tn, type = "EulerII")
+calc_modelrain(data, d, tn, type = "EulerII")
 }
 \arguments{
-\item{tibble}{A tibble containing grid cell statistics from KOSTRA-2010R.}
+\item{data}{A tibble containing grid cell statistics from KOSTRA-2010R.}
 
 \item{d}{Duration in minutes.}
 

@@ -1,5 +1,6 @@
 kostra <- structure(list(D_min = c(5, 10, 15, 20, 30, 45, 60, 90, 120, 180, 240, 360, 540, 720, 1080, 1440, 2880, 4320),
                          D_hour = c(NA, NA, NA, NA, NA, NA, 1, 1.5, 2, 3, 4, 6, 9, 12, 18, 24, 48, 72),
+                         D_day = c(NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 1, 2, 3),
                          HN_001A = c(5.6, 8.6, 10.5, 11.8, 13.5, 14.9, 15.7, 17.4, 18.8, 20.9, 22.5, 25, 27.8, 30, 33.3, 35.9, 44.1, 49.8),
                          HN_002A = c(6.9, 10.6, 13, 14.7, 17.1, 19.4, 21, 22.9, 24.4, 26.7, 28.5, 31.2, 34.2, 36.5, 40.1, 42.8, 52.2, 58.6),
                          HN_003A = c(7.7, 11.7, 14.4, 16.4, 19.2, 22.1, 24.1, 26.2, 27.7, 30.1, 32, 34.8, 37.9, 40.3, 44, 46.8, 57, 63.7),
@@ -17,9 +18,9 @@ kostra <- structure(list(D_min = c(5, 10, 15, 20, 30, 45, 60, 90, 120, 180, 240,
 
 test_that("Getting return periods works.", {
 
-  expect_equal(get_returnp(kostra, 72.3, 1440), c(30, 50))
+  expect_equal(get_returnp(kostra, hn = 72.3, d = 1440), c(30, 50))
 
-  expect_equal(get_returnp(kostra, 42.8, 1440), c(2, 2))
-  expect_equal(get_returnp(kostra, 30.2, 1440), c(0, 1))
-  expect_equal(get_returnp(kostra, 86.3, 1440), c(100, Inf))
+  expect_equal(get_returnp(kostra, hn = 42.8, d = 1440), c(2, 2))
+  expect_equal(get_returnp(kostra, hn = 30.2, d = 1440), c(0, 1))
+  expect_equal(get_returnp(kostra, hn = 86.3, d = 1440), c(100, Inf))
 })

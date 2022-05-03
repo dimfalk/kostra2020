@@ -82,14 +82,20 @@ get_stats <- function(grid_index) {
   # append interval duration
   df["D_min"] <- intervals
 
-  # calculate hourly durations
+  # recalculate durations in hours
   df["D_hour"] <- df["D_min"] / 60
 
   # representation in hours not relevant for durations < 60 min
   df[["D_hour"]][which(df[["D_min"]] < 60)] <- NA
 
+  # recalculate durations in days
+  df["D_day"] <- df["D_hour"] / 24
+
+  # representation in days not relevant for durations < 24 hours
+  df[["D_day"]][which(df[["D_hour"]] < 24)] <- NA
+
   # re-arrange columns
-  df <- df[c("D_min", "D_hour", cnames)]
+  df <- df[c("D_min", "D_hour", "D_day", cnames)]
 
   # append meta data as attributes
   attr(df, "index_rc") <- grid_index

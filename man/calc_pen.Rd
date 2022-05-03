@@ -4,10 +4,10 @@
 \alias{calc_pen}
 \title{Extrapolation of precipitation heights for Tn > 100 a according to PEN-LAWA}
 \usage{
-calc_pen(tibble)
+calc_pen(data)
 }
 \arguments{
-\item{tibble}{A tibble containing grid cell statistics from KOSTRA-2010R.}
+\item{data}{A tibble containing grid cell statistics from KOSTRA-2010R.}
 }
 \value{
 A tibble containing extrapolated precipitation heights as a function

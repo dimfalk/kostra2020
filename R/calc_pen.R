@@ -1,6 +1,6 @@
 #' Extrapolation of precipitation heights for Tn > 100 a according to PEN-LAWA
 #'
-#' @param tibble A tibble containing grid cell statistics from KOSTRA-2010R.
+#' @param data A tibble containing grid cell statistics from KOSTRA-2010R.
 #'
 #' @return A tibble containing extrapolated precipitation heights as a function
 #'   of duration and return periods.
@@ -12,17 +12,17 @@
 #' }
 #' @references Verworn & Kummer (2006): Praxisrelevante Extremwerte des Niederschlages (PEN).
 #' @references Verworn & Draschoff (2008): PEN-Erweiterung.
-calc_pen <- function(tibble) {
+calc_pen <- function(data) {
 
   # debugging ------------------------------------------------------------------
 
-  # tibble <- kostra
+  # data <- kostra
 
   # main -----------------------------------------------------------------------
 
   # hN for Tn = 1 a and Tn = 100 a
-  hN_lower <- tibble[["HN_001A"]]
-  hN_upper <- tibble[["HN_100A"]]
+  hN_lower <- data[["HN_001A"]]
+  hN_upper <- data[["HN_100A"]]
 
   # log = natural logarithm (ln);
   # base = euler's number e = exp(1)
@@ -30,7 +30,7 @@ calc_pen <- function(tibble) {
   w <- (1.2 * hN_upper - u) / log(100)
 
   # init tibble
-  tib <- tibble[c("D_min", "D_hour")]
+  tib <- data[c("D_min", "D_hour", "D_day")]
 
   # define return periods to be used for calculation
   rperiod <- c(200, 500, 1000, 2000, 5000, 10000)

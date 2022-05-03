@@ -1,5 +1,6 @@
 kostra <- structure(list(D_min = c(5, 10, 15, 20, 30, 45, 60, 90, 120, 180, 240, 360, 540, 720, 1080, 1440, 2880, 4320),
                          D_hour = c(NA, NA, NA, NA, NA, NA, 1, 1.5, 2, 3, 4, 6, 9, 12, 18, 24, 48, 72),
+                         D_day = c(NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 1, 2, 3),
                          HN_001A = c(5.6, 8.6, 10.5, 11.8, 13.5, 14.9, 15.7, 17.4, 18.8, 20.9, 22.5, 25, 27.8, 30, 33.3, 35.9, 44.1, 49.8),
                          HN_002A = c(6.9, 10.6, 13, 14.7, 17.1, 19.4, 21, 22.9, 24.4, 26.7, 28.5, 31.2, 34.2, 36.5, 40.1, 42.8, 52.2, 58.6),
                          HN_003A = c(7.7, 11.7, 14.4, 16.4, 19.2, 22.1, 24.1, 26.2, 27.7, 30.1, 32, 34.8, 37.9, 40.3, 44, 46.8, 57, 63.7),
@@ -24,15 +25,16 @@ test_that("General table building works.", {
 
 test_that("Column names are as expected", {
 
-  expect_equal(colnames(pen), c("D_min", "D_hour",
+  expect_equal(colnames(pen), c("D_min", "D_hour", "D_day",
                                 "HN_200A", "HN_500A", "HN_1000A",
                                 "HN_2000A", "HN_5000A", "HN_10000A"))
 })
 
 test_that("All duration levels are included.", {
 
-  expect_equal(pen[["D_min"]], c(5, 10, 15, 20, 30, 45, 60, 90, 120, 180, 240,
-                                 360, 540, 720, 1080, 1440, 2880, 4320))
+  expect_equal(pen[["D_min"]], c(5, 10, 15, 20, 30, 45,
+                                 60, 90, 120, 180, 240, 360, 540, 720, 1080,
+                                 1440, 2880, 4320))
 })
 
 test_that("All return periods are appended as attributes.", {

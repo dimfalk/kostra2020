@@ -4,10 +4,10 @@
 \alias{get_precip}
 \title{Get precipitation height for a specified duration and return period}
 \usage{
-get_precip(tibble, d, tn)
+get_precip(data, d, tn)
 }
 \arguments{
-\item{tibble}{A tibble containing grid cell statistics from KOSTRA-2010R.}
+\item{data}{A tibble containing grid cell statistics from KOSTRA-2010R.}
 
 \item{d}{Duration in minutes.}
 
@@ -21,6 +21,6 @@ Get precipitation height for a specified duration and return period
 }
 \examples{
 \dontrun{
-get_precip(kostra, d=60, tn=50)
+get_precip(kostra, d = 60, tn = 50)
 }
 }

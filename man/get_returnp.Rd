@@ -4,10 +4,10 @@
 \alias{get_returnp}
 \title{Get return period class for specified precipitation height}
 \usage{
-get_returnp(tibble, hn, d)
+get_returnp(data, hn, d)
 }
 \arguments{
-\item{tibble}{A tibble containing grid cell statistics from KOSTRA-2010R.}
+\item{data}{A tibble containing grid cell statistics from KOSTRA-2010R.}
 
 \item{hn}{Precipitation height in mm.}
 
@@ -22,6 +22,6 @@ Get return period class for specified precipitation height
 }
 \examples{
 \dontrun{
-get_returnp(kostra, hn=69.3, d=1440)
+get_returnp(kostra, hn = 69.3, d = 1440)
 }
 }

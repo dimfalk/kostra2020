@@ -1,6 +1,6 @@
 #' Get return period class for specified precipitation height
 #'
-#' @param tibble A tibble containing grid cell statistics from KOSTRA-2010R.
+#' @param data A tibble containing grid cell statistics from KOSTRA-2010R.
 #' @param hn Precipitation height in mm.
 #' @param d Duration in minutes.
 #'
@@ -12,22 +12,22 @@
 #' \dontrun{
 #' get_returnp(kostra, hn = 69.3, d = 1440)
 #' }
-get_returnp <- function(tibble, hn, d) {
+get_returnp <- function(data, hn, d) {
 
   # debugging ------------------------------------------------------------------
 
-  # tibble <- kostra
+  # data <- kostra
   # hn <- 69.3
   # d <- 1440
 
   # pre-processing -------------------------------------------------------------
 
   # extract return periods from column names
-  cnames <- colnames(tibble)[colnames(tibble) %>% stringr::str_detect("HN_*")]
+  cnames <- colnames(data)[colnames(data) %>% stringr::str_detect("HN_*")]
   rperiod <- cnames %>% stringr::str_sub(start = 4, end = 6) %>% as.numeric()
 
   # identify relevant row
-  row <- tibble[which(tibble[["D_min"]] == d), cnames]
+  row <- data[which(data[["D_min"]] == d), cnames]
 
   # main -----------------------------------------------------------------------
 
