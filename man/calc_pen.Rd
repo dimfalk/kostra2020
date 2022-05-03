@@ -7,7 +7,7 @@
 calc_pen(tibble)
 }
 \arguments{
-\item{tibble}{Cell-based statistics derived from KOSTRA-2010R}
+\item{tibble}{A tibble containing grid cell statistics from KOSTRA-2010R.}
 }
 \value{
 A tibble containing extrapolated precipitation heights as a function
@@ -18,11 +18,11 @@ Extrapolation of precipitation heights for Tn > 100 a according to PEN-LAWA
 }
 \examples{
 \dontrun{
-calc_pen(kostra)
+pen <- calc_pen(kostra)
 }
 }
 \references{
-Verworn & Kummer (2006): Praxisrelevante Extremwerte des Niederschlages (PEN)
+Verworn & Kummer (2006): Praxisrelevante Extremwerte des Niederschlages (PEN).
 
-Verworn & Draschoff (2008): PEN-Erweiterung
+Verworn & Draschoff (2008): PEN-Erweiterung.
 }

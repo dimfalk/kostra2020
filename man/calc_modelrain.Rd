@@ -7,25 +7,22 @@
 calc_modelrain(tibble, d, tn, type = "EulerII")
 }
 \arguments{
-\item{tibble}{containing statistics}
+\item{tibble}{A tibble containing grid cell statistics from KOSTRA-2010R.}
 
-\item{d}{duration in minutes}
+\item{d}{Duration in minutes.}
 
-\item{tn}{return periods in years}
+\item{tn}{Return periods in years.}
 
-\item{type}{EulerI | EulerII}
+\item{type}{EulerI | EulerII.}
 }
 \value{
-xts
+An xts object.
 }
 \description{
 Calculate model rainfall from statistical precipitation
 }
 \examples{
 \dontrun{
-xts <- calc_modelrain(kostra, d = 60, tn = 100, type = "EulerII")
+xts <- calc_modelrain(kostra, d = 60, tn = 20, type = "EulerII")
 }
-}
-\references{
-EulerI + EulerII
 }

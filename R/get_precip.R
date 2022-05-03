@@ -22,8 +22,7 @@ get_precip <- function(tibble, d, tn) {
   # main -----------------------------------------------------------------------
 
   # get index and return object
-  tibble[tibble$D_min == d, which(attr(tibble, "returnperiods_a") == tn) + 2] %>%
-    as.numeric()
+  ind <- which(attr(tibble, "returnperiods_a") == tn)
+
+  tibble[tibble$D_min == d, ind + 2] %>% as.numeric()
 }
-
-

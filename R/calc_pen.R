@@ -1,6 +1,6 @@
 #' Extrapolation of precipitation heights for Tn > 100 a according to PEN-LAWA
 #'
-#' @param tibble Cell-based statistics derived from KOSTRA-2010R
+#' @param tibble A tibble containing grid cell statistics from KOSTRA-2010R.
 #'
 #' @return A tibble containing extrapolated precipitation heights as a function
 #'   of duration and return periods.
@@ -8,11 +8,17 @@
 #'
 #' @examples
 #' \dontrun{
-#' calc_pen(kostra)
+#' pen <- calc_pen(kostra)
 #' }
-#' @references Verworn & Kummer (2006): Praxisrelevante Extremwerte des Niederschlages (PEN)
-#' @references Verworn & Draschoff (2008): PEN-Erweiterung
+#' @references Verworn & Kummer (2006): Praxisrelevante Extremwerte des Niederschlages (PEN).
+#' @references Verworn & Draschoff (2008): PEN-Erweiterung.
 calc_pen <- function(tibble) {
+
+  # debugging ------------------------------------------------------------------
+
+  # tibble <- kostra
+
+  # main -----------------------------------------------------------------------
 
   # hN for Tn = 1 a and Tn = 100 a
   hN_lower <- tibble[["HN_001A"]]

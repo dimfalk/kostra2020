@@ -51,7 +51,7 @@ get_stats <- function(grid_index) {
   # determine index based on user input
   ind <- which(shp$INDEX_RC == grid_index)
 
-  # table construction ---------------------------------------------------------
+  # main -----------------------------------------------------------------------
 
   # built data.frame
   for (i in 1:length(files)) {
@@ -70,7 +70,7 @@ get_stats <- function(grid_index) {
     }
   }
 
-  # tidy data, return ----------------------------------------------------------
+  # post-processing ------------------------------------------------------------
 
   # column names
   cnames <- cnames %>% stringr::str_sub(start = 1, end = -2)
@@ -94,6 +94,7 @@ get_stats <- function(grid_index) {
   # append meta data as attributes
   attr(df, "index_rc") <- grid_index
   attr(df, "returnperiods_a") <- rperiod
+  attr(df, "source") <- "KOSTRA-DWD-2010R"
 
   # return tibble
   dplyr::tibble(df)

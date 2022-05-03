@@ -29,7 +29,7 @@ get_returnp <- function(tibble, hn, d) {
   # identify relevant row
   row <- tibble[which(tibble[["D_min"]] == d), cnames]
 
-  # calculate and return -------------------------------------------------------
+  # main -----------------------------------------------------------------------
 
   # get index of closest value
   ind <- which.min(abs(row - hn))
@@ -60,5 +60,3 @@ get_returnp <- function(tibble, hn, d) {
     c(rperiod[which(row == closest)], Inf)
   }
 }
-
-
