@@ -49,7 +49,7 @@ Sometimes identification of grid cells is not accomplished using "INDEX_RC" dire
 
 ```{r}
 # Generate "INDEX_RC" based on X and Y information
-idx_build(col=11, row=49)
+idx_build(col = 11, row = 49)
 ```
 
 If you wanted to check whether this constructed "INDEX_RC" field is really present in the dataset (or you found an ID in some report and are not sure, if it is still being used), make use of the following function.
@@ -111,7 +111,7 @@ If we now wanted to know the statistical precipitation height based on the const
 ```{r}
 # So we are interested in the rain amount [mm] for an event lasting 240 min with 
 # a return period of 100 a.
-get_precip(kostra, 240, 100)
+get_precip(kostra, d = 240, tn = 100)
 ```
 
 ### Get return periods
@@ -120,7 +120,7 @@ Finally, we want to determine the return period according to the dataset (withou
 
 ```{r}
 # Let's assume we measured 72.3 mm in 24 h
-get_returnp(kostra, 72.3, 1440)
+get_returnp(kostra, hn = 72.3, d = 1440)
 ```
 
 Accordingly, the approximate corresponding recurrence interval resp. annuality of this event amounts to something between 30 and 50 years as per KOSTRA-DWD-2010R.
@@ -129,17 +129,17 @@ The following edge cases are to be mentioned:
 
 ```{r}
 # 1) In case the specific class boundary is provided, the return period is replicated.
-get_returnp(kostra, 42.8, 1440)
+get_returnp(kostra, hn = 42.8, d = 1440)
 ```
 
 ```{r}
 # 2) In case the return period tn is smaller than 1, interval opens with 0.
-get_returnp(kostra, 30.2, 1440)
+get_returnp(kostra, hn = 30.2, d = 1440)
 ```
 
 ```{r}
 # 3) In case the return period tn is larger than 100, interval closes with Inf.
-get_returnp(kostra, 86.3, 1440)
+get_returnp(kostra, hn = 86.3, d = 1440)
 ```
 
 ### Return period extrapolation

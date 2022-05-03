@@ -54,7 +54,7 @@ used to generate the necessary “INDEX_RC” field.
 
 ``` r
 # Generate "INDEX_RC" based on X and Y information
-idx_build(col=11, row=49)
+idx_build(col = 11, row = 49)
 #> [1] "49011"
 ```
 
@@ -156,7 +156,7 @@ matter of indexing. However, there is a function helping you out.
 ``` r
 # So we are interested in the rain amount [mm] for an event lasting 240 min with 
 # a return period of 100 a.
-get_precip(kostra, 240, 100)
+get_precip(kostra, d = 240, tn = 100)
 #> [1] 62.1
 ```
 
@@ -168,7 +168,7 @@ and duration given.
 
 ``` r
 # Let's assume we measured 72.3 mm in 24 h
-get_returnp(kostra, 72.3, 1440)
+get_returnp(kostra, hn = 72.3, d = 1440)
 #> [1] 30 50
 ```
 
@@ -180,19 +180,19 @@ The following edge cases are to be mentioned:
 
 ``` r
 # 1) In case the specific class boundary is provided, the return period is replicated.
-get_returnp(kostra, 42.8, 1440)
+get_returnp(kostra, hn = 42.8, d = 1440)
 #> [1] 2 2
 ```
 
 ``` r
 # 2) In case the return period tn is smaller than 1, interval opens with 0.
-get_returnp(kostra, 30.2, 1440)
+get_returnp(kostra, hn = 30.2, d = 1440)
 #> [1] 0 1
 ```
 
 ``` r
 # 3) In case the return period tn is larger than 100, interval closes with Inf.
-get_returnp(kostra, 86.3, 1440)
+get_returnp(kostra, hn = 86.3, d = 1440)
 #> [1] 100 Inf
 ```
 
@@ -246,19 +246,19 @@ time series. Currently, Euler Type I + II are implemented.
 xts <- calc_modelrain(kostra, d = 60, tn = 100, type = "EulerII")
 
 xts
-#>                      [,1]
-#> 2000-01-01 00:00:00  3.80
-#> 2000-01-01 00:05:00  4.70
-#> 2000-01-01 00:10:00  6.50
-#> 2000-01-01 00:15:00 13.10
-#> 2000-01-01 00:20:00  2.90
-#> 2000-01-01 00:25:00  2.90
-#> 2000-01-01 00:30:00  2.17
-#> 2000-01-01 00:35:00  2.17
-#> 2000-01-01 00:40:00  2.17
-#> 2000-01-01 00:45:00  1.77
-#> 2000-01-01 00:50:00  1.77
-#> 2000-01-01 00:55:00  1.77
+#>                     [,1]
+#> 2000-01-01 00:00:00  4.1
+#> 2000-01-01 00:05:00  5.2
+#> 2000-01-01 00:10:00  7.2
+#> 2000-01-01 00:15:00 14.4
+#> 2000-01-01 00:20:00  3.3
+#> 2000-01-01 00:25:00  3.3
+#> 2000-01-01 00:30:00  2.5
+#> 2000-01-01 00:35:00  2.5
+#> 2000-01-01 00:40:00  2.5
+#> 2000-01-01 00:45:00  2.0
+#> 2000-01-01 00:50:00  2.0
+#> 2000-01-01 00:55:00  2.0
 ```
 
 ### Further utilization
