@@ -9,7 +9,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' get_precip(kostra, d=60, tn=50)
+#' get_precip(kostra, d = 60, tn = 50)
 #' }
 get_precip <- function(tibble, d, tn) {
 

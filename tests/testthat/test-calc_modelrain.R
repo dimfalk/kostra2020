@@ -14,12 +14,21 @@ kostra <- structure(list(D_min = c(5, 10, 15, 20, 30, 45, 60, 90, 120, 180, 240,
                     index_rc = "49011",
                     returnperiods_a = c(1, 2, 3, 5, 10, 20, 30, 50, 100),
                     source = "KOSTRA-DWD-2010R")
+d = 60
+tn = 20
+xts <- calc_modelrain(kostra, d = d, tn = tn, type = "EulerII")
 
-test_that("Getting precipitation heights works.", {
+test_that("General object building works.", {
 
-  expect_equal(get_precip(kostra, 5, 1), 5.6)
-  expect_equal(get_precip(kostra, 4320, 1), 49.8)
+  expect_true(inherits(xts, c("xts", "zoo")))
+})
 
-  expect_equal(get_precip(kostra, 5, 100), 14.4)
-  expect_equal(get_precip(kostra, 4320, 100), 108.1)
+test_that("Length of time series is according to specifications.", {
+
+  expect_equal(length(xts), d / 5)
+})
+
+test_that("Sum of time series values equals statistical value from table.", {
+
+  expect_equal(zoo::coredata(xts) %>% sum(), get_precip(kostra, d = 60, tn = 20))
 })
