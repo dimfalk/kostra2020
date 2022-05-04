@@ -54,8 +54,8 @@ There are three things you need to include to make your example reproducible: re
 
 *   Create a Git branch for your pull request (PR). We recommend using `usethis::pr_init("brief-description-of-change")`.
 
-*   Make your changes, commit to git, and then create a PR by running `usethis::pr_push()`, following the prompts in your browser.
-    The title of your PR should briefly describe the change.
+*   Make your changes, commit to git (following the [seven rules of a great commit message](https://github.com/MrKiven/Standard-commit-message) at best), and then create a PR by running `usethis::pr_push()`, following the prompts in your browser.
+*   The title of your PR should briefly describe the change.
     The body of your PR should contain `fixes #issue-number`.
 
 *   You should always add a bullet point to `NEWS.md` motivating the change just below the first header.
