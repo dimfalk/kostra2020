@@ -17,7 +17,7 @@ kostra <- structure(list(D_min = c(5, 10, 15, 20, 30, 45, 60, 90, 120, 180, 240,
                     source = "KOSTRA-DWD-2010R")
 d = 60
 tn = 20
-xts <- calc_modelrain(kostra, d = d, tn = tn, type = "EulerII")
+xts <- calc_designstorm(kostra, d = d, tn = tn, type = "EulerII")
 
 test_that("Construction of xts object works.", {
 

@@ -157,13 +157,13 @@ attr(pen, "index_rc")
 attr(pen, "returnperiods_a")
 ```
 
-### Model rain construction
+### Design storm estimation
 
-Furthermore, statistical precipitation can be used to model constructed time series. Currently, Euler Type I + II are implemented.
+Furthermore, statistical precipitation can be used for modelling of precipitation time series. Currently, Euler Type I + II are implemented.
 
 ```{r}
-# Euler Type II model rain with a duration of 60 minutes and a return period of 100 a
-xts <- calc_modelrain(kostra, d = 60, tn = 100, type = "EulerII")
+# Euler Type II design storm with a duration of 60 minutes and a return period of 100 a
+xts <- calc_designstorm(kostra, d = 60, tn = 100, type = "EulerII")
 
 xts
 ```

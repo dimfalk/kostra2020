@@ -1,7 +1,7 @@
 
-#' Calculate model rainfall from statistical precipitation
+#' Design storm calculation based on statistical precipitation
 #'
-#' @param data A tibble containing grid cell statistics from KOSTRA-2010R.
+#' @param data A tibble containing grid cell statistics from KOSTRA-DWD-2010R.
 #' @param d Duration in minutes.
 #' @param tn Return periods in years.
 #' @param type EulerI | EulerII.
@@ -11,9 +11,9 @@
 #'
 #' @examples
 #' \dontrun{
-#' xts <- calc_modelrain(kostra, d = 60, tn = 20, type = "EulerII")
+#' xts <- calc_designstorm(kostra, d = 60, tn = 20, type = "EulerII")
 #' }
-calc_modelrain <- function(data, d, tn, type = "EulerII") {
+calc_designstorm <- function(data, d, tn, type = "EulerII") {
 
   # debugging ------------------------------------------------------------------
 
@@ -141,7 +141,7 @@ calc_modelrain <- function(data, d, tn, type = "EulerII") {
   attr(xts, "Y") <- centroid[2]
   attr(xts, "CRS_EPSG") <- "25832"
 
-  attr(xts, "PARAMETER") <- "Niederschlagshöhe"
+  attr(xts, "PARAMETER") <- "Niederschlagshoehe"
 
   attr(xts, "TS_START") <- datetimes %>% min()
   attr(xts, "TS_END") <- datetimes %>% max()
