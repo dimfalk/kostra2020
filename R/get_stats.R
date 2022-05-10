@@ -49,7 +49,7 @@ get_stats <- function(grid_index) {
     as.numeric()
 
   # determine index based on user input
-  ind <- which(shp$INDEX_RC == grid_index)
+  ind <- which(shp[["INDEX_RC"]] == grid_index)
 
   # main -----------------------------------------------------------------------
 

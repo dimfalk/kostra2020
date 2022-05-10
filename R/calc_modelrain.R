@@ -88,6 +88,22 @@ calc_modelrain <- function(data, d, tn, type = "EulerII") {
     kostra_5min[recent_step[1]:(recent_step[2]+1), -1:-3] <- kostra_rel[d_pos[i], -1:-3] / steps[i]
   }
 
+  # get filenames for centroid calculation
+  files <- list.files(system.file(package = "kostra2010R"),
+                      pattern = "*.shp",
+                      full.names = TRUE,
+                      recursive = TRUE
+  )
+
+  # read shapefile to extract column names and for index identification
+  tile <- sf::st_read(files[1], quiet = TRUE)
+
+  # subset shapefile to relevant tile
+  tile <- tile[tile[["INDEX_RC"]] == attr(data, "index_rc"), ]
+
+  # calculate centroids
+  centroid <- sf::st_centroid(tile[["geometry"]]) %>% sf::st_transform(25832) %>% sf::st_coordinates()
+
   # main -----------------------------------------------------------------------
 
   # generate fictional datetime index
@@ -119,9 +135,25 @@ calc_modelrain <- function(data, d, tn, type = "EulerII") {
 
   # append meta data as attributes
   attr(xts, "STAT_ID") <- attr(data, "index_rc")
-  attr(xts, "STAT_NAME") <- "MODEL"
+  attr(xts, "STAT_NAME") <- attr(data, "source")
+
+  attr(xts, "X") <- centroid[1]
+  attr(xts, "Y") <- centroid[2]
+  attr(xts, "CRS_EPSG") <- "25832"
+
+  attr(xts, "PARAMETER") <- "Niederschlagshöhe"
+
+  attr(xts, "TS_START") <- datetimes %>% min()
+  attr(xts, "TS_END") <- datetimes %>% max()
   attr(xts, "TS_TYPE") <- "simulation"
-  attr(xts, "REMARKS") <- paste0("D = ", d, " mins; Tn = ", tn, " a; Type = ", type)
+
+  attr(xts, "MEAS_UNIT") <- "mm"
+  attr(xts, "MEAS_INTERVALTYPE") <- TRUE
+  attr(xts, "MEAS_RESOLUTION") <- 5
+  attr(xts, "MEAS_BLOCKING") <- "right"
+  attr(xts, "MEAS_STATEMENT") <- "sum"
+
+  attr(xts, "REMARKS") <- paste0("Modelled rainfall of type ", type, " with D = ", d, " mins and Tn = ", tn, " a, hN = ", zoo::coredata(xts) %>% sum(), " mm")
 
   # return object
   xts
