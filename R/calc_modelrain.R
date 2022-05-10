@@ -22,6 +22,30 @@ calc_modelrain <- function(data, d, tn, type = "EulerII") {
   # tn <- 100
   # type <- "EulerII"
 
+  # input validation -----------------------------------------------------------
+
+  if (missing(d)) {
+
+    stop("Duration has not been passed as an argument to the function.")
+
+  } else {
+
+    if (!inherits(d, "numeric")) {
+
+      stop("Duration level has to be of type numeric, e.g `d = 60`.")
+
+    } else {
+
+      set <- c(5, 10, 15, 20, 30, 45, 60, 90, 120, 180, 240, 360, 540, 720, 1080, 1440, 2880, 4320)
+
+      if (!(d %in% set)) {
+
+        stop("Duration level specified is not allowed. Please pick a value from the following: \n",
+             paste0(set, collapse = " "))
+      }
+    }
+  }
+
   # pre-processing -------------------------------------------------------------
 
   # locate index of specified duration, generate sequence for further indexing
