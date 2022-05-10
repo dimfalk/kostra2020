@@ -236,10 +236,10 @@ attr(pen, "returnperiods_a")
 #> [1]   200   500  1000  2000  5000 10000
 ```
 
-### Design storm estimation
+### Design storm generation
 
-Furthermore, statistical precipitation can be used for modelling of
-precipitation time series. Currently, Euler Type I + II are implemented.
+Furthermore, statistical precipitation can be used to create design
+storm time series. Currently, Euler Type I + II are implemented.
 
 ``` r
 # Euler Type II design storm with a duration of 60 minutes and a return period of 100 a

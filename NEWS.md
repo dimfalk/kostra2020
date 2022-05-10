@@ -1,6 +1,6 @@
 ## CHANGES IN kostra2010R VERSION 0.5
 
-* `calc_modelrain` now allows generation of model rainfall from statistical precipitation
+* `calc_designstorm` now allows generation of modelled rainfall from statistical precipitation
 
 ## CHANGES IN kostra2010R VERSION 0.4
 
