@@ -95,11 +95,11 @@ calc_designstorm <- function(data, d, tn, type = "EulerII") {
                       recursive = TRUE
   )
 
-  # read shapefile to extract column names and for index identification
+  # read shapefile for centroid coordinate estimation
   tile <- sf::st_read(files[1], quiet = TRUE)
 
   # subset shapefile to relevant tile
-  tile <- tile[tile[["INDEX_RC"]] == attr(data, "index_rc"), ]
+  tile <- dplyr::filter(tile, INDEX_RC == attr(data, "index_rc"))
 
   # calculate centroids
   centroid <- sf::st_centroid(tile[["geometry"]]) %>% sf::st_transform(25832) %>% sf::st_coordinates()
@@ -116,7 +116,7 @@ calc_designstorm <- function(data, d, tn, type = "EulerII") {
   # access relative 5min values
   values <- kostra_5min[, which(attr(data, "returnperiods_a") == tn) + 3] %>% round(2)
 
-
+  #
   if (type == "EulerI") {
 
     # do nothing, order is correct by default
