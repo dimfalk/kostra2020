@@ -11,40 +11,64 @@
 #'
 #' @examples
 #' \dontrun{
+#' xts <- calc_designstorm(stats, d = 60, tn = 20, type = "EulerII")
 #' xts <- calc_designstorm(kostra, d = 60, tn = 20, type = "EulerII")
 #' }
-calc_designstorm <- function(data, d, tn, type = "EulerII") {
+calc_designstorm <- function(data,
+                             d = NULL,
+                             tn,
+                             type = "EulerII") {
 
   # debugging ------------------------------------------------------------------
 
-  # data <- kostra
+  # data <- stats
   # d <- 60
   # tn <- 100
   # type <- "EulerII"
 
   # input validation -----------------------------------------------------------
 
-  if (missing(d)) {
-
-    stop("Duration has not been passed as an argument to the function.")
-
-  } else {
-
-    if (!inherits(d, "numeric")) {
-
-      stop("Duration level has to be of type numeric, e.g `d = 60`.")
-
-    } else {
-
-      set <- c(5, 10, 15, 20, 30, 45, 60, 90, 120, 180, 240, 360, 540, 720, 1080, 1440, 2880, 4320)
-
-      if (!(d %in% set)) {
-
-        stop("Duration level specified is not allowed. Please pick a value from the following: \n",
-             paste0(set, collapse = " "))
-      }
-    }
-  }
+  # if (is.null(d)) {
+  #
+  #   stop("Duration has not been passed as an argument to the function.")
+  #
+  # } else {
+  #
+  #   if (!inherits(d, "numeric")) {
+  #
+  #     stop("Duration level has to be of type numeric, e.g `d = 60`.")
+  #
+  #   } else {
+  #
+  #     set <- c(5, 10, 15, 20, 30, 45, 60, 90, 120, 180, 240, 360, 540, 720, 1080, 1440, 2880, 4320)
+  #
+  #     if (!(d %in% set)) {
+  #
+  #       stop("Duration level specified is not allowed. Please pick a value from the following: \n",
+  #            paste0(set, collapse = " "))
+  #     }
+  #   }
+  # }
+  #
+  # # -------------
+  #
+  # d <- "foo"
+  #
+  # set <- c(5, 10, 15, 20, 30, 45, 60, 90, 120, 180, 240, 360, 540, 720, 1080, 1440, 2880, 4320)
+  #
+  # stopifnot("Duration has not been passed as an argument to the function." =
+  #             !is.null(d),
+  #
+  #           "Duration has to be of type numeric, e.g `d = 60`." =
+  #             inherits(d, "numeric"),
+  #
+  #           "Duration level specified is not allowed. Please pick a value from the following: \n " =
+  #             (d %in% set))
+  #
+  # # -------------
+  #
+  # checkmate::assert_numeric(d)
+  # checkmate::assertChoice(d, set)
 
   # pre-processing -------------------------------------------------------------
 
@@ -52,19 +76,19 @@ calc_designstorm <- function(data, d, tn, type = "EulerII") {
   d_pos <- which(data["D_min"] == d) %>% seq() %>% sort(decreasing = TRUE)
 
   # init a new object using a subset of relevant durations
-  kostra_rel <- data[sort(d_pos), ]
+  data_rel <- data[sort(d_pos), ]
 
   # recalculate statistic, relative values per duration interval
-  kostra_rel[2:length(d_pos), -1:-3] <- data[2:length(d_pos), -1:-3] - data[1:(length(d_pos) - 1), -1:-3]
+  data_rel[2:length(d_pos), -1:-3] <- data[2:length(d_pos), -1:-3] - data[1:(length(d_pos) - 1), -1:-3]
 
   # init new object using time steps of 5 mins width, equidistant statistic
-  kostra_5min <- data.frame(D_min = seq(5, d, 5)) %>% tibble::as_tibble()
+  data_5min <- data.frame(D_min = seq(5, d, 5)) %>% tibble::as_tibble()
 
-  n_timesteps <- kostra_5min[["D_min"]] %>% length()
+  n_timesteps <- data_5min[["D_min"]] %>% length()
 
   # merge equidistant statistic with relative values
-  kostra_5min <- merge(kostra_5min,
-                       kostra_rel,
+  data_5min <- merge(data_5min,
+                       data_rel,
                        by = "D_min",
                        all = TRUE)
 
@@ -85,24 +109,27 @@ calc_designstorm <- function(data, d, tn, type = "EulerII") {
     recent_step <- c(n_timesteps - steps_cum[i], n_timesteps - steps_cum[i+1])
 
     # extract, divide and distribute values in corresponding rows
-    kostra_5min[recent_step[1]:(recent_step[2]+1), -1:-3] <- kostra_rel[d_pos[i], -1:-3] / steps[i]
+    data_5min[recent_step[1]:(recent_step[2]+1), -1:-3] <- data_rel[d_pos[i], -1:-3] / steps[i]
   }
 
-  # get filenames for centroid calculation
-  files <- list.files(system.file(package = "kostra2010R"),
-                      pattern = "*.shp",
-                      full.names = TRUE,
-                      recursive = TRUE
-  )
+  # get centroid coordinates from KOSTRA-DWD-2010R tiles
+  if (attr(data, "source") == "KOSTRA-DWD-2010R") {
 
-  # read shapefile for centroid coordinate estimation
-  tile <- sf::st_read(files[1], quiet = TRUE)
+    # get filenames for centroid calculation
+    files <- list.files(system.file(package = "kostra2010R"),
+                        pattern = "*.shp",
+                        full.names = TRUE,
+                        recursive = TRUE)
 
-  # subset shapefile to relevant tile
-  tile <- dplyr::filter(tile, INDEX_RC == attr(data, "index_rc"))
+    # read shapefile for centroid coordinate estimation
+    tile <- sf::st_read(files[1], quiet = TRUE)
 
-  # calculate centroids
-  centroid <- sf::st_centroid(tile[["geometry"]]) %>% sf::st_transform(25832) %>% sf::st_coordinates()
+    # subset shapefile to relevant tile
+    tile <- dplyr::filter(tile, INDEX_RC == attr(data, "index_rc"))
+
+    # calculate centroids
+    centroid <- sf::st_centroid(tile[["geometry"]]) %>% sf::st_transform(25832) %>% sf::st_coordinates()
+  }
 
   # main -----------------------------------------------------------------------
 
@@ -114,7 +141,7 @@ calc_designstorm <- function(data, d, tn, type = "EulerII") {
   datetimes <- seq(from = start, by = 60 * 5, length.out = n_timesteps)
 
   # access relative 5min values
-  values <- kostra_5min[, which(attr(data, "returnperiods_a") == tn) + 3] %>% round(2)
+  values <- data_5min[, which(attr(data, "returnperiods_a") == tn) + 3] %>% round(2)
 
   #
   if (type == "EulerI") {
@@ -133,14 +160,23 @@ calc_designstorm <- function(data, d, tn, type = "EulerII") {
   # create xts object
   xts <- xts::xts(values, order.by = datetimes)
 
-  # append meta data as attributes
-  attr(xts, "STAT_ID") <- attr(data, "index_rc")
-  attr(xts, "STAT_NAME") <- attr(data, "source")
+  # append meta data as attributes; TODO: timeseriesIO::xts_init("light")
+  if (attr(data, "source") == "KOSTRA-DWD-2010R") {
 
-  attr(xts, "X") <- centroid[1]
-  attr(xts, "Y") <- centroid[2]
+    attr(xts, "STAT_ID") <- attr(data, "index_rc")
+    attr(xts, "STAT_NAME") <- attr(data, "source")
+    attr(xts, "X") <- centroid[1]
+    attr(xts, "Y") <- centroid[2]
+
+  } else if (attr(data, "source") == "DWA-A 531 (2017)") {
+
+    attr(xts, "STAT_ID") <- attr(data, "index_rc")
+    attr(xts, "STAT_NAME") <- attr(data, "source")
+    attr(xts, "X") <- " "
+    attr(xts, "Y") <- " "
+  }
+
   attr(xts, "CRS_EPSG") <- "25832"
-
   attr(xts, "PARAMETER") <- "Niederschlagshoehe"
 
   attr(xts, "TS_START") <- datetimes %>% min()
