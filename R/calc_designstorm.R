@@ -11,7 +11,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' xts <- calc_designstorm(stats, d = 60, tn = 20, type = "EulerII")
+#' xts <- calc_designstorm(stats, d = 240, tn = 50, type = "EulerII")
 #' xts <- calc_designstorm(kostra, d = 60, tn = 20, type = "EulerII")
 #' }
 calc_designstorm <- function(data,
@@ -170,8 +170,8 @@ calc_designstorm <- function(data,
 
   } else if (attr(data, "source") == "DWA-A 531 (2017)") {
 
-    attr(xts, "STAT_ID") <- attr(data, "index_rc")
-    attr(xts, "STAT_NAME") <- attr(data, "source")
+    attr(xts, "STAT_ID") <- attr(data, "id")
+    attr(xts, "STAT_NAME") <- attr(data, "name")
     attr(xts, "X") <- " "
     attr(xts, "Y") <- " "
   }
@@ -179,8 +179,8 @@ calc_designstorm <- function(data,
   attr(xts, "CRS_EPSG") <- "25832"
   attr(xts, "PARAMETER") <- "Niederschlagshoehe"
 
-  attr(xts, "TS_START") <- datetimes %>% min()
-  attr(xts, "TS_END") <- datetimes %>% max()
+  attr(xts, "TS_START") <- attr(data, "period")[1]
+  attr(xts, "TS_END") <- attr(data, "period")[2]
   attr(xts, "TS_TYPE") <- "simulation"
 
   attr(xts, "MEAS_UNIT") <- "mm"
