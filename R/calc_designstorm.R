@@ -192,7 +192,14 @@ calc_designstorm <- function(data,
   attr(xts, "MEAS_BLOCKING") <- "right"
   attr(xts, "MEAS_STATEMENT") <- "sum"
 
-  attr(xts, "REMARKS") <- paste0("Modelled rainfall of type ", type, " with D = ", d, " mins and Tn = ", tn, " a, hN = ", zoo::coredata(xts) %>% sum(), " mm")
+  type_long <- switch(type,
+
+                      "EulerI" = "Euler Typ I",
+                      "EulerII" = "Euler Typ II")
+
+  attr(xts, "REMARKS") <- paste0("Modellregen ", type_long, " auf Grundlage von ", attr(data, "source"), "\n",
+                                 "D = ", d, " min | Tn = ", tn, " a | hN = ", zoo::coredata(xts) %>% sum(), " mm\n",
+                                 rep("-", 80) %>% paste(collapse = ""), "\n")
 
   # return object
   xts
