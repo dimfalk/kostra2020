@@ -283,8 +283,8 @@ ggplot(longdata, aes(D_min, value, colour = name)) +
   geom_line() +
   xlab("duration [min]") +
   ylab("precipitation height [mm]") +
-  ggtitle("hN as a function of duration and return periods as per KOSTRA-2010R",
-          subtitle = paste0("INDEX_RC: ", attr(kostra, "index_rc")))
+  ggtitle(paste0("hN as a function of duration and return periods as per ", attr(kostra, "source")),
+          subtitle = paste0("INDEX_RC: ", attr(kostra, "id")))
 ```
 
 <img src="man/figures/README-unnamed-chunk-16-1.png" width="100%" />
