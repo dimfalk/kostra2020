@@ -98,7 +98,7 @@ get_stats <- function(grid_index) {
   df <- df[c("D_min", "D_hour", "D_day", cnames)]
 
   # append meta data as attributes
-  attr(df, "index_rc") <- grid_index
+  attr(df, "id") <- grid_index
   attr(df, "period") <- c("01.01.1951", "31.12.2010") %>% strptime("%d.%m.%Y")
   attr(df, "returnperiods_a") <- rperiod
   attr(df, "source") <- "KOSTRA-DWD-2010R"

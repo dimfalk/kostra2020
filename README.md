@@ -135,15 +135,17 @@ kostra
 #> # ... with 2 more variables: HN_050A <dbl>, HN_100A <dbl>
 ```
 
-The value of “INDEX_RC” as well as the numerical return periods have
-been assigned as attributes to the tibble.
+Some describing attributes have been assigned to the tibble.
 
 ``` r
-attr(kostra, "index_rc")
+attr(kostra, "id")
 #> [1] "49011"
-
+attr(kostra, "period")
+#> [1] "1951-01-01 CET" "2010-12-31 CET"
 attr(kostra, "returnperiods_a")
 #> [1]   1   2   3   5  10  20  30  50 100
+attr(kostra, "source")
+#> [1] "KOSTRA-DWD-2010R"
 ```
 
 ### Get precipitation heights
@@ -230,7 +232,7 @@ pen
 #> 18  4320   72       3   142.    159.     172.     185.     202.      215.
 
 # Former attribute names are preserved
-attr(pen, "index_rc")
+attr(pen, "id")
 #> [1] "49011"
 attr(pen, "returnperiods_a")
 #> [1]   200   500  1000  2000  5000 10000

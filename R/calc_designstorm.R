@@ -22,6 +22,7 @@ calc_designstorm <- function(data,
   # debugging ------------------------------------------------------------------
 
   # data <- stats
+  # data <- kostra
   # d <- 60
   # tn <- 100
   # type <- "EulerII"
@@ -125,7 +126,7 @@ calc_designstorm <- function(data,
     tile <- sf::st_read(files[1], quiet = TRUE)
 
     # subset shapefile to relevant tile
-    tile <- dplyr::filter(tile, INDEX_RC == attr(data, "index_rc"))
+    tile <- dplyr::filter(tile, INDEX_RC == attr(data, "id"))
 
     # calculate centroids
     centroid <- sf::st_centroid(tile[["geometry"]]) %>% sf::st_transform(25832) %>% sf::st_coordinates()
@@ -160,15 +161,17 @@ calc_designstorm <- function(data,
   # create xts object
   xts <- xts::xts(values, order.by = datetimes)
 
+  # post-processing ------------------------------------------------------------
+
   # append meta data as attributes; TODO: timeseriesIO::xts_init("light")
   if (attr(data, "source") == "KOSTRA-DWD-2010R") {
 
-    attr(xts, "STAT_ID") <- attr(data, "index_rc")
+    attr(xts, "STAT_ID") <- attr(data, "id")
     attr(xts, "STAT_NAME") <- attr(data, "source")
     attr(xts, "X") <- centroid[1]
     attr(xts, "Y") <- centroid[2]
 
-  } else if (attr(data, "source") == "DWA-A 531 (2017)") {
+  } else if (attr(data, "source") == "DWA-A 531") {
 
     attr(xts, "STAT_ID") <- attr(data, "id")
     attr(xts, "STAT_NAME") <- attr(data, "name")

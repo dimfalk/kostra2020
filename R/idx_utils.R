@@ -79,5 +79,5 @@ idx_get <- function(location) {
   ind <- lengths(sf::st_intersects(shp, location)) > 0
 
   # returns index of relevant grid
-  shp$INDEX_RC[ind] %>% as.character()
+  shp[["INDEX_RC"]][ind] %>% as.character()
 }
