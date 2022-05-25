@@ -12,11 +12,15 @@
 #' }
 #' @references Verworn & Kummer (2006): Praxisrelevante Extremwerte des Niederschlages (PEN).
 #' @references Verworn & Draschoff (2008): PEN-Erweiterung.
-calc_pen <- function(data) {
+calc_pen <- function(data = NULL) {
 
   # debugging ------------------------------------------------------------------
 
   # data <- kostra
+
+  # input validation -----------------------------------------------------------
+
+  checkmate::assert_tibble(data)
 
   # main -----------------------------------------------------------------------
 

@@ -12,13 +12,26 @@
 #' \dontrun{
 #' get_returnp(kostra, hn = 69.3, d = 1440)
 #' }
-get_returnp <- function(data, hn, d) {
+get_returnp <- function(data = NULL,
+                        hn = NULL,
+                        d = NULL) {
 
   # debugging ------------------------------------------------------------------
 
   # data <- kostra
   # hn <- 69.3
   # d <- 1440
+
+  # input validation -----------------------------------------------------------
+
+  checkmate::assert_tibble(data)
+
+  checkmate::assert_numeric(hn, len = 1, lower = 0)
+
+  allowed_d <- c(5, 10, 15, 20, 30, 45, 60, 90, 120, 180, 240, 360, 540, 720,
+                 1080, 1440, 2880, 4320)
+  checkmate::assert_numeric(d, len = 1)
+  checkmate::assert_choice(d, allowed_d)
 
   # pre-processing -------------------------------------------------------------
 

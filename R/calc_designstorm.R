@@ -14,14 +14,13 @@
 #' xts <- calc_designstorm(stats, d = 240, tn = 50, type = "EulerII")
 #' xts <- calc_designstorm(kostra, d = 60, tn = 20, type = "EulerII")
 #' }
-calc_designstorm <- function(data,
+calc_designstorm <- function(data = NULL,
                              d = NULL,
-                             tn,
-                             type = "EulerII") {
+                             tn = NULL,
+                             type = NULL) {
 
   # debugging ------------------------------------------------------------------
 
-  # data <- stats
   # data <- kostra
   # d <- 60
   # tn <- 100
@@ -29,47 +28,20 @@ calc_designstorm <- function(data,
 
   # input validation -----------------------------------------------------------
 
-  # if (is.null(d)) {
-  #
-  #   stop("Duration has not been passed as an argument to the function.")
-  #
-  # } else {
-  #
-  #   if (!inherits(d, "numeric")) {
-  #
-  #     stop("Duration level has to be of type numeric, e.g `d = 60`.")
-  #
-  #   } else {
-  #
-  #     set <- c(5, 10, 15, 20, 30, 45, 60, 90, 120, 180, 240, 360, 540, 720, 1080, 1440, 2880, 4320)
-  #
-  #     if (!(d %in% set)) {
-  #
-  #       stop("Duration level specified is not allowed. Please pick a value from the following: \n",
-  #            paste0(set, collapse = " "))
-  #     }
-  #   }
-  # }
-  #
-  # # -------------
-  #
-  # d <- "foo"
-  #
-  # set <- c(5, 10, 15, 20, 30, 45, 60, 90, 120, 180, 240, 360, 540, 720, 1080, 1440, 2880, 4320)
-  #
-  # stopifnot("Duration has not been passed as an argument to the function." =
-  #             !is.null(d),
-  #
-  #           "Duration has to be of type numeric, e.g `d = 60`." =
-  #             inherits(d, "numeric"),
-  #
-  #           "Duration level specified is not allowed. Please pick a value from the following: \n " =
-  #             (d %in% set))
-  #
-  # # -------------
-  #
-  # checkmate::assert_numeric(d)
-  # checkmate::assertChoice(d, set)
+  checkmate::assert_tibble(data)
+
+  allowed_d <- c(5, 10, 15, 20, 30, 45, 60, 90, 120, 180, 240, 360, 540, 720,
+                 1080, 1440, 2880, 4320)
+  checkmate::assert_numeric(d, len = 1)
+  checkmate::assert_choice(d, allowed_d)
+
+  allowed_tn <- c(1, 2, 3, 5, 10, 20, 30, 50, 100)
+  checkmate::assert_numeric(tn, len = 1)
+  checkmate::assert_choice(tn, allowed_tn)
+
+  allowed_type <- c("EulerI", "EulerII")
+  checkmate::assert_character(type, len = 1)
+  checkmate::assert_choice(type, allowed_type)
 
   # pre-processing -------------------------------------------------------------
 

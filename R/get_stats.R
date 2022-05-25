@@ -10,11 +10,15 @@
 #' \dontrun{
 #' kostra <- get_stats("49011")
 #' }
-get_stats <- function(grid_index) {
+get_stats <- function(grid_index = NULL) {
 
   # debugging ------------------------------------------------------------------
 
   # grid_index <- "49011"
+
+  # input validation -----------------------------------------------------------
+
+  checkmate::assert_character(grid_index, len = 1, min.chars = 1, max.chars = 6)
 
   # pre-processing -------------------------------------------------------------
 

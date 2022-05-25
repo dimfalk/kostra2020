@@ -9,7 +9,13 @@
 #' \dontrun{
 #' idx_exists("49011")
 #' }
-idx_exists <- function(idx) {
+idx_exists <- function(idx = NULL) {
+
+  # input validation -----------------------------------------------------------
+
+  checkmate::assert_character(idx, len = 1, min.chars = 1, max.chars = 6)
+
+  # main -----------------------------------------------------------------------
 
   # get file names
   files <- list.files(system.file(package = "kostra2010R"),
@@ -40,7 +46,19 @@ idx_exists <- function(idx) {
 #' \dontrun{
 #' idx_build(11, 49)
 #' }
-idx_build <- function(col, row) {
+idx_build <- function(col = NULL, row = NULL) {
+
+  # debugging ------------------------------------------------------------------
+
+  # col <- 11
+  # row <- 49
+
+  # input validation -----------------------------------------------------------
+
+  checkmate::assert_numeric(col, len = 1, lower = 0, upper = 78)
+  checkmate::assert_numeric(row, len = 1, lower = 0, upper = 106)
+
+  # main -----------------------------------------------------------------------
 
   # line number multiplied by 1000 plus column number
   as.character(row * 1000 + col)
@@ -60,7 +78,13 @@ idx_build <- function(col, row) {
 #' \dontrun{
 #' idx_get(p)
 #' }
-idx_get <- function(location) {
+idx_get <- function(location = NULL) {
+
+  # input validation -----------------------------------------------------------
+
+  checkmate::assert_class(location, "sfc_POINT")
+
+  # main -----------------------------------------------------------------------
 
   # get file names
   files <- list.files(system.file(package = "kostra2010R"),
