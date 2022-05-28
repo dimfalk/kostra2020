@@ -65,10 +65,48 @@ idx_build <- function(col = NULL, row = NULL) {
 }
 
 
+#' Construct an sf object of type point using coordinates or specific polygons
+#'
+#' @param input Vector of length 2 containing numeric representing coordinates,
+#'   string of length 1 representing the name of a municipality,
+#'   or string of length 5 representing a postal zip code.
+#' @param crs (optional) Coordinate reference system definition.
+#'
+#' @return An object of type `sfc_POINT`.
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' p1 <- sf_get_centroid(input = c(367773, 5703579))
+#' p2 <- sf_get_centroid(input = c(6.09, 50.46), crs = 4326)
+#' p3 <- sf_get_centroid(input = "Essen")
+#' p4 <- sf_get_centroid(input = "45145")
+#' }
+sf_get_centroid <- function(input,
+                            crs = 25832) {
+
+  # vector of length 2 containing numeric representing coordinates
+  if (inherits(input, "numeric") && length(input) == 2) {
+
+    sf::st_point(input) %>% sf::st_sfc(., crs = crs)
+
+    # string of length 1 representing the name of a municipality
+  } else if (inherits(input, "character") && length(input) == 1 && is.na(as.numeric(input))) {
+
+    # TODO
+
+    # string of length 5 representing a postal zip code
+  } else if (inherits(input, "character") && length(input) == 1 && is.numeric(as.numeric(input))) {
+
+    # TODO
+  }
+}
+
+
 
 #' Get index of KOSTRA-2010R cell by means of intersection with given location
 #'
-#' @param location Sf object containing a point feature.
+#' @param location An object of type `sfc_POINT`.
 #'
 #' @return A string containing the unique representation of the relevant
 #'   "INDEX_RC" field.
