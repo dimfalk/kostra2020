@@ -30,6 +30,7 @@ calc_pen <- function(data = NULL) {
 
   # log = natural logarithm (ln);
   # base = euler's number e = exp(1)
+  # factors (-10 %, +20 %) taken from Malitz & Ertel (2015)
   u <- 0.9 * hN_lower
   w <- (1.2 * hN_upper - u) / log(100)
 
