@@ -75,14 +75,17 @@ calc_designstorm <- function(data = NULL,
   # cumulative view to facilitate indexing
   steps_cum <- c(0, steps) %>% cumsum()
 
-  # iterate over steps, equidistant recalculation
-  for (i in 1:length(steps)) {
+  # iterate over steps, equidistant recalculation, if necessary
+  if (steps_cum != 0) {
 
-    # interval definition
-    recent_step <- c(n_timesteps - steps_cum[i], n_timesteps - steps_cum[i+1])
+    for (i in 1:length(steps)) {
 
-    # extract, divide and distribute values in corresponding rows
-    data_5min[recent_step[1]:(recent_step[2]+1), -1:-3] <- data_rel[d_pos[i], -1:-3] / steps[i]
+      # interval definition
+      recent_step <- c(n_timesteps - steps_cum[i], n_timesteps - steps_cum[i+1])
+
+      # extract, divide and distribute values in corresponding rows
+      data_5min[recent_step[1]:(recent_step[2]+1), -1:-3] <- data_rel[d_pos[i], -1:-3] / steps[i]
+    }
   }
 
   # get centroid coordinates from KOSTRA-DWD-2010R tiles
@@ -121,7 +124,7 @@ calc_designstorm <- function(data = NULL,
 
     # do nothing, order is correct by default
 
-  } else  if (type == "EulerII") {
+  } else if (type == "EulerII") {
 
     # get position of 0.3 quantile
     breakpoint <- stats::quantile(1:n_timesteps, probs = 0.3) %>% round(0) %>% as.numeric()
