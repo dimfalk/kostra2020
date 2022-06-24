@@ -76,7 +76,7 @@ calc_designstorm <- function(data = NULL,
   steps_cum <- c(0, steps) %>% cumsum()
 
   # iterate over steps, equidistant recalculation, if necessary
-  if (steps_cum != 0) {
+  if (length(steps) != 0) {
 
     for (i in 1:length(steps)) {
 
