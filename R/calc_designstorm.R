@@ -11,33 +11,33 @@
 #'
 #' @examples
 #' \dontrun{
-#' xts <- calc_designstorm(stats, d = 240, tn = 50, type = "EulerII")
-#' xts <- calc_designstorm(kostra, d = 60, tn = 20, type = "EulerII")
+#' xts <- calc_designstorm(stats, tn = 50, d = 240, type = "EulerII")
+#' xts <- calc_designstorm(kostra, tn = 20, d = 60, type = "EulerII")
 #' }
 calc_designstorm <- function(data = NULL,
-                             d = NULL,
                              tn = NULL,
+                             d = NULL,
                              type = NULL) {
 
   # debugging ------------------------------------------------------------------
 
   # data <- kostra
-  # d <- 60
   # tn <- 100
+  # d <- 60
   # type <- "EulerII"
 
   # input validation -----------------------------------------------------------
 
   checkmate::assert_tibble(data)
 
+  allowed_tn <- c(1, 2, 3, 5, 10, 20, 30, 50, 100)
+  checkmate::assert_numeric(tn, len = 1)
+  checkmate::assert_choice(tn, allowed_tn)
+
   allowed_d <- c(5, 10, 15, 20, 30, 45, 60, 90, 120, 180, 240, 360, 540, 720,
                  1080, 1440, 2880, 4320)
   checkmate::assert_numeric(d, len = 1)
   checkmate::assert_choice(d, allowed_d)
-
-  allowed_tn <- c(1, 2, 3, 5, 10, 20, 30, 50, 100)
-  checkmate::assert_numeric(tn, len = 1)
-  checkmate::assert_choice(tn, allowed_tn)
 
   allowed_type <- c("EulerI", "EulerII")
   checkmate::assert_character(type, len = 1)
@@ -173,7 +173,7 @@ calc_designstorm <- function(data = NULL,
                       "EulerII" = "Euler Typ II")
 
   attr(xts, "REMARKS") <- paste0("Modellregen ", type_long, " auf Grundlage von ", attr(data, "source"), "\n",
-                                 "D = ", d, " min | Tn = ", tn, " a | hN = ", zoo::coredata(xts) %>% sum(), " mm\n",
+                                 "Tn = ", tn, " a | D = ", d, " min | hN = ", zoo::coredata(xts) %>% sum(), " mm\n",
                                  rep("-", 80) %>% paste(collapse = ""), "\n")
 
   # return object
