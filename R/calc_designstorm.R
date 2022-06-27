@@ -35,7 +35,7 @@ calc_designstorm <- function(data = NULL,
   checkmate::assert_choice(tn, allowed_tn)
 
   allowed_d <- attr(data, "durations_min")
-  checkmate::assert_numeric(d, len = 1)
+  checkmate::assert_numeric(d, len = 1, lower = 10)
   checkmate::assert_choice(d, allowed_d)
 
   allowed_type <- c("EulerI", "EulerII")
@@ -50,19 +50,20 @@ calc_designstorm <- function(data = NULL,
   # init a new object using a subset of relevant durations
   data_rel <- data[sort(d_pos), ]
 
-  # recalculate statistic, relative values per duration interval
+  # recalculate statistic to relative values per duration interval
   data_rel[2:length(d_pos), -1:-3] <- data[2:length(d_pos), -1:-3] - data[1:(length(d_pos) - 1), -1:-3]
 
-  # init new object using time steps of 5 mins width, equidistant statistic
+
+  # init new df object using time steps of 5 mins width, equidistant stats
   data_5min <- data.frame(D_min = seq(5, d, 5)) %>% tibble::as_tibble()
 
   n_timesteps <- data_5min[["D_min"]] %>% length()
 
   # merge equidistant statistic with relative values
   data_5min <- merge(data_5min,
-                       data_rel,
-                       by = "D_min",
-                       all = TRUE)
+                     data_rel,
+                     by = "D_min",
+                     all = TRUE)
 
   # iterator definition, delta_t between intervals divided by resolution
   steps <- (data[["D_min"]][1:d_pos[1]] %>% diff() / 5) %>%
@@ -74,7 +75,8 @@ calc_designstorm <- function(data = NULL,
   # cumulative view to facilitate indexing
   steps_cum <- c(0, steps) %>% cumsum()
 
-  # iterate over steps, equidistant recalculation, if necessary
+  # iterate over steps, equidistant recalculation (if necessary)
+  # it is not for the first rows, d = 10, 15, 20 mins
   if (length(steps) != 0) {
 
     for (i in 1:length(steps)) {
@@ -86,6 +88,39 @@ calc_designstorm <- function(data = NULL,
       data_5min[recent_step[1]:(recent_step[2]+1), -1:-3] <- data_rel[d_pos[i], -1:-3] / steps[i]
     }
   }
+
+  # main -----------------------------------------------------------------------
+
+  # generate fictional datetime index
+  start <- "2000-01-01 00:00" %>%
+    strptime(format="%Y-%m-%d %H:%M") %>%
+    as.POSIXct()
+
+  datetimes <- seq(from = start, by = 60 * 5, length.out = n_timesteps)
+
+  # access relative 5min values
+  values <- data_5min[, which(attr(data, "returnperiods_a") == tn) + 3] %>%
+    round(2)
+
+  #
+  if (type == "EulerI") {
+
+    # do nothing, order is correct by default
+
+  } else if (type == "EulerII") {
+
+    # get position of 0.3 quantile
+    breakpoint <- stats::quantile(1:n_timesteps, probs = 0.3) %>% round(0) %>%
+      as.numeric()
+
+    # values in increasing order for first positions up to 0.3 quantile
+    values[1:breakpoint] <- values[1:breakpoint] %>% sort(decreasing = FALSE)
+  }
+
+  # create xts object
+  xts <- xts::xts(values, order.by = datetimes)
+
+  # post-processing ------------------------------------------------------------
 
   # get centroid coordinates from KOSTRA-DWD-2010R tiles
   if (attr(data, "source") == "KOSTRA-DWD-2010R") {
@@ -103,39 +138,11 @@ calc_designstorm <- function(data = NULL,
     tile <- dplyr::filter(tile, INDEX_RC == attr(data, "id"))
 
     # calculate centroids
-    centroid <- sf::st_centroid(tile[["geometry"]]) %>% sf::st_transform(25832) %>% sf::st_coordinates()
+    centroid <- sf::st_centroid(tile[["geometry"]]) %>%
+      sf::st_transform(25832) %>%
+      sf::st_coordinates()
   }
 
-  # main -----------------------------------------------------------------------
-
-  # generate fictional datetime index
-  start <- "2000-01-01 00:00" %>%
-    strptime(format="%Y-%m-%d %H:%M") %>%
-    as.POSIXct()
-
-  datetimes <- seq(from = start, by = 60 * 5, length.out = n_timesteps)
-
-  # access relative 5min values
-  values <- data_5min[, which(attr(data, "returnperiods_a") == tn) + 3] %>% round(2)
-
-  #
-  if (type == "EulerI") {
-
-    # do nothing, order is correct by default
-
-  } else if (type == "EulerII") {
-
-    # get position of 0.3 quantile
-    breakpoint <- stats::quantile(1:n_timesteps, probs = 0.3) %>% round(0) %>% as.numeric()
-
-    # values in increasing order for first positions up to 0.3 quantile
-    values[1:breakpoint] <- values[1:breakpoint] %>% sort(decreasing = FALSE)
-  }
-
-  # create xts object
-  xts <- xts::xts(values, order.by = datetimes)
-
-  # post-processing ------------------------------------------------------------
 
   # append meta data as attributes; TODO: timeseriesIO::xts_init("light")
   if (attr(data, "source") == "KOSTRA-DWD-2010R") {
