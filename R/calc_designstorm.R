@@ -30,12 +30,11 @@ calc_designstorm <- function(data = NULL,
 
   checkmate::assert_tibble(data)
 
-  allowed_tn <- c(1, 2, 3, 5, 10, 20, 30, 50, 100)
+  allowed_tn <- attr(data, "returnperiods_a")
   checkmate::assert_numeric(tn, len = 1)
   checkmate::assert_choice(tn, allowed_tn)
 
-  allowed_d <- c(5, 10, 15, 20, 30, 45, 60, 90, 120, 180, 240, 360, 540, 720,
-                 1080, 1440, 2880, 4320)
+  allowed_d <- attr(data, "durations_min")
   checkmate::assert_numeric(d, len = 1)
   checkmate::assert_choice(d, allowed_d)
 
