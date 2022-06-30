@@ -4,7 +4,7 @@
 \alias{get_stats}
 \title{Get cell-specific statistics from the KOSTRA-2010R data set}
 \usage{
-get_stats(grid_index)
+get_stats(grid_index = NULL)
 }
 \arguments{
 \item{grid_index}{A String representing the relevant "INDEX_RC" field.}

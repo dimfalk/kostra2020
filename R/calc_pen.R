@@ -28,8 +28,8 @@ calc_pen <- function(data = NULL) {
   hN_lower <- data[["HN_001A"]]
   hN_upper <- data[["HN_100A"]]
 
-  # log = natural logarithm (ln);
-  # base = euler's number e = exp(1)
+  # log: natural logarithm (ln);
+  # base: euler's number e = exp(1)
   # factors (-10 %, +20 %) taken from Malitz & Ertel (2015)
   u <- 0.9 * hN_lower
   w <- (1.2 * hN_upper - u) / log(100)
@@ -44,7 +44,7 @@ calc_pen <- function(data = NULL) {
   # iterate over return periods and calculate statistical values
   for (i in 1:length(rperiod)) {
 
-    tib[cnames[i]] <- (u + w * log(rperiod[i])) %>% round(1)
+    tib[cnames[i]] <- (u + w * log(rperiod[i])) |> round(1)
   }
 
   # overwrite meta data

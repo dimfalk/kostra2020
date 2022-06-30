@@ -39,5 +39,5 @@ get_precip <- function(data = NULL,
   # get index and return object
   ind <- which(attr(data, "returnperiods_a") == tn)
 
-  data[data[["D_min"]] == d, ind + 3] %>% as.numeric()
+  data[data[["D_min"]] == d, ind + 3] |> as.numeric()
 }

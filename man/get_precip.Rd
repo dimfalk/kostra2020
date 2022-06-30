@@ -4,7 +4,7 @@
 \alias{get_precip}
 \title{Get precipitation height for a specified duration and return period}
 \usage{
-get_precip(data, d, tn)
+get_precip(data = NULL, d = NULL, tn = NULL)
 }
 \arguments{
 \item{data}{A tibble containing grid cell statistics from KOSTRA-2010R.}

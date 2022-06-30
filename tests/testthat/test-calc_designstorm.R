@@ -12,12 +12,13 @@ kostra <- structure(list(D_min = c(5, 10, 15, 20, 30, 45, 60, 90, 120, 180, 240,
                          HN_100A = c(14.4, 21.6, 26.8, 30.9, 37.5, 45, 51, 53.9, 56.2, 59.6, 62.1, 66, 70.1, 73.3, 78.1, 81.8, 97.9, 108.1)),
                     class = c("tbl_df", "tbl", "data.frame"),
                     row.names = c(NA, -18L),
-                    index_rc = "49011",
+                    id = "49011",
                     returnperiods_a = c(1, 2, 3, 5, 10, 20, 30, 50, 100),
+                    durations_min = c(5, 10, 15, 20, 30, 45, 60, 90, 120, 180, 240, 360, 540, 720, 1080, 1440, 2880, 4320),
                     source = "KOSTRA-DWD-2010R")
-d = 60
-tn = 20
-xts <- calc_designstorm(kostra, d = d, tn = tn, type = "EulerII")
+
+d <- 60
+xts <- calc_designstorm(kostra, d = d, tn = 20, type = "EulerII")
 
 test_that("Construction of xts object works.", {
 
@@ -36,12 +37,12 @@ test_that("Length of time series is according to specifications.", {
 
 test_that("Sum of time series values equals statistical value from table.", {
 
-  expect_equal(zoo::coredata(xts) %>% sum(), 38.7)
+  expect_equal(zoo::coredata(xts) |> sum(), 38.7)
 })
 
 test_that("Maximum time series value equals first value from table.", {
 
-  expect_equal(zoo::coredata(xts) %>% max(), 11.3)
+  expect_equal(zoo::coredata(xts) |> max(), 11.3)
 })
 
 test_that("Maximum time series value is in correct position.", {

@@ -30,8 +30,8 @@ get_stats <- function(grid_index = NULL) {
   )
 
   # parse intervals from file names
-  intervals <- files %>%
-    stringr::str_sub(start = 60, end = 63) %>%
+  intervals <- files |>
+    stringr::str_sub(start = 60, end = 63) |>
     as.numeric()
 
   # overwrite filenames using full.names = TRUE for reading purposes
@@ -45,11 +45,11 @@ get_stats <- function(grid_index = NULL) {
   shp <- sf::st_read(files[1], quiet = TRUE)
 
   # get return periods from column names for subsetting
-  cnames <- colnames(shp)[colnames(shp) %>% stringr::str_detect("HN_*")]
+  cnames <- colnames(shp)[colnames(shp) |> stringr::str_detect("HN_*")]
 
   # get return periods from column names as numerical meta data
-  rperiod <- cnames %>%
-    stringr::str_sub(start = 4, end = 6) %>%
+  rperiod <- cnames |>
+    stringr::str_sub(start = 4, end = 6)|>
     as.numeric()
 
   # determine index based on user input
@@ -64,7 +64,7 @@ get_stats <- function(grid_index = NULL) {
     shp <- sf::st_read(files[i], quiet = TRUE)
 
     # subset original data.frame based on index, relevant columns
-    temp <- shp[ind, cnames] %>% sf::st_drop_geometry()
+    temp <- shp[ind, cnames] |> sf::st_drop_geometry()
 
     # init data.frame, otherwise rbind
     if (i == 1) {
@@ -77,7 +77,7 @@ get_stats <- function(grid_index = NULL) {
   # post-processing ------------------------------------------------------------
 
   # column names
-  cnames <- cnames %>% stringr::str_sub(start = 1, end = -2)
+  cnames <- cnames |> stringr::str_sub(start = 1, end = -2)
   colnames(df) <- cnames
 
   # NA values
@@ -103,7 +103,7 @@ get_stats <- function(grid_index = NULL) {
 
   # append meta data as attributes
   attr(df, "id") <- grid_index
-  attr(df, "period") <- c("01.01.1951", "31.12.2010") %>% strptime("%d.%m.%Y")
+  attr(df, "period") <- c("01.01.1951", "31.12.2010") |> strptime("%d.%m.%Y")
   attr(df, "returnperiods_a") <- rperiod
   attr(df, "durations_min") <- intervals
   attr(df, "source") <- "KOSTRA-DWD-2010R"

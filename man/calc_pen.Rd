@@ -4,7 +4,7 @@
 \alias{calc_pen}
 \title{Extrapolation of precipitation heights for Tn > 100 a according to PEN-LAWA}
 \usage{
-calc_pen(data)
+calc_pen(data = NULL)
 }
 \arguments{
 \item{data}{A tibble containing grid cell statistics from KOSTRA-2010R.}

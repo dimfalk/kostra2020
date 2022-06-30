@@ -4,7 +4,7 @@
 \alias{get_returnp}
 \title{Get return period class for specified precipitation height}
 \usage{
-get_returnp(data, hn, d)
+get_returnp(data = NULL, hn = NULL, d = NULL)
 }
 \arguments{
 \item{data}{A tibble containing grid cell statistics from KOSTRA-2010R.}

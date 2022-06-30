@@ -1,4 +1,3 @@
-
 #' Design storm calculation based on statistical precipitation
 #'
 #' @param data A tibble containing grid cell statistics from KOSTRA-DWD-2010R.
@@ -6,6 +5,7 @@
 #' @param tn Return periods in years.
 #' @param type EulerI | EulerII.
 #'
+#' @importFrom rlang .data
 #' @return An xts object.
 #' @export
 #'
@@ -22,7 +22,7 @@ calc_designstorm <- function(data = NULL,
   # debugging ------------------------------------------------------------------
 
   # data <- kostra
-  # tn <- 100
+  # tn <- 20
   # d <- 60
   # type <- "EulerII"
 
@@ -45,7 +45,7 @@ calc_designstorm <- function(data = NULL,
   # pre-processing -------------------------------------------------------------
 
   # locate index of specified duration, generate sequence for further indexing
-  d_pos <- which(data["D_min"] == d) %>% seq() %>% sort(decreasing = TRUE)
+  d_pos <- which(data["D_min"] == d) |> seq() |> sort(decreasing = TRUE)
 
   # init a new object using a subset of relevant durations
   data_rel <- data[sort(d_pos), ]
@@ -55,9 +55,9 @@ calc_designstorm <- function(data = NULL,
 
 
   # init new df object using time steps of 5 mins width, equidistant stats
-  data_5min <- data.frame(D_min = seq(5, d, 5)) %>% tibble::as_tibble()
+  data_5min <- data.frame(D_min = seq(5, d, 5)) |> tibble::as_tibble()
 
-  n_timesteps <- data_5min[["D_min"]] %>% length()
+  n_timesteps <- data_5min[["D_min"]] |> length()
 
   # merge equidistant statistic with relative values
   data_5min <- merge(data_5min,
@@ -66,14 +66,14 @@ calc_designstorm <- function(data = NULL,
                      all = TRUE)
 
   # iterator definition, delta_t between intervals divided by resolution
-  steps <- (data[["D_min"]][1:d_pos[1]] %>% diff() / 5) %>%
+  steps <- (data[["D_min"]][1:d_pos[1]] |> diff() / 5) |>
     sort(decreasing = TRUE)
 
   # drop steps == 1, since these values can be adopted from original statistic
   steps <- steps[steps > 1]
 
   # cumulative view to facilitate indexing
-  steps_cum <- c(0, steps) %>% cumsum()
+  steps_cum <- c(0, steps) |> cumsum()
 
   # iterate over steps, equidistant recalculation (if necessary)
   # it is not for the first rows, d = 10, 15, 20 mins
@@ -92,14 +92,14 @@ calc_designstorm <- function(data = NULL,
   # main -----------------------------------------------------------------------
 
   # generate fictional datetime index
-  start <- "2000-01-01 00:00" %>%
-    strptime(format="%Y-%m-%d %H:%M") %>%
+  start <- "2000-01-01 00:00" |>
+    strptime(format="%Y-%m-%d %H:%M") |>
     as.POSIXct()
 
   datetimes <- seq(from = start, by = 60 * 5, length.out = n_timesteps)
 
   # access relative 5min values
-  values <- data_5min[, which(attr(data, "returnperiods_a") == tn) + 3] %>%
+  values <- data_5min[, which(attr(data, "returnperiods_a") == tn) + 3] |>
     round(2)
 
   #
@@ -110,11 +110,12 @@ calc_designstorm <- function(data = NULL,
   } else if (type == "EulerII") {
 
     # get position of 0.3 quantile
-    breakpoint <- stats::quantile(1:n_timesteps, probs = 0.3) %>% round(0) %>%
+    breakpoint <- stats::quantile(1:n_timesteps, probs = 0.3) |>
+      round(0) |>
       as.numeric()
 
     # values in increasing order for first positions up to 0.3 quantile
-    values[1:breakpoint] <- values[1:breakpoint] %>% sort(decreasing = FALSE)
+    values[1:breakpoint] <- values[1:breakpoint] |> sort(decreasing = FALSE)
   }
 
   # create xts object
@@ -132,14 +133,15 @@ calc_designstorm <- function(data = NULL,
                         recursive = TRUE)
 
     # read shapefile for centroid coordinate estimation
-    tile <- sf::st_read(files[1], quiet = TRUE)
+    tiles <- sf::st_read(files[1], quiet = TRUE)
 
     # subset shapefile to relevant tile
-    tile <- dplyr::filter(tile, INDEX_RC == attr(data, "id"))
+    tile <- tiles |> dplyr::filter(.data$INDEX_RC == attr(data, "id"))
 
-    # calculate centroids
-    centroid <- sf::st_centroid(tile[["geometry"]]) %>%
-      sf::st_transform(25832) %>%
+    # calculate centroid
+    centroid <- tile[["geometry"]] |>
+      sf::st_centroid() |>
+      sf::st_transform(25832) |>
       sf::st_coordinates()
   }
 
@@ -179,8 +181,8 @@ calc_designstorm <- function(data = NULL,
                       "EulerII" = "Euler Typ II")
 
   attr(xts, "REMARKS") <- paste0("Modellregen ", type_long, " auf Grundlage von ", attr(data, "source"), "\n",
-                                 "Tn = ", tn, " a | D = ", d, " min | hN = ", zoo::coredata(xts) %>% sum(), " mm\n",
-                                 rep("-", 80) %>% paste(collapse = ""), "\n")
+                                 "Tn = ", tn, " a | D = ", d, " min | hN = ", zoo::coredata(xts) |> sum(), " mm\n",
+                                 rep("-", 80) |> paste(collapse = ""), "\n")
 
   # return object
   xts

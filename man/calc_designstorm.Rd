@@ -4,14 +4,14 @@
 \alias{calc_designstorm}
 \title{Design storm calculation based on statistical precipitation}
 \usage{
-calc_designstorm(data, d, tn, type = "EulerII")
+calc_designstorm(data = NULL, tn = NULL, d = NULL, type = NULL)
 }
 \arguments{
 \item{data}{A tibble containing grid cell statistics from KOSTRA-DWD-2010R.}
 
-\item{d}{Duration in minutes.}
-
 \item{tn}{Return periods in years.}
+
+\item{d}{Duration in minutes.}
 
 \item{type}{EulerI | EulerII.}
 }
@@ -23,6 +23,7 @@ Design storm calculation based on statistical precipitation
 }
 \examples{
 \dontrun{
-xts <- calc_designstorm(kostra, d = 60, tn = 20, type = "EulerII")
+xts <- calc_designstorm(stats, tn = 50, d = 240, type = "EulerII")
+xts <- calc_designstorm(kostra, tn = 20, d = 60, type = "EulerII")
 }
 }

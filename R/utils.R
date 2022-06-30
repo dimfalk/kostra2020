@@ -88,7 +88,7 @@ sf_get_centroid <- function(input,
   # vector of length 2 containing numeric representing coordinates
   if (inherits(input, "numeric") && length(input) == 2) {
 
-    sf::st_point(input) %>% sf::st_sfc(., crs = crs)
+    sf::st_point(input) |> sf::st_sfc(crs = crs)
 
     # string of length 1 representing the name of a municipality
   } else if (inherits(input, "character") && length(input) == 1 && is.na(as.numeric(input))) {
@@ -141,5 +141,5 @@ idx_get <- function(location = NULL) {
   ind <- lengths(sf::st_intersects(shp, location)) > 0
 
   # returns index of relevant grid
-  shp[["INDEX_RC"]][ind] %>% as.character()
+  shp[["INDEX_RC"]][ind] |> as.character()
 }
