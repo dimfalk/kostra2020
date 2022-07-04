@@ -78,25 +78,29 @@ in terms of return periods.
 
 ``` r
 # Sf objects created based on specified coordinates. Don't forget to pass the CRS.
-p1 <- sf::st_sfc(
-  sf::st_point(
-    c(367773, 5703579)
-  ),
-  crs = 25832
-)
+p1 <- get_centroid(input = c(6.09, 50.46), crs = 4326)
+p1
+#> Geometry set for 1 feature 
+#> Geometry type: POINT
+#> Dimension:     XY
+#> Bounding box:  xmin: 6.09 ymin: 50.46 xmax: 6.09 ymax: 50.46
+#> Geodetic CRS:  WGS 84
+#> POINT (6.09 50.46)
 
-p2 <- sf::st_sfc(
-  sf::st_point(
-    c(6.09, 50.46)
-  ),
-  crs = 4326
-)
+p2 <- get_centroid(input = c(367773, 5703579), crs = 25832)
+p2
+#> Geometry set for 1 feature 
+#> Geometry type: POINT
+#> Dimension:     XY
+#> Bounding box:  xmin: 367773 ymin: 5703579 xmax: 367773 ymax: 5703579
+#> Projected CRS: ETRS89 / UTM zone 32N
+#> POINT (367773 5703579)
 
 # Get indices by topological intersection between location point and grid cells
 idx_get(p1)
-#> [1] "49011"
-idx_get(p2)
 #> [1] "61002"
+idx_get(p2)
+#> [1] "49011"
 ```
 
 ### Construct cell-specific statistics from KOSTRA-DWD-2010R grid
@@ -111,7 +115,7 @@ specified.
 kostra <- get_stats("49011")
 
 kostra
-#> # A tibble: 18 x 12
+#> # A tibble: 18 × 12
 #>    D_min D_hour D_day HN_001A HN_002A HN_003A HN_005A HN_010A HN_020A HN_030A
 #>    <dbl>  <dbl> <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
 #>  1     5   NA      NA     5.6     6.9     7.7     8.7    10      11.3    12.1
@@ -132,7 +136,7 @@ kostra
 #> 16  1440   24       1    35.9    42.8    46.8    51.9    58.8    65.8    69.8
 #> 17  2880   48       2    44.1    52.2    57      62.9    71      79.1    83.8
 #> 18  4320   72       3    49.8    58.6    63.7    70.2    79      87.7    92.9
-#> # ... with 2 more variables: HN_050A <dbl>, HN_100A <dbl>
+#> # … with 2 more variables: HN_050A <dbl>, HN_100A <dbl>
 ```
 
 Some describing attributes have been assigned to the tibble.
@@ -209,7 +213,7 @@ heights for all duration levels.
 pen <- calc_pen(kostra)
 
 pen
-#> # A tibble: 18 x 9
+#> # A tibble: 18 × 9
 #>    D_min D_hour D_day HN_200A HN_500A HN_1000A HN_2000A HN_5000A HN_10000A
 #>    <dbl>  <dbl> <dbl>   <dbl>   <dbl>    <dbl>    <dbl>    <dbl>     <dbl>
 #>  1     5   NA      NA    19.1    21.6     23.4     25.2     27.7      29.5
@@ -272,7 +276,7 @@ conversion…
 library(ggplot2)
 
 # Column name extraction for name/value junction
-cnames <- colnames(kostra)[colnames(kostra) %>% stringr::str_detect("HN_*")]
+cnames <- colnames(kostra)[colnames(kostra) |> stringr::str_detect("HN_*")]
 
 # Making use of tidyr
 longdata <- tidyr::pivot_longer(kostra, cols = all_of(cnames))

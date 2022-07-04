@@ -77,13 +77,13 @@ idx_build <- function(col = NULL, row = NULL) {
 #'
 #' @examples
 #' \dontrun{
-#' p1 <- sf_get_centroid(input = c(367773, 5703579))
-#' p2 <- sf_get_centroid(input = c(6.09, 50.46), crs = 4326)
-#' p3 <- sf_get_centroid(input = "Essen")
-#' p4 <- sf_get_centroid(input = "45145")
+#' p1 <- get_centroid(input = c(367773, 5703579))
+#' p2 <- get_centroid(input = c(6.09, 50.46), crs = 4326)
+#' p3 <- get_centroid(input = "Essen")
+#' p4 <- get_centroid(input = "45145")
 #' }
-sf_get_centroid <- function(input,
-                            crs = 25832) {
+get_centroid <- function(input,
+                         crs = 25832) {
 
   # vector of length 2 containing numeric representing coordinates
   if (inherits(input, "numeric") && length(input) == 2) {

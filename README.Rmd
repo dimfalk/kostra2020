@@ -16,15 +16,16 @@ knitr::opts_chunk$set(
 # kostra2010R
 
 <!-- badges: start -->
+
 <!-- badges: end -->
 
 The main goal of kostra2010R is to provide access to KOSTRA-DWD-2010R dataset from within R.
 
-Abstract from the [official dataset description](https://opendata.dwd.de/climate_environment/CDC/grids_germany/return_periods/precipitation/KOSTRA/KOSTRA_DWD_2010R/gis/DESCRIPTION_gridsgermany_return_periods_precipitation_KOSTRA_KOSTRA_DWD_2010R_gis_en.pdf): 
+Abstract from the [official dataset description](https://opendata.dwd.de/climate_environment/CDC/grids_germany/return_periods/precipitation/KOSTRA/KOSTRA_DWD_2010R/gis/DESCRIPTION_gridsgermany_return_periods_precipitation_KOSTRA_KOSTRA_DWD_2010R_gis_en.pdf):
 
-_These vector data sets for GIS contain statistical precipitation values as a function of the duration and the return period. The scope of the data is the engineering dimensioning of water management structures. These include, sewerage networks, sewage treatment plants, pumping stations and retention basins. They are also often used for the dimensioning of drainage systems and infiltration systems. With the help of the data, however, it is also possible to estimate the precipitation level of severe heavy precipitation events with regard to their return periods. This estimation is often used to assess damage events._
+*These vector data sets for GIS contain statistical precipitation values as a function of the duration and the return period. The scope of the data is the engineering dimensioning of water management structures. These include, sewerage networks, sewage treatment plants, pumping stations and retention basins. They are also often used for the dimensioning of drainage systems and infiltration systems. With the help of the data, however, it is also possible to estimate the precipitation level of severe heavy precipitation events with regard to their return periods. This estimation is often used to assess damage events.*
 
-_The data set contains the vector data sets of all 18 duration levels. A vector data set contains the statistical precipitation (hN, design precipitation) of the present duration level D for nine return periods Tn (1-100 a) for the whole grid spanning 79 × 107 cells. INDEX_RC describes the unique identifier of a grid cell._
+*The data set contains the vector data sets of all 18 duration levels. A vector data set contains the statistical precipitation (hN, design precipitation) of the present duration level D for nine return periods Tn (1-100 a) for the whole grid spanning 79 × 107 cells. INDEX_RC describes the unique identifier of a grid cell.*
 
 ## Installation
 
@@ -65,26 +66,18 @@ The most common use case will be to get the relevant "INDEX_RC" based on coordin
 
 ```{r}
 # Sf objects created based on specified coordinates. Don't forget to pass the CRS.
-p1 <- sf::st_sfc(
-  sf::st_point(
-    c(367773, 5703579)
-  ),
-  crs = 25832
-)
+p1 <- get_centroid(input = c(6.09, 50.46), crs = 4326)
+p1
 
-p2 <- sf::st_sfc(
-  sf::st_point(
-    c(6.09, 50.46)
-  ),
-  crs = 4326
-)
+p2 <- get_centroid(input = c(367773, 5703579), crs = 25832)
+p2
 
 # Get indices by topological intersection between location point and grid cells
 idx_get(p1)
 idx_get(p2)
 ```
 
-### Construct cell-specific statistics from KOSTRA-DWD-2010R grid 
+### Construct cell-specific statistics from KOSTRA-DWD-2010R grid
 
 Now that we have messed a little with the grid cell identifiers, let's get a sneak peek into the dataset itself based on the "INDEX_RC" specified.
 
@@ -177,7 +170,7 @@ Data can now be visualized via `ggplot2` after a quick wide-to-long conversion..
 library(ggplot2)
 
 # Column name extraction for name/value junction
-cnames <- colnames(kostra)[colnames(kostra) %>% stringr::str_detect("HN_*")]
+cnames <- colnames(kostra)[colnames(kostra) |> stringr::str_detect("HN_*")]
 
 # Making use of tidyr
 longdata <- tidyr::pivot_longer(kostra, cols = all_of(cnames))
@@ -202,9 +195,9 @@ See [here](https://github.com/falk-env/kostra2010R/blob/main/.github/CONTRIBUTIN
 
 According to the [terms of use](https://opendata.dwd.de/climate_environment/CDC/Terms_of_use.pdf) for data on the CDC-OpenData area, freely accessible data may be re-used without any restrictions provided other than the source is referenced, as laid down in the [GeoNutzV](http://www.gesetze-im-internet.de/geonutzv/index.html) ordinance.
 
-Copyright @ [Deutscher Wetterdienst](https://www.dwd.de/EN/service/copyright/templates_dwd_as_source.html)
+Copyright \@ [Deutscher Wetterdienst](https://www.dwd.de/EN/service/copyright/templates_dwd_as_source.html)
 
 ## Links
 
-* Product description of [KOSTRA-DWD](https://www.dwd.de/DE/leistungen/kostra_dwd_rasterwerte/kostra_dwd_rasterwerte.html) including supplementary material
-* Source used to acquire [KOSTRA-DWD raster data](https://opendata.dwd.de/climate_environment/CDC/grids_germany/return_periods/precipitation/KOSTRA/KOSTRA_DWD_2010R/gis/) found in `inst/exdata/`
+-   Product description of [KOSTRA-DWD](https://www.dwd.de/DE/leistungen/kostra_dwd_rasterwerte/kostra_dwd_rasterwerte.html) including supplementary material
+-   Source used to acquire [KOSTRA-DWD raster data](https://opendata.dwd.de/climate_environment/CDC/grids_germany/return_periods/precipitation/KOSTRA/KOSTRA_DWD_2010R/gis/) found in `inst/exdata/`
