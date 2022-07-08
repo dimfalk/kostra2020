@@ -90,12 +90,14 @@ get_centroid <- function(input,
 
     sf::st_point(input) |> sf::st_sfc(crs = crs)
 
-    # string of length 1 representing the name of a municipality
+    
+	# string of length 1 representing the name of a municipality
   } else if (inherits(input, "character") && length(input) == 1 && is.na(as.numeric(input))) {
 
     # TODO
 
-    # string of length 5 representing a postal zip code
+    
+	# string of length 5 representing a postal zip code
   } else if (inherits(input, "character") && length(input) == 1 && is.numeric(as.numeric(input))) {
 
     # TODO

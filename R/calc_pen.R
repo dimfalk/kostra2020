@@ -30,9 +30,18 @@ calc_pen <- function(data = NULL) {
 
   # log: natural logarithm (ln);
   # base: euler's number e = exp(1)
+
   # factors (-10 %, +20 %) taken from Malitz & Ertel (2015)
-  u <- 0.9 * hN_lower
-  w <- (1.2 * hN_upper - u) / log(100)
+  if (attr(kostra, "source") == "KOSTRA-DWD-2010R") {
+
+    u <- 0.9 * hN_lower
+    w <- (1.2 * hN_upper - u) / log(100)
+
+  } else if (attr(kostra, "source") == "DWA-A 531") {
+
+    u <- hN_lower
+    w <- (hN_upper - u) / log(100)
+  }
 
   # init tibble
   tib <- data[c("D_min", "D_hour", "D_day")]
