@@ -31,7 +31,7 @@ calc_pen <- function(data = NULL) {
   # log: natural logarithm (ln);
   # base: euler's number e = exp(1)
 
-  # factors (-10 %, +20 %) taken from Malitz & Ertel (2015)
+  # factors (-10 %, +20 %) to adjust for KOSTRA-related uncertainty taken from Malitz & Ertel (2015)
   if (attr(kostra, "source") == "KOSTRA-DWD-2010R") {
 
     u <- 0.9 * hN_lower
