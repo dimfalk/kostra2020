@@ -90,13 +90,13 @@ get_centroid <- function(input,
 
     sf::st_point(input) |> sf::st_sfc(crs = crs)
 
-    
+
 	# string of length 1 representing the name of a municipality
   } else if (inherits(input, "character") && length(input) == 1 && is.na(as.numeric(input))) {
 
     # TODO
 
-    
+
 	# string of length 5 representing a postal zip code
   } else if (inherits(input, "character") && length(input) == 1 && is.numeric(as.numeric(input))) {
 
@@ -145,3 +145,62 @@ idx_get <- function(location = NULL) {
   # returns index of relevant grid
   shp[["INDEX_RC"]][ind] |> as.character()
 }
+
+
+
+#' Convert precipitation height in precipitation yield as a function of duration.
+#'
+#' @param hn Precipitation height in mm.
+#' @param d Duration in minutes.
+#'
+#' @return Precipitation yield in l / (s*ha).
+#' @export
+#'
+#' @examples as_yield(hn = 45.7, d = 60)
+as_yield <- function(hn = NULL,
+                     d = NULL) {
+
+  # debugging ------------------------------------------------------------------
+
+  # hn <- 45.7
+  # d <- 60
+
+  # input validation -----------------------------------------------------------
+
+  checkmate::assert_numeric(hn, len = 1)
+  checkmate::assert_numeric(d, len = 1)
+
+  # main -----------------------------------------------------------------------
+
+  (hn * 10000 / 60 / d) |> round(2)
+}
+
+
+
+#' Convert precipitation yield in precipitation height as a function of duration.
+#'
+#' @param rh Precipitation yield in l / (s*ha).
+#' @param d Duration in minutes.
+#'
+#' @return Precipitation height in mm.
+#' @export
+#'
+#' @examples as_yield(rh = 126.94, d = 60)
+as_height <- function(rh = NULL,
+                     d = NULL) {
+
+  # debugging ------------------------------------------------------------------
+
+  # rh <- 126.94
+  # d <- 60
+
+  # input validation -----------------------------------------------------------
+
+  checkmate::assert_numeric(rh, len = 1)
+  checkmate::assert_numeric(d, len = 1)
+
+  # main -----------------------------------------------------------------------
+
+  (rh / 10000 * 60 * d) |> round(2)
+}
+
