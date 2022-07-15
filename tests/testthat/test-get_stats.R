@@ -1,5 +1,3 @@
-kostra <- get_stats("49011")
-
 test_that("General table building from shapefile works.", {
 
   expect_true(inherits(kostra, "data.frame"))
