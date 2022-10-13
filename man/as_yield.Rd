@@ -12,7 +12,7 @@ as_yield(hn = NULL, d = NULL)
 \item{d}{Duration in minutes.}
 }
 \value{
-Precipitation yield in l / (s*ha).
+Precipitation yield in l/(s*ha).
 }
 \description{
 Convert precipitation height in precipitation yield as a function of duration.

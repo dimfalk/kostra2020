@@ -7,7 +7,7 @@
 as_height(rh = NULL, d = NULL)
 }
 \arguments{
-\item{rh}{Precipitation yield in l / (s*ha).}
+\item{rh}{Precipitation yield in l/(s*ha).}
 
 \item{d}{Duration in minutes.}
 }

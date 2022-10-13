@@ -73,8 +73,8 @@ p2 <- get_centroid(input = c(367773, 5703579), crs = 25832)
 p2
 
 # Get indices by topological intersection between location point and grid cells
-idx_get(p1)
-idx_get(p2)
+get_idx(p1)
+get_idx(p2)
 ```
 
 ### Construct cell-specific statistics from KOSTRA-DWD-2010R grid
