@@ -1,19 +1,14 @@
-#' Verwaltungsgebiete 1:250.000, Stand 31.12.2021 (VG250 31.12.)
+#' Centroids of administrative areas on municipality level in Germany (VG250 31.12.)
 #'
-#' A subset of data from the World Health Organization Global Tuberculosis
-#' Report ...
+#' A subset/derivate of data from the VG250_GEM product provided by the Federal Agency for Cartography and Geodesy, Germany
 #'
-#' @format ## `who`
-#' Simple feature collection with 11,123 features and 1 field:
+#' @format Simple feature collection with 11,123 features and 1 field:
 #' \describe{
-#'   \item{country}{Country name}
-#'   \item{iso2, iso3}{2 & 3 letter ISO country codes}
-#'   \item{year}{Year}
-#'   ...
+#'   \item{GEN}{Municipality name}
+#'   \item{geometry}{Centroid coordinates}
 #' }
-#' @source <https://daten.gdz.bkg.bund.de/produkte/vg/vg250_ebenen_1231/aktuell/vg250_12-31.utm32s.shape.ebenen.zip>
-
-#' @license: Datenlizenz Deutschland - Namensnennung - Version 2.0
-#' @copyright: GeoBasis-DE / BKG 2022 (modified)
-
-#' @pre-processing: sf::st_read("VG250_GEM.shp") |> dplyr::select("GEN") |> sf::st_centroid()
+#' @source <https://gdz.bkg.bund.de/index.php/default/digitale-geodaten/verwaltungsgebiete/verwaltungsgebiete-1-250-000-stand-31-12-vg250-31-12.html>
+#' @note: License: Datenlizenz Deutschland - Namensnennung - Version 2.0
+#' @note: Copyright: GeoBasis-DE / BKG 2022 (modified)
+#' @details: sf::st_read("VG250_GEM.shp") |> dplyr::select("GEN") |> sf::st_centroid()
+"vg250_gem_centroids"
