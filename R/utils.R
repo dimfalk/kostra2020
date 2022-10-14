@@ -100,7 +100,9 @@ get_centroid <- function(input,
 	# string of length 5 representing a postal zip code
   } else if (inherits(input, "character") && length(input) == 1 && as.numeric(input) |> is.numeric()) {
 
-    # TODO
+    load("data/osm_plz.rda")
+
+    osm_plz |> dplyr::filter(plz == input) |> sf::st_geometry()
   }
 }
 
