@@ -28,9 +28,6 @@ calc_pen <- function(data = NULL) {
   hN_lower <- data[["HN_001A"]]
   hN_upper <- data[["HN_100A"]]
 
-  # log: natural logarithm (ln);
-  # base: euler's number e = exp(1)
-
   # factors (-10 %, +20 %) to adjust for KOSTRA-related uncertainty taken from Malitz & Ertel (2015)
   if (attr(kostra, "source") == "KOSTRA-DWD-2010R") {
 
