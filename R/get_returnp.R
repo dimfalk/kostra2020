@@ -1,11 +1,11 @@
-#' Get return period class for specified precipitation height
+#' Get return period class for specified precipitation depth
 #'
 #' @param data A tibble containing grid cell statistics from KOSTRA-2010R.
-#' @param hn Precipitation height in mm.
+#' @param hn Precipitation depth in mm.
 #' @param d Duration in minutes.
 #'
 #' @return A numerical vector representing the upper and lower boundaries of the
-#'   return period class.
+#'   return period class in years.
 #' @export
 #'
 #' @examples
@@ -50,25 +50,28 @@ get_returnp <- function(data = NULL,
   # is the value explicitly mentioned as a class boundary?
   if(closest == hn) {
 
-    c(rperiod[which(row == closest)], rperiod[which(row == closest)])
+    p <- c(rperiod[which(row == closest)], rperiod[which(row == closest)])
 
     # is tn < 1?
   } else if (closest > hn && ind == 1) {
 
-    c(0, rperiod[which(row == closest)])
+    p <- c(0, rperiod[which(row == closest)])
 
     # is the interval opening to the right or to the left for tn {1:100}?
   } else if (closest > hn && ind != 1) {
 
-    c(rperiod[which(row == closest)-1], rperiod[which(row == closest)])
+    p <- c(rperiod[which(row == closest)-1], rperiod[which(row == closest)])
 
   }  else if (closest < hn && ind != length(rperiod)) {
 
-    c(rperiod[which(row == closest)], rperiod[which(row == closest)+1])
+    p <- c(rperiod[which(row == closest)], rperiod[which(row == closest)+1])
 
     # is tn > 100?
   } else if (closest < hn && ind == length(rperiod)) {
 
-    c(rperiod[which(row == closest)], Inf)
+    p <- c(rperiod[which(row == closest)], Inf)
   }
+
+  # return object
+  units::as_units(p, "a")
 }

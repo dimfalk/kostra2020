@@ -2,12 +2,12 @@
 % Please edit documentation in R/utils.R
 \name{as_yield}
 \alias{as_yield}
-\title{Convert precipitation height in precipitation yield as a function of duration.}
+\title{Convert precipitation depth in precipitation yield as a function of duration.}
 \usage{
 as_yield(hn = NULL, d = NULL)
 }
 \arguments{
-\item{hn}{Precipitation height in mm.}
+\item{hn}{Precipitation depth in mm.}
 
 \item{d}{Duration in minutes.}
 }
@@ -15,7 +15,7 @@ as_yield(hn = NULL, d = NULL)
 Precipitation yield in l/(s*ha).
 }
 \description{
-Convert precipitation height in precipitation yield as a function of duration.
+Convert precipitation depth in precipitation yield as a function of duration.
 }
 \examples{
 as_yield(hn = 45.7, d = 60)

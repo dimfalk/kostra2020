@@ -1,6 +1,6 @@
 Package: kostra2010R
 Title: R interface for KOSTRA-DWD-2010R dataset
-Version: 0.5
+Version: 0.6.1
 Date: 2022-04-12 12:05:13
 Authors@R: 
     person("Dimitri", "Falk", , "falk.dimitri@eglv.de", role = c("aut", "cre"))
@@ -11,15 +11,16 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
 Depends: R (>= 4.2.0)
 Imports: 
-    rlang,
+    checkmate,
     dplyr,
-    stringr,
+    rlang,
     sf,
-    xts,
-    tibble,
     stats,
-    zoo,
-    checkmate
+    stringr,
+    tibble,
+    units,
+    xts,
+    zoo
 Suggests: testthat (>= 3.0.0)
 Config/testthat/edition: 3
 LazyData: true

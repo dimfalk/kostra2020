@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{get_centroid}
 \alias{get_centroid}
-\title{Construct an sf object of type point using coordinates or specific polygons}
+\title{Construct an geometry set object of type POINT based on user input}
 \usage{
 get_centroid(input, crs = 25832)
 }
@@ -17,13 +17,13 @@ or string of length 5 representing a postal zip code.}
 An object of type \code{sfc_POINT}.
 }
 \description{
-Construct an sf object of type point using coordinates or specific polygons
+Construct an geometry set object of type POINT based on user input
 }
 \examples{
 \dontrun{
 p1 <- get_centroid(input = c(367773, 5703579))
 p2 <- get_centroid(input = c(6.09, 50.46), crs = 4326)
-p3 <- get_centroid(input = "Essen")
-p4 <- get_centroid(input = "45145")
+p3 <- get_centroid(input = "Aachen")
+p4 <- get_centroid(input = "52070")
 }
 }

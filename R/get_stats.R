@@ -2,8 +2,8 @@
 #'
 #' @param grid_index A String representing the relevant "INDEX_RC" field.
 #'
-#' @return A tibble containing precipitation heights as a function of duration
-#'   and return periods for the KOSTRA-2010R grid cell specified.
+#' @return A tibble containing statistical precipitation depths as a function of
+#'   duration and return periods for the KOSTRA-2010R grid cell specified.
 #' @export
 #'
 #' @examples

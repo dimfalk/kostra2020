@@ -28,5 +28,3 @@
 #' @note: Copyright: OpenStreetMap contributors 2022 (modified)
 #' @details: sf::st_read("plz-5stellig.shp") |> dplyr::select("plz") |> sf::st_centroid() |> sf::st_transform("epsg:25832")
 "osm_plz"
-
-

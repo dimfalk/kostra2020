@@ -65,7 +65,7 @@ idx_build <- function(col = NULL, row = NULL) {
 }
 
 
-#' Construct an sf object of type point using coordinates or specific polygons
+#' Construct an geometry set object of type POINT based on user input
 #'
 #' @param input Vector of length 2 containing numeric representing coordinates,
 #'   string of length 1 representing the name of a municipality,
@@ -79,8 +79,8 @@ idx_build <- function(col = NULL, row = NULL) {
 #' \dontrun{
 #' p1 <- get_centroid(input = c(367773, 5703579))
 #' p2 <- get_centroid(input = c(6.09, 50.46), crs = 4326)
-#' p3 <- get_centroid(input = "Essen")
-#' p4 <- get_centroid(input = "45145")
+#' p3 <- get_centroid(input = "Aachen")
+#' p4 <- get_centroid(input = "52070")
 #' }
 get_centroid <- function(input,
                          crs = 25832) {
@@ -150,9 +150,9 @@ get_idx <- function(location = NULL) {
 
 
 
-#' Convert precipitation height in precipitation yield as a function of duration.
+#' Convert precipitation depth in precipitation yield as a function of duration.
 #'
-#' @param hn Precipitation height in mm.
+#' @param hn Precipitation depth in mm.
 #' @param d Duration in minutes.
 #'
 #' @return Precipitation yield in l/(s*ha).
@@ -174,35 +174,35 @@ as_yield <- function(hn = NULL,
 
   # main -----------------------------------------------------------------------
 
-  (hn * 10000 / 60 / d) |> round(2)
+  (as.numeric(hn) * 10000 / 60 / d) |> round(2) |> units::as_units("l/(s*ha)")
 }
 
 
 
-#' Convert precipitation yield in precipitation height as a function of duration.
+#' Convert precipitation yield in precipitation depth as a function of duration.
 #'
-#' @param rh Precipitation yield in l/(s*ha).
+#' @param rn Precipitation yield in l/(s*ha).
 #' @param d Duration in minutes.
 #'
-#' @return Precipitation height in mm.
+#' @return Precipitation depth in mm.
 #' @export
 #'
-#' @examples as_yield(rh = 126.94, d = 60)
-as_height <- function(rh = NULL,
-                      d = NULL) {
+#' @examples as_depth(rn = 126.94, d = 60)
+as_depth <- function(rn = NULL,
+                     d = NULL) {
 
   # debugging ------------------------------------------------------------------
 
-  # rh <- 126.94
+  # rn <- 126.94
   # d <- 60
 
   # input validation -----------------------------------------------------------
 
-  checkmate::assert_numeric(rh, len = 1)
+  checkmate::assert_numeric(rn, len = 1)
   checkmate::assert_numeric(d, len = 1)
 
   # main -----------------------------------------------------------------------
 
-  (rh / 10000 * 60 * d) |> round(2)
+  (as.numeric(rn) / 10000 * 60 * d) |> round(2) |> units::as_units("mm")
 }
 

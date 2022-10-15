@@ -1,4 +1,4 @@
-#' Design storm calculation based on statistical precipitation
+#' Design storm calculation based on statistical precipitation depths
 #'
 #' @param data A tibble containing grid cell statistics from KOSTRA-DWD-2010R.
 #' @param d Duration in minutes.
@@ -76,7 +76,7 @@ calc_designstorm <- function(data = NULL,
   steps_cum <- c(0, steps) |> cumsum()
 
   # iterate over steps, equidistant recalculation (if necessary)
-  # it is not for the first rows, d = 10, 15, 20 mins
+  # not necessary for the first rows: d = 10, 15, 20 mins
   if (length(steps) != 0) {
 
     for (i in 1:length(steps)) {
@@ -98,7 +98,7 @@ calc_designstorm <- function(data = NULL,
 
   datetimes <- seq(from = start, by = 60 * 5, length.out = n_timesteps)
 
-  # access relative 5min values
+  # access relative 5 min values
   values <- data_5min[, which(attr(data, "returnperiods_a") == tn) + 3] |>
     round(2)
 
@@ -146,7 +146,8 @@ calc_designstorm <- function(data = NULL,
   }
 
 
-  # append meta data as attributes; TODO: timeseriesIO::xts_init("light")
+  # append meta data as attributes
+  # TODO: timeseriesIO::xts_init("light")
   if (attr(data, "source") == "KOSTRA-DWD-2010R") {
 
     attr(xts, "STAT_ID") <- attr(data, "id")

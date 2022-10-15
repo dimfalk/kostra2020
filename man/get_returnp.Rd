@@ -2,23 +2,23 @@
 % Please edit documentation in R/get_returnp.R
 \name{get_returnp}
 \alias{get_returnp}
-\title{Get return period class for specified precipitation height}
+\title{Get return period class for specified precipitation depth}
 \usage{
 get_returnp(data = NULL, hn = NULL, d = NULL)
 }
 \arguments{
 \item{data}{A tibble containing grid cell statistics from KOSTRA-2010R.}
 
-\item{hn}{Precipitation height in mm.}
+\item{hn}{Precipitation depth in mm.}
 
 \item{d}{Duration in minutes.}
 }
 \value{
 A numerical vector representing the upper and lower boundaries of the
-return period class.
+return period class in years.
 }
 \description{
-Get return period class for specified precipitation height
+Get return period class for specified precipitation depth
 }
 \examples{
 \dontrun{
