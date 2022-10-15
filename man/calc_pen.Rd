@@ -2,7 +2,7 @@
 % Please edit documentation in R/calc_pen.R
 \name{calc_pen}
 \alias{calc_pen}
-\title{Extrapolation of precipitation heights for Tn > 100 a according to PEN-LAWA}
+\title{Extrapolation of precipitation depths for Tn > 100 a according to PEN-LAWA}
 \usage{
 calc_pen(data = NULL)
 }
@@ -10,11 +10,11 @@ calc_pen(data = NULL)
 \item{data}{A tibble containing grid cell statistics from KOSTRA-2010R.}
 }
 \value{
-A tibble containing extrapolated precipitation heights as a function
+A tibble containing extrapolated precipitation depths as a function
 of duration and return periods.
 }
 \description{
-Extrapolation of precipitation heights for Tn > 100 a according to PEN-LAWA
+Extrapolation of precipitation depths for Tn > 100 a according to PEN-LAWA
 }
 \examples{
 \dontrun{

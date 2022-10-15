@@ -36,7 +36,7 @@ You can install the development version of kostra2010R with:
 # devtools::install_github("falk-env/kostra2010R")
 ```
 
-Then load the package with
+and load the package via
 
 ```{r}
 library(kostra2010R)
@@ -62,7 +62,7 @@ idx_exists("49011")
 
 ### Get "INDEX_RC" based on spatial information
 
-The most common use case will be to get the relevant "INDEX_RC" based on coordinates provided, e.g. for the location of a precipitation station in order to be able to classify duration-specific precipitation heights in terms of return periods.
+The most common use case will be to get the relevant "INDEX_RC" based on coordinates provided, e.g. for the location of a precipitation station in order to be able to classify duration-specific precipitation depths in terms of return periods.
 
 ```{r}
 # Sf objects created based on specified coordinates. Don't forget to pass the CRS.
@@ -71,10 +71,28 @@ p1
 
 p2 <- get_centroid(input = c(367773, 5703579), crs = 25832)
 p2
+```
 
+For convenience, it is also possible to provide municipality names or postal codes to derive coordinates.
+
+```{r}
+# Sf objects created based on names and zip codes
+p3 <- get_centroid(input = "Freiburg im Breisgau")
+p3
+
+p4 <- get_centroid(input = "52070")
+p4
+```
+
+
+These coordinates can be used subsequently to spatially query the relevant grid index.
+
+```{r}
 # Get indices by topological intersection between location point and grid cells
 get_idx(p1)
 get_idx(p2)
+get_idx(p3)
+get_idx(p4)
 ```
 
 ### Construct cell-specific statistics from KOSTRA-DWD-2010R grid
@@ -82,8 +100,8 @@ get_idx(p2)
 Now that we have messed a little with the grid cell identifiers, let's get a sneak peek into the dataset itself based on the "INDEX_RC" specified.
 
 ```{r}
-# Build a tibble containing precipitation heights as a function of duration and 
-# return periods for the grid cell specified
+# Build a tibble containing statistical precipitation depths as a function of 
+# duration and return periods for the grid cell specified.
 kostra <- get_stats("49011")
 
 kostra
@@ -98,19 +116,29 @@ attr(kostra, "returnperiods_a")
 attr(kostra, "source")
 ```
 
-### Get precipitation heights
+### Get precipitation depths, calculate precipitation yield
 
-If we now wanted to know the statistical precipitation height based on the constructed tibble, e.g. for an event of 4 hours duration corresponding to a recurrence interval in 1:100 years, it's just a matter of indexing. However, there is a function helping you out.
+If we now wanted to know the statistical precipitation depth e.g. for an event of 4 hours duration corresponding to a recurrence interval in 1:100 years, it's just a matter of indexing. However, there is a function helping you out.
 
 ```{r}
-# So we are interested in the rain amount [mm] for an event lasting 240 min with 
-# a return period of 100 a.
-get_precip(kostra, d = 240, tn = 100)
+# So we are interested in the rainfall amount [mm] for an event lasting 240 min 
+# with a return period of 100 a.
+get_pdepth(kostra, d = 240, tn = 100)
 ```
+
+If you need precipitation yield values [l/(s*ha)] instead of precipitation depth [mm] or vice versa, make use of the following helper function.
+
+```{r}
+as_yield(hn = 62.1, d = 240)
+
+as_depth(rn = 43.1, d = 240)
+```
+
+
 
 ### Get return periods
 
-Finally, we want to determine the return period according to the dataset (without interpolating values at the moment) for a precipitation height and duration given.
+Finally, we want to determine the return period according to the dataset (without interpolating values at the moment) for a precipitation depth and duration given.
 
 ```{r}
 # Let's assume we measured 72.3 mm in 24 h
@@ -122,7 +150,7 @@ Accordingly, the approximate corresponding recurrence interval resp. annuality o
 The following edge cases are to be mentioned:
 
 ```{r}
-# 1) In case the specific class boundary is provided, the return period is replicated.
+# 1) In case a class boundary is hit, the return period is replicated.
 get_returnp(kostra, hn = 42.8, d = 1440)
 ```
 
@@ -138,14 +166,16 @@ get_returnp(kostra, hn = 86.3, d = 1440)
 
 ### Return period extrapolation
 
-Since KOSTRA-2010R has an upper limit of Tn = 100 a, we can make use of e.g. PEN-LAWA method in order to extrapolate statistical precipitation heights for all duration levels.
+Since KOSTRA-2010R has an upper limit of Tn = 100 a, we can make use of e.g. PEN-LAWA method in order to extrapolate statistical precipitation depths for all duration levels.
 
 ```{r}
-# Output in a separate tibble to not confuse methods
+# Output in a separate tibble to not mix up applied methods
 pen <- calc_pen(kostra)
 
 pen
+```
 
+```{r}
 # Former attribute names are preserved
 attr(pen, "id")
 attr(pen, "returnperiods_a")
@@ -153,7 +183,7 @@ attr(pen, "returnperiods_a")
 
 ### Design storm generation
 
-Furthermore, statistical precipitation can be used to create design storm time series. Currently, Euler Type I + II are implemented.
+Furthermore, statistical precipitation depths can be used to create design storm time series data. Currently, Euler Type I + II are implemented.
 
 ```{r}
 # Euler Type II design storm with a duration of 60 minutes and a return period of 100 a
@@ -180,7 +210,7 @@ ggplot(longdata, aes(D_min, value, colour = name)) +
   geom_point() +
   geom_line() +
   xlab("duration [min]") +
-  ylab("precipitation height [mm]") +
+  ylab("precipitation depth [mm]") +
   ggtitle(paste0("hN as a function of duration and return periods as per ", attr(kostra, "source")),
           subtitle = paste0("INDEX_RC: ", attr(kostra, "id")))
 ```

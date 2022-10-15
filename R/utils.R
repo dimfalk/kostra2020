@@ -91,7 +91,7 @@ get_centroid <- function(input,
     sf::st_point(input) |> sf::st_sfc(crs = crs)
 
 	# string of length 1 representing the name of a municipality
-  } else if (inherits(input, "character") && length(input) == 1 && as.numeric(input) |> is.na()) {
+  } else if (inherits(input, "character") && length(input) == 1 && as.numeric(input) |> suppressWarnings() |> is.na()) {
 
     load("data/vg250_gem_centroids.rda")
 
@@ -174,7 +174,7 @@ as_yield <- function(hn = NULL,
 
   # main -----------------------------------------------------------------------
 
-  (as.numeric(hn) * 10000 / 60 / d) |> round(2) |> units::as_units("l/(s*ha)")
+  (as.numeric(hn) * 10000 / 60 / d) |> round(1) |> units::as_units("l/(s*ha)")
 }
 
 
@@ -203,6 +203,6 @@ as_depth <- function(rn = NULL,
 
   # main -----------------------------------------------------------------------
 
-  (as.numeric(rn) / 10000 * 60 * d) |> round(2) |> units::as_units("mm")
+  (as.numeric(rn) / 10000 * 60 * d) |> round(1) |> units::as_units("mm")
 }
 

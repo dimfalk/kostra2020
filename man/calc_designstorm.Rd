@@ -2,7 +2,7 @@
 % Please edit documentation in R/calc_designstorm.R
 \name{calc_designstorm}
 \alias{calc_designstorm}
-\title{Design storm calculation based on statistical precipitation}
+\title{Design storm calculation based on statistical precipitation depths}
 \usage{
 calc_designstorm(data = NULL, tn = NULL, d = NULL, type = NULL)
 }
@@ -19,7 +19,7 @@ calc_designstorm(data = NULL, tn = NULL, d = NULL, type = NULL)
 An xts object.
 }
 \description{
-Design storm calculation based on statistical precipitation
+Design storm calculation based on statistical precipitation depths
 }
 \examples{
 \dontrun{
