@@ -25,8 +25,7 @@ test_that("All return periods are appended as attributes.", {
                                                   100))
 })
 
+test_that("Function output and reference object are equal.", {
 
-
-
-
-
+  expect_equal(kostra, kostra_ref)
+})

@@ -22,3 +22,8 @@ test_that("All return periods are appended as attributes.", {
   expect_equal(attr(pen, "returnperiods_a"), c(200, 500, 1000,
                                                2000, 5000, 10000))
 })
+
+test_that("Function output and reference object are equal.", {
+
+  expect_equal(pen, pen_ref)
+})

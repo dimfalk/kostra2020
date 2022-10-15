@@ -68,7 +68,7 @@ idx_build <- function(col = NULL, row = NULL) {
 #' Construct an geometry set object of type POINT based on user input
 #'
 #' @param input Vector of length 2 containing numeric representing coordinates,
-#'   string of length 1 representing the name of a municipality,
+#'   or string of length 1 representing the name of a municipality,
 #'   or string of length 5 representing a postal zip code.
 #' @param crs (optional) Coordinate reference system definition.
 #'
@@ -93,14 +93,20 @@ get_centroid <- function(input,
 	# string of length 1 representing the name of a municipality
   } else if (inherits(input, "character") && length(input) == 1 && as.numeric(input) |> suppressWarnings() |> is.na()) {
 
-    load("data/vg250_gem_centroids.rda")
+    vg250_gem_centroids <- NULL
+    GEN <- NULL
+
+    system.file("data/vg250_gem_centroids.rda", package="kostra2010R") |> load()
 
     vg250_gem_centroids |> dplyr::filter(GEN == input) |> sf::st_geometry()
 
 	# string of length 5 representing a postal zip code
   } else if (inherits(input, "character") && length(input) == 1 && as.numeric(input) |> is.numeric()) {
 
-    load("data/osm_plz.rda")
+    osm_plz <- NULL
+    plz <- NULL
+
+    system.file("data/osm_plz.rda", package="kostra2010R") |> load()
 
     osm_plz |> dplyr::filter(plz == input) |> sf::st_geometry()
   }

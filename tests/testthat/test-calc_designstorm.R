@@ -13,7 +13,7 @@ test_that("Length of time series is according to specifications.", {
   expect_equal(length(xts), d / 5)
 })
 
-test_that("Sum of time series values equals statistical value from table.", {
+test_that("Sum of time series values equals statistical depth from table.", {
 
   expect_equal(zoo::coredata(xts) |> sum(), 38.7)
 })
@@ -25,5 +25,10 @@ test_that("Maximum time series value equals first value from table.", {
 
 test_that("Maximum time series value is in correct position.", {
 
-  expect_equal(which(xts == zoo::coredata(xts) %>% max()), 4)
+  expect_equal(which(xts == zoo::coredata(xts) |>  max()), 4)
+})
+
+test_that("Function output and reference object are equal.", {
+
+  expect_equal(xts, xts_ref)
 })

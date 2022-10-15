@@ -8,7 +8,7 @@ get_centroid(input, crs = 25832)
 }
 \arguments{
 \item{input}{Vector of length 2 containing numeric representing coordinates,
-string of length 1 representing the name of a municipality,
+or string of length 1 representing the name of a municipality,
 or string of length 5 representing a postal zip code.}
 
 \item{crs}{(optional) Coordinate reference system definition.}

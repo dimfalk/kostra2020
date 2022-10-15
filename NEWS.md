@@ -1,5 +1,9 @@
 ## CHANGES IN ... 
 
+## v0.6.2
+
+* implementation of additional unit tests in order to increase code coverage
+
 ## v0.6.1
 
 * `get_pdepth()` and `get_returnp()` now return values supplemented by units

@@ -4,6 +4,9 @@
 # kostra2010R
 
 <!-- badges: start -->
+
+[![Codecov test
+coverage](https://codecov.io/gh/falk-env/kostra2010R/branch/main/graph/badge.svg)](https://app.codecov.io/gh/falk-env/kostra2010R?branch=main)
 <!-- badges: end -->
 
 The main goal of kostra2010R is to provide access to KOSTRA-DWD-2010R
