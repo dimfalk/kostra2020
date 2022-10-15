@@ -29,12 +29,12 @@ calc_pen <- function(data = NULL) {
   hN_upper <- data[["HN_100A"]]
 
   # factors (-10 %, +20 %) to adjust for KOSTRA-related uncertainty taken from Malitz & Ertel (2015)
-  if (attr(kostra, "source") == "KOSTRA-DWD-2010R") {
+  if (attr(data, "source") == "KOSTRA-DWD-2010R") {
 
     u <- 0.9 * hN_lower
     w <- (1.2 * hN_upper - u) / log(100)
 
-  } else if (attr(kostra, "source") == "DWA-A 531") {
+  } else if (attr(data, "source") == "DWA-A 531") {
 
     u <- hN_lower
     w <- (hN_upper - u) / log(100)
