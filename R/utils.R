@@ -85,12 +85,12 @@ idx_build <- function(col = NULL, row = NULL) {
 get_centroid <- function(input,
                          crs = 25832) {
 
-  # vector of length 2 containing numeric representing coordinates
+  # vector of length 2 containing numeric representing coordinates -------------
   if (inherits(input, "numeric") && length(input) == 2) {
 
     sf <- sf::st_point(input) |> sf::st_sfc(crs = crs)
 
-	# string of length 1 representing the name of a municipality
+	# string of length 1 representing the name of a municipality -----------------
   } else if (inherits(input, "character") && length(input) == 1 && as.numeric(input) |> suppressWarnings() |> is.na()) {
 
     vg250_pk <- NULL
@@ -125,8 +125,8 @@ get_centroid <- function(input,
       }
     }
 
-	# string of length 5 representing a postal zip code
-  } else if (inherits(input, "character") && length(input) == 1 && as.numeric(input) |> is.numeric()) {
+	# string of length 5 representing a postal zip code --------------------------
+  } else if (inherits(input, "character") && length(input) == 1 && nchar(input) == 5 && as.numeric(input) |> is.numeric()) {
 
     osm_plz <- NULL
     plz <- NULL
@@ -134,6 +134,16 @@ get_centroid <- function(input,
     system.file("data/osm_plz.rda", package="kostra2010R") |> load()
 
     sf <- osm_plz |> dplyr::filter(plz == input) |> sf::st_geometry()
+
+    # capture typos and non-existent codes in the dataset
+    if (length(sf) == 0) {
+
+      stop("The postal code provided is not included in the dataset. Please try another.")
+    }
+
+  } else {
+
+    stop("Your input could not be attributed properly. Please check the examples provided: `?get_centroid`.")
   }
 
   # return object
