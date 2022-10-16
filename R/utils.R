@@ -93,12 +93,12 @@ get_centroid <- function(input,
 	# string of length 1 representing the name of a municipality
   } else if (inherits(input, "character") && length(input) == 1 && as.numeric(input) |> suppressWarnings() |> is.na()) {
 
-    vg250_gem_centroids <- NULL
+    vg250_pk <- NULL
     GEN <- NULL
 
-    system.file("data/vg250_gem_centroids.rda", package="kostra2010R") |> load()
+    system.file("data/vg250_pk.rda", package="kostra2010R") |> load()
 
-    sf <- vg250_gem_centroids |> dplyr::filter(GEN == input) |> sf::st_geometry()
+    sf <- vg250_pk |> dplyr::filter(GEN == input) |> sf::st_geometry()
 
     # warn user in case the name provided was not unique with multiple results
     if (length(sf) > 1) {
