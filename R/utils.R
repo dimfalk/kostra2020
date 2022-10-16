@@ -69,7 +69,7 @@ idx_build <- function(col = NULL, row = NULL) {
 #'
 #' @param input Vector of length 2 containing numeric representing coordinates,
 #'   or string of length 1 representing the name of a municipality,
-#'   or string of length 5 representing a postal zip code.
+#'   or string of nchar 5 representing a postal zip code.
 #' @param crs (optional) Coordinate reference system definition.
 #'
 #' @return An object of type `sfc_POINT`.
@@ -88,7 +88,7 @@ get_centroid <- function(input,
   # vector of length 2 containing numeric representing coordinates
   if (inherits(input, "numeric") && length(input) == 2) {
 
-    sf::st_point(input) |> sf::st_sfc(crs = crs)
+    sf <- sf::st_point(input) |> sf::st_sfc(crs = crs)
 
 	# string of length 1 representing the name of a municipality
   } else if (inherits(input, "character") && length(input) == 1 && as.numeric(input) |> suppressWarnings() |> is.na()) {
@@ -98,7 +98,15 @@ get_centroid <- function(input,
 
     system.file("data/vg250_gem_centroids.rda", package="kostra2010R") |> load()
 
-    vg250_gem_centroids |> dplyr::filter(GEN == input) |> sf::st_geometry()
+    sf <- vg250_gem_centroids |> dplyr::filter(GEN == input) |> sf::st_geometry()
+
+    # warn user in case the name provided was not unique with multiple results
+    if (length(sf) > 1) {
+
+      paste("WARNING: The name provided returned multiple non-unique results.",
+            "Consider to visually inspect the returned object using e.g. `mapview::mapview(p)`.",
+            "Subsetting can be accomplished using brackets `p[1]`.", sep ="\n  ") |> message()
+    }
 
 	# string of length 5 representing a postal zip code
   } else if (inherits(input, "character") && length(input) == 1 && as.numeric(input) |> is.numeric()) {
@@ -108,8 +116,11 @@ get_centroid <- function(input,
 
     system.file("data/osm_plz.rda", package="kostra2010R") |> load()
 
-    osm_plz |> dplyr::filter(plz == input) |> sf::st_geometry()
+    sf <- osm_plz |> dplyr::filter(plz == input) |> sf::st_geometry()
   }
+
+  # return object
+  sf
 }
 
 
