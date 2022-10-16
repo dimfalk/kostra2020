@@ -1,5 +1,11 @@
 ## CHANGES IN ... 
 
+## v0.6.3
+
+* `get_centroid()` now makes use of the VG250_PK dataset instead of VG250_GEM centroids
+* `get_centroid()` now prompts a warning when the object returned contains multiple hits
+* `get_centroid()` now prompts an error when the object returned contains no hits
+
 ## v0.6.2
 
 * implementation of additional unit tests in order to increase code coverage
