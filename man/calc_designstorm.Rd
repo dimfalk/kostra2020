@@ -13,7 +13,7 @@ calc_designstorm(data = NULL, tn = NULL, d = NULL, type = NULL)
 
 \item{d}{Duration in minutes.}
 
-\item{type}{EulerI | EulerII.}
+\item{type}{Precipitation distribution: EulerI | EulerII.}
 }
 \value{
 An xts object.
@@ -23,7 +23,7 @@ Design storm calculation based on statistical precipitation depths
 }
 \examples{
 \dontrun{
-xts <- calc_designstorm(stats, tn = 50, d = 240, type = "EulerII")
+xts <- calc_designstorm(stats, tn = 50, d = 240, type = "EulerI")
 xts <- calc_designstorm(kostra, tn = 20, d = 60, type = "EulerII")
 }
 }

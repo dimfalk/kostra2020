@@ -3,6 +3,7 @@
 ## v0.6.2
 
 * implementation of additional unit tests in order to increase code coverage
+* `calc_designstorm()` now accepts `d = 5` as argument
 
 ## v0.6.1
 
@@ -23,7 +24,7 @@
 ## v0.3.2
 
 * initial implementation of several unit tests
-* minor rewriting of functions due to relative/absolute paths
+* minor refactoring of several functions due to relative/absolute paths
 
 ## v0.3.1
 
@@ -33,4 +34,3 @@
 ## v0.3
 
 * `get_pdepth()` now allows to determine statistical precipitation depths
-

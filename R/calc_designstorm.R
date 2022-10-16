@@ -3,7 +3,7 @@
 #' @param data A tibble containing grid cell statistics from KOSTRA-DWD-2010R.
 #' @param d Duration in minutes.
 #' @param tn Return periods in years.
-#' @param type EulerI | EulerII.
+#' @param type Precipitation distribution: EulerI | EulerII.
 #'
 #' @importFrom rlang .data
 #' @return An xts object.
@@ -11,7 +11,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' xts <- calc_designstorm(stats, tn = 50, d = 240, type = "EulerII")
+#' xts <- calc_designstorm(stats, tn = 50, d = 240, type = "EulerI")
 #' xts <- calc_designstorm(kostra, tn = 20, d = 60, type = "EulerII")
 #' }
 calc_designstorm <- function(data = NULL,
@@ -35,7 +35,7 @@ calc_designstorm <- function(data = NULL,
   checkmate::assert_choice(tn, allowed_tn)
 
   allowed_d <- attr(data, "durations_min")
-  checkmate::assert_numeric(d, len = 1, lower = 10)
+  checkmate::assert_numeric(d, len = 1)
   checkmate::assert_choice(d, allowed_d)
 
   allowed_type <- c("EulerI", "EulerII")
@@ -47,45 +47,50 @@ calc_designstorm <- function(data = NULL,
   # locate index of specified duration, generate sequence for further indexing
   d_pos <- which(data["D_min"] == d) |> seq() |> sort(decreasing = TRUE)
 
-  # init a new object using a subset of relevant durations
+  # init a new object using a subset of relevant duration levels
   data_rel <- data[sort(d_pos), ]
 
-  # recalculate statistic to relative values per duration interval
-  data_rel[2:length(d_pos), -1:-3] <- data[2:length(d_pos), -1:-3] - data[1:(length(d_pos) - 1), -1:-3]
+  if (d > 5) {
 
+    # recalculate statistic to relative values per duration interval
+    data_rel[2:length(d_pos), -1:-3] <- data[2:length(d_pos), -1:-3] - data[1:(length(d_pos) - 1), -1:-3]
+  }
 
   # init new df object using time steps of 5 mins width, equidistant stats
   data_5min <- data.frame(D_min = seq(5, d, 5)) |> tibble::as_tibble()
 
   n_timesteps <- data_5min[["D_min"]] |> length()
 
-  # merge equidistant statistic with relative values
+  # merge constructed intervals with relative values from statistics
   data_5min <- merge(data_5min,
                      data_rel,
                      by = "D_min",
                      all = TRUE)
 
-  # iterator definition, delta_t between intervals divided by resolution
-  steps <- (data[["D_min"]][1:d_pos[1]] |> diff() / 5) |>
-    sort(decreasing = TRUE)
+  if (d > 5) {
 
-  # drop steps == 1, since these values can be adopted from original statistic
-  steps <- steps[steps > 1]
+    # iterator definition, delta_t between intervals divided by resolution
+    steps <- (data[["D_min"]][1:d_pos[1]] |> diff() / 5) |>
+      sort(decreasing = TRUE)
 
-  # cumulative view to facilitate indexing
-  steps_cum <- c(0, steps) |> cumsum()
+    # drop steps == 1, since these values can be adopted from original statistic
+    steps <- steps[steps > 1]
 
-  # iterate over steps, equidistant recalculation (if necessary)
-  # not necessary for the first rows: d = 10, 15, 20 mins
-  if (length(steps) != 0) {
+    # cumulate values to facilitate indexing
+    steps_cum <- c(0, steps) |> cumsum()
 
-    for (i in 1:length(steps)) {
+    # iterate over steps, equidistant recalculation (if necessary)
+    # not necessary for the first rows: d = 10, 15, 20 mins
+    if (length(steps) != 0) {
 
-      # interval definition
-      recent_step <- c(n_timesteps - steps_cum[i], n_timesteps - steps_cum[i+1])
+      for (i in 1:length(steps)) {
 
-      # extract, divide and distribute values in corresponding rows
-      data_5min[recent_step[1]:(recent_step[2]+1), -1:-3] <- data_rel[d_pos[i], -1:-3] / steps[i]
+        # interval definition
+        recent_step <- c(n_timesteps - steps_cum[i], n_timesteps - steps_cum[i+1])
+
+        # extract, divide and distribute values in corresponding rows
+        data_5min[recent_step[1]:(recent_step[2]+1), -1:-3] <- data_rel[d_pos[i], -1:-3] / steps[i]
+      }
     }
   }
 
@@ -102,7 +107,7 @@ calc_designstorm <- function(data = NULL,
   values <- data_5min[, which(attr(data, "returnperiods_a") == tn) + 3] |>
     round(2)
 
-  #
+  # re-arrange values according to chosen precipitation distribution
   if (type == "EulerI") {
 
     # do nothing, order is correct by default
