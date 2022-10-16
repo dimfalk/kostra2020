@@ -30,7 +30,8 @@ kostra_ref <- structure(
                           isdst  = c(0L, 0L),
                           zone   = c("CET", "CET"),
                           gmtoff = c(NA_integer_, NA_integer_)),
-                     class = c("POSIXlt", "POSIXt")
+                     class = c("POSIXlt", "POSIXt"),
+                     tzone = c("CET", "CET", "CEST")
                      ),
   returnperiods_a = c(1, 2, 3, 5, 10, 20, 30, 50, 100),
   durations_min = c(5, 10, 15, 20, 30, 45, 60, 90, 120, 180, 240, 360, 540, 720, 1080, 1440, 2880, 4320),
@@ -68,7 +69,8 @@ pen_ref <- structure(
                           isdst  = c(0L, 0L),
                           zone   = c("CET", "CET"),
                           gmtoff = c(NA_integer_, NA_integer_)),
-                     class = c("POSIXlt", "POSIXt")
+                     class = c("POSIXlt", "POSIXt"),
+                     tzone = c("CET", "CET", "CEST")
                      ),
   returnperiods_a = c(200, 500, 1000, 2000, 5000, 10000),
   durations_min = c(5, 10, 15, 20, 30, 45, 60, 90, 120, 180, 240, 360, 540, 720, 1080, 1440, 2880, 4320),
@@ -111,7 +113,8 @@ xts_ref <- structure(
          isdst = 0L,
          zone = "CET",
          gmtoff = NA_integer_),
-    class = c("POSIXlt","POSIXt")
+    class = c("POSIXlt","POSIXt"),
+    tzone = c("CET", "CET", "CEST")
     ),
   TS_END = structure(
     list(sec = 0,
@@ -125,7 +128,8 @@ xts_ref <- structure(
          isdst = 0L,
          zone = "CET",
          gmtoff = NA_integer_),
-    class = c("POSIXlt","POSIXt")
+    class = c("POSIXlt","POSIXt"),
+    tzone = c("CET", "CET", "CEST")
     ),
   TS_TYPE = "simulation",
   MEAS_UNIT = "mm",
