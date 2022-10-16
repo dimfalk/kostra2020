@@ -111,10 +111,18 @@ get_centroid <- function(input,
     # capture typos and non-existent names in the dataset
     if (length(sf) == 0) {
 
+      # partial matching successful?
       pmatch <- vg250_pk[["GEN"]][grep(input, vg250_pk[["GEN"]])]
 
-      paste("The name provided is not included in the dataset. Did you mean one of the following entries?",
-            stringr::str_c(pmatch, collapse = ", "), sep ="\n  ") |> stop()
+      if (length(pmatch) == 0) {
+
+        stop("The name provided is not included in the dataset. Please try another.")
+
+      } else {
+
+        paste("The name provided is not included in the dataset. Did you mean one of the following entries?",
+              stringr::str_c(pmatch, collapse = ", "), sep ="\n  ") |> stop()
+      }
     }
 
 	# string of length 5 representing a postal zip code
