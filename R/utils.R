@@ -103,9 +103,18 @@ get_centroid <- function(input,
     # warn user in case the name provided was not unique with multiple results
     if (length(sf) > 1) {
 
-      paste("WARNING: The name provided returned multiple non-unique results.",
+      paste("Warning: The name provided returned multiple non-unique results.",
             "Consider to visually inspect the returned object using e.g. `mapview::mapview(p)`.",
-            "Subsetting can be accomplished using brackets `p[1]`.", sep ="\n  ") |> message()
+            "Hint: Subsetting can be accomplished using brackets `p[1]`.", sep ="\n  ") |> message()
+    }
+
+    # capture typos and non-existent names in the dataset
+    if (length(sf) == 0) {
+
+      pmatch <- vg250_pk[["GEN"]][grep(input, vg250_pk[["GEN"]])]
+
+      paste("The name provided is not included in the dataset. Did you mean one of the following entries?",
+            stringr::str_c(pmatch, collapse = ", "), sep ="\n  ") |> stop()
     }
 
 	# string of length 5 representing a postal zip code
