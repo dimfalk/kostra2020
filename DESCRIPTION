@@ -4,7 +4,7 @@ Version: 0.6.3
 Date: 2022-04-12 12:05:13
 Authors@R: 
     person("Dimitri", "Falk", , "falk.dimitri@eglv.de", role = c("aut", "cre"))
-Description: Extract cell-specific precipitation statistics based on KOSTRA-DWD-2010R.
+Description: Extract cell-specific precipitation statistics from KOSTRA-DWD-2010R.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
