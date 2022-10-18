@@ -20,5 +20,6 @@ Precipitation depth.
 Get precipitation depth for a specified duration and return period
 }
 \examples{
+kostra <- get_stats("49011")
 get_pdepth(kostra, d = 60, tn = 50)
 }

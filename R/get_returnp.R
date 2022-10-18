@@ -9,6 +9,7 @@
 #' @export
 #'
 #' @examples
+#' kostra <- get_stats("49011")
 #' get_returnp(kostra, hn = 69.3, d = 1440)
 get_returnp <- function(data = NULL,
                         hn = NULL,

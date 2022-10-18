@@ -155,6 +155,7 @@ get_centroid <- function(input,
 #' @export
 #'
 #' @examples
+#' p <- get_centroid(input = c(367773, 5703579))
 #' get_idx(p)
 get_idx <- function(location = NULL) {
 

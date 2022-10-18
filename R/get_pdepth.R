@@ -8,6 +8,7 @@
 #' @export
 #'
 #' @examples
+#' kostra <- get_stats("49011")
 #' get_pdepth(kostra, d = 60, tn = 50)
 get_pdepth <- function(data = NULL,
                        d = NULL,

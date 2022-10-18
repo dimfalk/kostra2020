@@ -21,5 +21,6 @@ return period class in years.
 Get return period class for specified precipitation depth
 }
 \examples{
+kostra <- get_stats("49011")
 get_returnp(kostra, hn = 69.3, d = 1440)
 }

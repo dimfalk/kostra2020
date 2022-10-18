@@ -10,7 +10,7 @@
 #' @export
 #'
 #' @examples
-#' xts <- calc_designstorm(stats, tn = 50, d = 240, type = "EulerI")
+#' kostra <- get_stats("49011")
 #' xts <- calc_designstorm(kostra, tn = 20, d = 60, type = "EulerII")
 calc_designstorm <- function(data = NULL,
                              tn = NULL,
