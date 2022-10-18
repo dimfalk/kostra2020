@@ -21,7 +21,5 @@ return period class in years.
 Get return period class for specified precipitation depth
 }
 \examples{
-\dontrun{
 get_returnp(kostra, hn = 69.3, d = 1440)
-}
 }

@@ -9,9 +9,7 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' get_returnp(kostra, hn = 69.3, d = 1440)
-#' }
 get_returnp <- function(data = NULL,
                         hn = NULL,
                         d = NULL) {

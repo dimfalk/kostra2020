@@ -8,9 +8,7 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' get_pdepth(kostra, d = 60, tn = 50)
-#' }
 get_pdepth <- function(data = NULL,
                        d = NULL,
                        tn = NULL) {

@@ -20,7 +20,5 @@ Precipitation depth.
 Get precipitation depth for a specified duration and return period
 }
 \examples{
-\dontrun{
 get_pdepth(kostra, d = 60, tn = 50)
-}
 }

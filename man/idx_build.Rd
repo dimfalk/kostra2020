@@ -19,7 +19,5 @@ A string containing the unique representation of the relevant
 Construct "INDEX_RC" based on given X and Y information
 }
 \examples{
-\dontrun{
 idx_build(11, 49)
-}
 }

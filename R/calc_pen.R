@@ -7,9 +7,8 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' pen <- calc_pen(kostra)
-#' }
+#'
 #' @references Verworn & Kummer (2006): Praxisrelevante Extremwerte des Niederschlages (PEN).
 #' @references Verworn & Draschoff (2008): PEN-Erweiterung.
 calc_pen <- function(data = NULL) {

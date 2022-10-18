@@ -16,7 +16,5 @@ A boolean.
 Check whether "INDEX_RC" provided is present in KOSTRA-2010R data set
 }
 \examples{
-\dontrun{
 idx_exists("49011")
-}
 }

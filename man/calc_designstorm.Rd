@@ -22,8 +22,6 @@ An xts object.
 Design storm calculation based on statistical precipitation depths
 }
 \examples{
-\dontrun{
 xts <- calc_designstorm(stats, tn = 50, d = 240, type = "EulerI")
 xts <- calc_designstorm(kostra, tn = 20, d = 60, type = "EulerII")
-}
 }

@@ -7,9 +7,7 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' kostra <- get_stats("49011")
-#' }
 get_stats <- function(grid_index = NULL) {
 
   # debugging ------------------------------------------------------------------

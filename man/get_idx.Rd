@@ -17,7 +17,5 @@ A string containing the unique representation of the relevant
 Get index of KOSTRA-2010R cell by means of intersection with given location
 }
 \examples{
-\dontrun{
 get_idx(p)
-}
 }

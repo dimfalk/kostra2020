@@ -6,9 +6,7 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' idx_exists("49011")
-#' }
 idx_exists <- function(idx = NULL) {
 
   # input validation -----------------------------------------------------------
@@ -43,9 +41,7 @@ idx_exists <- function(idx = NULL) {
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' idx_build(11, 49)
-#' }
 idx_build <- function(col = NULL, row = NULL) {
 
   # debugging ------------------------------------------------------------------
@@ -70,25 +66,23 @@ idx_build <- function(col = NULL, row = NULL) {
 #' @param input Vector of length 2 containing numeric representing coordinates,
 #'   or string of length 1 representing the name of a municipality,
 #'   or string of nchar 5 representing a postal zip code.
-#' @param crs (optional) Coordinate reference system definition.
+#' @param epsg (optional) Coordinate reference system definition.
 #'
 #' @return An object of type `sfc_POINT`.
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' p1 <- get_centroid(input = c(367773, 5703579))
-#' p2 <- get_centroid(input = c(6.09, 50.46), crs = 4326)
+#' p2 <- get_centroid(input = c(6.09, 50.46), epsg = 4326)
 #' p3 <- get_centroid(input = "Aachen")
 #' p4 <- get_centroid(input = "52070")
-#' }
 get_centroid <- function(input,
-                         crs = 25832) {
+                         epsg = 25832) {
 
   # vector of length 2 containing numeric representing coordinates -------------
   if (inherits(input, "numeric") && length(input) == 2) {
 
-    sf <- sf::st_point(input) |> sf::st_sfc(crs = crs)
+    sf <- sf::st_point(input) |> sf::st_sfc(crs = epsg)
 
 	# string of length 1 representing the name of a municipality -----------------
   } else if (inherits(input, "character") && length(input) == 1 && as.numeric(input) |> suppressWarnings() |> is.na()) {
@@ -161,9 +155,7 @@ get_centroid <- function(input,
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' get_idx(p)
-#' }
 get_idx <- function(location = NULL) {
 
   # input validation -----------------------------------------------------------
@@ -202,7 +194,8 @@ get_idx <- function(location = NULL) {
 #' @return Precipitation yield in l/(s*ha).
 #' @export
 #'
-#' @examples as_yield(hn = 45.7, d = 60)
+#' @examples
+#' as_yield(hn = 45.7, d = 60)
 as_yield <- function(hn = NULL,
                      d = NULL) {
 
@@ -231,7 +224,8 @@ as_yield <- function(hn = NULL,
 #' @return Precipitation depth in mm.
 #' @export
 #'
-#' @examples as_depth(rn = 126.94, d = 60)
+#' @examples
+#' as_depth(rn = 126.94, d = 60)
 as_depth <- function(rn = NULL,
                      d = NULL) {
 
@@ -249,4 +243,3 @@ as_depth <- function(rn = NULL,
 
   (as.numeric(rn) / 10000 * 60 * d) |> round(1) |> units::as_units("mm")
 }
-
