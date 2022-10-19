@@ -10,7 +10,7 @@
 #' @source <https://gdz.bkg.bund.de/index.php/default/digitale-geodaten/verwaltungsgebiete/verwaltungsgebiete-1-250-000-stand-31-12-vg250-31-12.html>
 #' @note: License: Data licence Germany – attribution – version 2.0
 #' @note: Copyright: GeoBasis-DE / BKG 2022 (modified)
-#' @details: sf::st_read("VG250_PK.shp") |> dplyr::select("GEN") |> sf::st_transform("epsg:25832")
+#' @details: vg250_pk <- sf::st_read("VG250_PK.shp") |> dplyr::select("GEN") |> sf::st_transform("epsg:25832")
 "vg250_pk"
 
 
@@ -26,5 +26,5 @@
 #' @source <https://www.suche-postleitzahl.org/downloads>
 #' @note: License: Open Data Commons Open Database License (ODbL)
 #' @note: Copyright: OpenStreetMap contributors 2022 (modified)
-#' @details: sf::st_read("plz-5stellig.shp") |> dplyr::select("plz") |> sf::st_centroid() |> sf::st_transform("epsg:25832")
+#' @details: osm_plz <- sf::st_read("plz-5stellig.shp") |> dplyr::select("plz") |> sf::st_centroid() |> sf::st_transform("epsg:25832")
 "osm_plz"
