@@ -4,10 +4,10 @@
 \alias{get_centroid}
 \title{Construct an geometry set object of type POINT based on user input}
 \usage{
-get_centroid(input, epsg = 25832)
+get_centroid(x, epsg = 25832)
 }
 \arguments{
-\item{input}{Vector of length 2 containing numeric representing coordinates,
+\item{x}{Vector of length 2 containing numeric representing coordinates,
 or string of length 1 representing the name of a municipality,
 or string of nchar 5 representing a postal zip code.}
 
@@ -20,8 +20,8 @@ An object of type \code{sfc_POINT}.
 Construct an geometry set object of type POINT based on user input
 }
 \examples{
-p1 <- get_centroid(input = c(367773, 5703579))
-p2 <- get_centroid(input = c(6.09, 50.46), epsg = 4326)
-p3 <- get_centroid(input = "Aachen")
-p4 <- get_centroid(input = "52070")
+p1 <- get_centroid(x = c(367773, 5703579))
+p2 <- get_centroid(x = c(6.09, 50.46), epsg = 4326)
+p3 <- get_centroid(x = "Aachen")
+p4 <- get_centroid(x = "52070")
 }

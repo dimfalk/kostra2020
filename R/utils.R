@@ -63,7 +63,7 @@ idx_build <- function(col = NULL, row = NULL) {
 
 #' Construct an geometry set object of type POINT based on user input
 #'
-#' @param input Vector of length 2 containing numeric representing coordinates,
+#' @param x Vector of length 2 containing numeric representing coordinates,
 #'   or string of length 1 representing the name of a municipality,
 #'   or string of nchar 5 representing a postal zip code.
 #' @param epsg (optional) Coordinate reference system definition.
@@ -72,27 +72,27 @@ idx_build <- function(col = NULL, row = NULL) {
 #' @export
 #'
 #' @examples
-#' p1 <- get_centroid(input = c(367773, 5703579))
-#' p2 <- get_centroid(input = c(6.09, 50.46), epsg = 4326)
-#' p3 <- get_centroid(input = "Aachen")
-#' p4 <- get_centroid(input = "52070")
-get_centroid <- function(input,
+#' p1 <- get_centroid(x = c(367773, 5703579))
+#' p2 <- get_centroid(x = c(6.09, 50.46), epsg = 4326)
+#' p3 <- get_centroid(x = "Aachen")
+#' p4 <- get_centroid(x = "52070")
+get_centroid <- function(x,
                          epsg = 25832) {
 
   # vector of length 2 containing numeric representing coordinates -------------
-  if (inherits(input, "numeric") && length(input) == 2) {
+  if (inherits(x, "numeric") && length(x) == 2) {
 
-    sf <- sf::st_point(input) |> sf::st_sfc(crs = epsg)
+    sf <- sf::st_point(x) |> sf::st_sfc(crs = epsg)
 
 	# string of length 1 representing the name of a municipality -----------------
-  } else if (inherits(input, "character") && length(input) == 1 && as.numeric(input) |> suppressWarnings() |> is.na()) {
+  } else if (inherits(x, "character") && length(x) == 1 && as.numeric(x) |> suppressWarnings() |> is.na()) {
 
     vg250_pk <- NULL
     GEN <- NULL
 
     system.file("data/vg250_pk.rda", package="kostra2010R") |> load()
 
-    sf <- vg250_pk |> dplyr::filter(GEN == input) |> sf::st_geometry()
+    sf <- vg250_pk |> dplyr::filter(GEN == x) |> sf::st_geometry()
 
     # warn user in case the name provided was not unique with multiple results
     if (length(sf) > 1) {
@@ -106,7 +106,7 @@ get_centroid <- function(input,
     if (length(sf) == 0) {
 
       # partial matching successful?
-      pmatch <- vg250_pk[["GEN"]][grep(input, vg250_pk[["GEN"]])]
+      pmatch <- vg250_pk[["GEN"]][grep(x, vg250_pk[["GEN"]])]
 
       if (length(pmatch) == 0) {
 
@@ -120,14 +120,14 @@ get_centroid <- function(input,
     }
 
 	# string of length 5 representing a postal zip code --------------------------
-  } else if (inherits(input, "character") && length(input) == 1 && nchar(input) == 5 && as.numeric(input) |> is.numeric()) {
+  } else if (inherits(x, "character") && length(x) == 1 && nchar(x) == 5 && !is.na(as.numeric(x)) |> suppressWarnings()) {
 
     osm_plz <- NULL
     plz <- NULL
 
     system.file("data/osm_plz.rda", package="kostra2010R") |> load()
 
-    sf <- osm_plz |> dplyr::filter(plz == input) |> sf::st_geometry()
+    sf <- osm_plz |> dplyr::filter(plz == x) |> sf::st_geometry()
 
     # capture typos and non-existent codes in the dataset
     if (length(sf) == 0) {
@@ -155,7 +155,7 @@ get_centroid <- function(input,
 #' @export
 #'
 #' @examples
-#' p <- get_centroid(input = c(367773, 5703579))
+#' p <- get_centroid(x = c(367773, 5703579))
 #' get_idx(p)
 get_idx <- function(location = NULL) {
 

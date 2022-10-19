@@ -21,7 +21,7 @@ osm_plz
 A subset/derivate of 5-digit zip code data provided by OpenStreetMap
 }
 \details{
-: sf::st_read("plz-5stellig.shp") |> dplyr::select("plz") |> sf::st_centroid() |> sf::st_transform("epsg:25832")
+: osm_plz <- sf::st_read("plz-5stellig.shp") |> dplyr::select("plz") |> sf::st_centroid() |> sf::st_transform("epsg:25832")
 }
 \note{
 : License: Open Data Commons Open Database License (ODbL)

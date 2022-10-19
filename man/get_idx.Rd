@@ -17,6 +17,6 @@ A string containing the unique representation of the relevant
 Get index of KOSTRA-2010R cell by means of intersection with given location
 }
 \examples{
-p <- get_centroid(input = c(367773, 5703579))
+p <- get_centroid(x = c(367773, 5703579))
 get_idx(p)
 }
