@@ -1,4 +1,4 @@
-#' Point representation of municipalities in Germany (VG250 31.12.)
+#' Point representation of municipalities in Germany (VG250 31.12.2021)
 #'
 #' A subset of data from the VG250_PK product provided by the Federal Agency for Cartography and Geodesy, Germany
 #'
