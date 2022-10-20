@@ -1,4 +1,4 @@
-test_that("General table building from shapefile works.", {
+test_that("Output class is as expected.", {
 
   expect_true(inherits(kostra, "data.frame"))
 })

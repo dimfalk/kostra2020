@@ -1,4 +1,4 @@
-test_that("General table building works.", {
+test_that("Output class is as expected.", {
 
   expect_true(inherits(pen, "data.frame"))
 })

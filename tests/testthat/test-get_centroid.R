@@ -1,3 +1,14 @@
+test_that("Output class is as expected.", {
+
+  expect_true(inherits(get_centroid(x = c(367773, 5703579)), c("sfc_POINT", "sfc")))
+
+  expect_true(inherits(get_centroid(x = c(6.09, 50.46), epsg = 4326), c("sfc_POINT", "sfc")))
+
+  expect_true(inherits(get_centroid(x = "Aachen"), c("sfc_POINT", "sfc")))
+
+  expect_true(inherits(get_centroid(x = "52070"), c("sfc_POINT", "sfc")))
+})
+
 test_that("Function working as intended.", {
 
   expect_equal(get_centroid(x = c(367773, 5703579)) |> sf::st_coordinates() |> as.numeric(), c(367773, 5703579))
@@ -8,3 +19,4 @@ test_that("Function working as intended.", {
 
   expect_equal(get_centroid(x = "52070") |> sf::st_coordinates() |> as.numeric() |> round(0), c(295359, 5630920))
 })
+

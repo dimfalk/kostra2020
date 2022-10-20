@@ -1,4 +1,4 @@
-test_that("Construction of xts object works.", {
+test_that("Output class is as expected.", {
 
   expect_true(inherits(xts, c("xts", "zoo")))
 })
