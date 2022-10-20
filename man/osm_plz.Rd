@@ -5,7 +5,7 @@
 \alias{osm_plz}
 \title{Centroids of zip code areas in Germany}
 \format{
-Simple feature collection with 8,170 features and 1 field:
+Simple feature collection of type POINT with 8,170 features and 1 field:
 \describe{
 \item{plz}{zip codes}
 \item{geometry}{centroid coordinates}

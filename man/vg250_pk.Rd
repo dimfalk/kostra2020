@@ -5,7 +5,7 @@
 \alias{vg250_pk}
 \title{Point representation of municipalities in Germany (VG250 31.12.)}
 \format{
-Simple feature collection with 10,994 features and 1 field:
+Simple feature collection of type POINT with 10,994 features and 1 field:
 \describe{
 \item{GEN}{municipality name}
 \item{geometry}{centroid coordinates}

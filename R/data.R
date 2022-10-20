@@ -2,7 +2,7 @@
 #'
 #' A subset of data from the VG250_PK product provided by the Federal Agency for Cartography and Geodesy, Germany
 #'
-#' @format Simple feature collection with 10,994 features and 1 field:
+#' @format Simple feature collection of type POINT with 10,994 features and 1 field:
 #' \describe{
 #'   \item{GEN}{municipality name}
 #'   \item{geometry}{centroid coordinates}
@@ -18,7 +18,7 @@
 #'
 #' A subset/derivate of 5-digit zip code data provided by OpenStreetMap
 #'
-#' @format Simple feature collection with 8,170 features and 1 field:
+#' @format Simple feature collection of type POINT with 8,170 features and 1 field:
 #' \describe{
 #'   \item{plz}{zip codes}
 #'   \item{geometry}{centroid coordinates}
