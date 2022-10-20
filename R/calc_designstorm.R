@@ -5,7 +5,6 @@
 #' @param tn Return periods in years.
 #' @param type Precipitation distribution: EulerI | EulerII.
 #'
-#' @importFrom rlang .data
 #' @return An xts object.
 #' @export
 #'
@@ -139,7 +138,7 @@ calc_designstorm <- function(data = NULL,
     tiles <- sf::st_read(files[1], quiet = TRUE)
 
     # subset shapefile to relevant tile
-    tile <- tiles |> dplyr::filter(.data$INDEX_RC == attr(data, "id"))
+    tile <- tiles |> dplyr::filter(INDEX_RC == attr(data, "id"))
 
     # calculate centroid
     centroid <- tile[["geometry"]] |>
@@ -191,3 +190,8 @@ calc_designstorm <- function(data = NULL,
   # return object
   xts
 }
+
+
+
+# quiets concerns of R CMD check
+utils::globalVariables(c("INDEX_RC"))

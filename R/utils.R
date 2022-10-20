@@ -252,3 +252,8 @@ as_depth <- function(rn = NULL,
 
   (as.numeric(rn) / 10000 * 60 * d) |> round(1) |> units::as_units("mm")
 }
+
+
+
+# quiets concerns of R CMD check
+utils::globalVariables(c("vg250_pk", "GEN", "osm_plz_centroids", "plz"))

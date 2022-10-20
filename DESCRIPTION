@@ -13,7 +13,6 @@ Depends: R (>= 4.2.0)
 Imports: 
     checkmate,
     dplyr,
-    rlang,
     sf,
     stats,
     stringr,
