@@ -43,7 +43,7 @@ and load the package via
 library(kostra2010R)
 ```
 
-## Usage
+## Getting started
 
 ### Get "INDEX_RC" based on row and column information
 
@@ -67,10 +67,10 @@ The most common use case will be to get the relevant "INDEX_RC" based on coordin
 
 ```{r}
 # Sf objects created based on specified coordinates. Don't forget to pass the CRS.
-p1 <- get_centroid(input = c(6.09, 50.46), crs = 4326)
+p1 <- get_centroid(x = c(6.09, 50.46), epsg = 4326)
 p1
 
-p2 <- get_centroid(input = c(367773, 5703579), crs = 25832)
+p2 <- get_centroid(x = c(367773, 5703579), epsg = 25832)
 p2
 ```
 
@@ -78,10 +78,10 @@ For convenience, it is also possible to provide municipality names or postal cod
 
 ```{r}
 # Sf objects created based on names and zip codes
-p3 <- get_centroid(input = "Freiburg im Breisgau")
+p3 <- get_centroid(x = "Freiburg im Breisgau")
 p3
 
-p4 <- get_centroid(input = "52070")
+p4 <- get_centroid(x = "52070")
 p4
 ```
 

@@ -46,7 +46,7 @@ and load the package via
 library(kostra2010R)
 ```
 
-## Usage
+## Getting started
 
 ### Get “INDEX_RC” based on row and column information
 
@@ -81,7 +81,7 @@ in terms of return periods.
 
 ``` r
 # Sf objects created based on specified coordinates. Don't forget to pass the CRS.
-p1 <- get_centroid(input = c(6.09, 50.46), crs = 4326)
+p1 <- get_centroid(x = c(6.09, 50.46), epsg = 4326)
 p1
 #> Geometry set for 1 feature 
 #> Geometry type: POINT
@@ -90,7 +90,7 @@ p1
 #> Geodetic CRS:  WGS 84
 #> POINT (6.09 50.46)
 
-p2 <- get_centroid(input = c(367773, 5703579), crs = 25832)
+p2 <- get_centroid(x = c(367773, 5703579), epsg = 25832)
 p2
 #> Geometry set for 1 feature 
 #> Geometry type: POINT
@@ -105,16 +105,16 @@ postal codes to derive coordinates.
 
 ``` r
 # Sf objects created based on names and zip codes
-p3 <- get_centroid(input = "Freiburg im Breisgau")
+p3 <- get_centroid(x = "Freiburg im Breisgau")
 p3
 #> Geometry set for 1 feature 
 #> Geometry type: POINT
 #> Dimension:     XY
-#> Bounding box:  xmin: 411822.1 ymin: 5316160 xmax: 411822.1 ymax: 5316160
+#> Bounding box:  xmin: 414198 ymin: 5316361 xmax: 414198 ymax: 5316361
 #> Projected CRS: ETRS89 / UTM zone 32N
-#> POINT (411822.1 5316160)
+#> POINT (414198 5316361)
 
-p4 <- get_centroid(input = "52070")
+p4 <- get_centroid(x = "52070")
 p4
 #> Geometry set for 1 feature 
 #> Geometry type: POINT
