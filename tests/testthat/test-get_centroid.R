@@ -4,7 +4,7 @@ test_that("Function working as intended.", {
 
   expect_equal(get_centroid(x = c(6.09, 50.46), epsg = 4326) |> sf::st_coordinates() |> as.numeric(), c(6.09, 50.46))
 
-  # expect_equal(get_centroid(input = "Aachen") |> sf::st_coordinates() |> as.numeric() |> round(0), c(296160, 5627069))
+  expect_equal(get_centroid(x = "Aachen") |> sf::st_coordinates() |> as.numeric() |> round(0), c(294465, 5628692))
 
-  # expect_equal(get_centroid(input = "52070") |> sf::st_coordinates() |> as.numeric() |> round(0), c(295359, 5630920))
+  expect_equal(get_centroid(x = "52070") |> sf::st_coordinates() |> as.numeric() |> round(0), c(295359, 5630920))
 })
