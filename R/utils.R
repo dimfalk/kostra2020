@@ -87,11 +87,6 @@ get_centroid <- function(x,
 	# string of length 1 representing the name of a municipality -----------------
   } else if (inherits(x, "character") && length(x) == 1 && as.numeric(x) |> suppressWarnings() |> is.na()) {
 
-    vg250_pk <- NULL
-    GEN <- NULL
-
-    system.file("data/vg250_pk.rda", package="kostra2010R") |> load()
-
     sf <- vg250_pk |> dplyr::filter(GEN == x) |> sf::st_geometry()
 
     # warn user in case the name provided was not unique with multiple results
@@ -121,11 +116,6 @@ get_centroid <- function(x,
 
 	# string of length 5 representing a postal zip code --------------------------
   } else if (inherits(x, "character") && length(x) == 1 && nchar(x) == 5 && !is.na(as.numeric(x)) |> suppressWarnings()) {
-
-    osm_plz <- NULL
-    plz <- NULL
-
-    system.file("data/osm_plz.rda", package="kostra2010R") |> load()
 
     sf <- osm_plz |> dplyr::filter(plz == x) |> sf::st_geometry()
 
