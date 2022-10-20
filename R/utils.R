@@ -117,7 +117,7 @@ get_centroid <- function(x,
 	# string of length 5 representing a postal zip code --------------------------
   } else if (inherits(x, "character") && length(x) == 1 && nchar(x) == 5 && !is.na(as.numeric(x)) |> suppressWarnings()) {
 
-    sf <- osm_plz |> dplyr::filter(plz == x) |> sf::st_geometry()
+    sf <- osm_plz_centroids |> dplyr::filter(plz == x) |> sf::st_geometry()
 
     # capture typos and non-existent codes in the dataset
     if (length(sf) == 0) {

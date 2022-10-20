@@ -13,7 +13,6 @@
 #' @details: vg250_pk <- sf::st_read("VG250_PK.shp") |> dplyr::select("GEN") |> sf::st_transform("epsg:25832")
 "vg250_pk"
 
-
 #' Centroids of zip code areas in Germany
 #'
 #' A subset/derivate of 5-digit zip code data provided by OpenStreetMap
@@ -27,4 +26,4 @@
 #' @note: License: Open Data Commons Open Database License (ODbL)
 #' @note: Copyright: OpenStreetMap contributors 2022 (modified)
 #' @details: osm_plz <- sf::st_read("plz-5stellig.shp") |> dplyr::select("plz") |> sf::st_centroid() |> sf::st_transform("epsg:25832")
-"osm_plz"
+"osm_plz_centroids"
