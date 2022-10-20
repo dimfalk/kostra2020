@@ -79,6 +79,18 @@ idx_build <- function(col = NULL, row = NULL) {
 get_centroid <- function(x,
                          epsg = 25832) {
 
+  # debugging ------------------------------------------------------------------
+
+  # x <- c(6.89, 51.34, 7.13, 51.53)
+  # x <- c(353034.1, 5689295.3, 370288.6, 5710875.9)
+  # x <- "Essen"
+  # x <- "45145"
+  # epsg <- 4326
+
+  # input validation -----------------------------------------------------------
+
+
+
   # vector of length 2 containing numeric representing coordinates -------------
   if (inherits(x, "numeric") && length(x) == 2) {
 
@@ -89,29 +101,32 @@ get_centroid <- function(x,
 
     sf <- vg250_pk |> dplyr::filter(GEN == x) |> sf::st_geometry()
 
-    # warn user in case the name provided was not unique with multiple results
-    if (length(sf) > 1) {
-
-      paste("Warning: The name provided returned multiple non-unique results.",
-            "Consider to visually inspect the returned object using e.g. `mapview::mapview(p)`.",
-            "Hint: Subsetting can be accomplished using brackets `p[1]`.", sep ="\n  ") |> message()
-    }
+    # number of objects present
+    n <- length(sf)
 
     # capture typos and non-existent names in the dataset
-    if (length(sf) == 0) {
+    if (n == 0) {
 
       # partial matching successful?
       pmatch <- vg250_pk[["GEN"]][grep(x, vg250_pk[["GEN"]])]
 
       if (length(pmatch) == 0) {
 
-        stop("The name provided is not included in the dataset. Please try another.")
+        "The name provided is not included in the dataset. Please try another." |> stop()
 
       } else {
 
         paste("The name provided is not included in the dataset. Did you mean one of the following entries?",
               stringr::str_c(pmatch, collapse = ", "), sep ="\n  ") |> stop()
       }
+
+      # warn user in case the name provided was not unique with multiple results
+    } else if (n > 1) {
+
+      paste("Warning: The name provided returned multiple non-unique results.",
+            "Consider to visually inspect the returned object using e.g. `mapview::mapview(p)`.",
+            "Hint: Subsetting can be accomplished using brackets `p[1]`.", sep ="\n  ") |> message()
+
     }
 
 	# string of length 5 representing a postal zip code --------------------------
@@ -119,10 +134,13 @@ get_centroid <- function(x,
 
     sf <- osm_plz_centroids |> dplyr::filter(plz == x) |> sf::st_geometry()
 
-    # capture typos and non-existent codes in the dataset
-    if (length(sf) == 0) {
+    # number of objects present
+    n <- length(sf)
 
-      stop("The postal code provided is not included in the dataset. Please try another.")
+    # capture typos and non-existent codes in the dataset
+    if (n == 0) {
+
+      "The postal code provided is not included in the dataset. Please try another." |> stop()
     }
 
   } else {
