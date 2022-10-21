@@ -12,20 +12,22 @@ Simple feature collection of type POINT with 10,994 features and 1 field:
 }
 }
 \source{
-\url{https://gdz.bkg.bund.de/index.php/default/digitale-geodaten/verwaltungsgebiete/verwaltungsgebiete-1-250-000-stand-31-12-vg250-31-12.html}
+\url{https://daten.gdz.bkg.bund.de/produkte/vg/vg250_ebenen_1231/aktuell/vg250_12-31.utm32s.shape.ebenen.zip}
 }
 \usage{
 vg250_pk
 }
 \description{
-A subset of data from the VG250_PK product provided by the Federal Agency for Cartography and Geodesy, Germany
+\url{https://gdz.bkg.bund.de/index.php/default/digitale-geodaten/verwaltungsgebiete/verwaltungsgebiete-1-250-000-stand-31-12-vg250-31-12.html}
 }
 \details{
-: vg250_pk <- sf::st_read("VG250_PK.shp") |> dplyr::select("GEN") |> sf::st_transform("epsg:25832")
+A subset of data from the VG250_PK product provided by the Federal Agency for Cartography and Geodesy, Germany
 }
 \note{
-: License: Data licence Germany – attribution – version 2.0
+Last access: 2022-10-20
 
-: Copyright: GeoBasis-DE / BKG 2022 (modified)
+License: Data licence Germany – attribution – version 2.0
+
+Copyright: GeoBasis-DE / BKG 2022 (modified)
 }
 \keyword{datasets}

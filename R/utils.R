@@ -15,18 +15,8 @@ idx_exists <- function(idx = NULL) {
 
   # main -----------------------------------------------------------------------
 
-  # get file names
-  files <- list.files(system.file(package = "kostra2010R"),
-    pattern = "*.shp",
-    full.names = TRUE,
-    recursive = TRUE
-  )
-
-  # read shapefile as sf
-  shp <- sf::st_read(files[1], quiet = TRUE)
-
   # return boolean
-  idx %in% shp[["INDEX_RC"]]
+  idx %in% kostra_dwd_2010r[[1]][["INDEX_RC"]]
 }
 
 
@@ -173,18 +163,11 @@ get_idx <- function(location = NULL) {
 
   # main -----------------------------------------------------------------------
 
-  # get file names
-  files <- list.files(system.file(package = "kostra2010R"),
-                      pattern = "*.shp",
-                      full.names = TRUE,
-                      recursive = TRUE
-  )
-
   # reproject sf point to target crs of the data set
   location <- sf::st_transform(location, 3034)
 
-  # read shapefile
-  shp <- sf::st_read(files[1], quiet = TRUE)
+  # get first sf collection
+  shp <- kostra_dwd_2010r[[1]]
 
   # determine index based on topology relation: intersect
   ind <- lengths(sf::st_intersects(shp, location)) > 0
@@ -256,4 +239,6 @@ as_depth <- function(rn = NULL,
 
 
 # quiets concerns of R CMD check
-utils::globalVariables(c("vg250_pk", "GEN", "osm_plz_centroids", "plz"))
+utils::globalVariables(c("vg250_pk", "GEN",
+                         "osm_plz_centroids", "plz",
+                         "kostra_dwd_2010r", "INDEX_RC"))

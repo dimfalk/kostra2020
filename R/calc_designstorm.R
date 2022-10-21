@@ -128,14 +128,8 @@ calc_designstorm <- function(data = NULL,
   # get centroid coordinates from KOSTRA-DWD-2010R tiles
   if (attr(data, "source") == "KOSTRA-DWD-2010R") {
 
-    # get filenames for centroid calculation
-    files <- list.files(system.file(package = "kostra2010R"),
-                        pattern = "*.shp",
-                        full.names = TRUE,
-                        recursive = TRUE)
-
     # read shapefile for centroid coordinate estimation
-    tiles <- sf::st_read(files[1], quiet = TRUE)
+    tiles <- kostra_dwd_2010r[[1]]
 
     # subset shapefile to relevant tile
     tile <- tiles |> dplyr::filter(INDEX_RC == attr(data, "id"))
@@ -190,8 +184,3 @@ calc_designstorm <- function(data = NULL,
   # return object
   xts
 }
-
-
-
-# quiets concerns of R CMD check
-utils::globalVariables(c("INDEX_RC"))

@@ -20,34 +20,20 @@ get_stats <- function(grid_index = NULL) {
 
   # pre-processing -------------------------------------------------------------
 
-  # get filenames for interval determination
-  files <- list.files(system.file(package = "kostra2010R"),
-    pattern = "*.shp",
-    full.names = FALSE,
-    recursive = TRUE
-  )
-
   # parse intervals from file names
-  intervals <- files |>
-    stringr::str_sub(start = 60, end = 63) |>
+  intervals <- names(kostra_dwd_2010r) |>
+    stringr::str_sub(start = 2, end = 5) |>
     as.numeric()
 
-  # overwrite filenames using full.names = TRUE for reading purposes
-  files <- list.files(system.file(package = "kostra2010R"),
-                      pattern = "*.shp",
-                      full.names = TRUE,
-                      recursive = TRUE
-  )
-
-  # read shapefile to extract column names and for index identification
-  shp <- sf::st_read(files[1], quiet = TRUE)
+  # read sf object to extract column names and for index identification
+  shp <- kostra_dwd_2010r[[1]]
 
   # get return periods from column names for subsetting
   cnames <- colnames(shp)[colnames(shp) |> stringr::str_detect("HN_*")]
 
   # get return periods from column names as numerical meta data
   rperiod <- cnames |>
-    stringr::str_sub(start = 4, end = 6)|>
+    stringr::str_sub(start = 4, end = 6) |>
     as.numeric()
 
   # determine index based on user input
@@ -56,18 +42,21 @@ get_stats <- function(grid_index = NULL) {
   # main -----------------------------------------------------------------------
 
   # built data.frame
-  for (i in 1:length(files)) {
+  for (i in 1:length(intervals)) {
 
     # read shapefile as sf / data.frame
-    shp <- sf::st_read(files[i], quiet = TRUE)
+    shp <- kostra_dwd_2010r[[i]]
 
     # subset original data.frame based on index, relevant columns
     temp <- shp[ind, cnames] |> sf::st_drop_geometry()
 
     # init data.frame, otherwise rbind
     if (i == 1) {
+
       df <- temp
+
     } else {
+
       df <- rbind(df, temp)
     }
   }

@@ -347,12 +347,3 @@ ordinance.
 
 Copyright @ [Deutscher
 Wetterdienst](https://www.dwd.de/EN/service/copyright/templates_dwd_as_source.html)
-
-## Links
-
-- Product description of
-  [KOSTRA-DWD](https://www.dwd.de/DE/leistungen/kostra_dwd_rasterwerte/kostra_dwd_rasterwerte.html)
-  including supplementary material
-- Source used to acquire [KOSTRA-DWD raster
-  data](https://opendata.dwd.de/climate_environment/CDC/grids_germany/return_periods/precipitation/KOSTRA/KOSTRA_DWD_2010R/gis/)
-  found in `inst/exdata/`

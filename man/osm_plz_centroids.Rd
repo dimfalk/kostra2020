@@ -12,20 +12,22 @@ Simple feature collection of type POINT with 8,170 features and 1 field:
 }
 }
 \source{
-\url{https://www.suche-postleitzahl.org/downloads}
+\url{https://downloads.suche-postleitzahl.org/v2/public/plz-5stellig.shp.zip}
 }
 \usage{
 osm_plz_centroids
 }
 \description{
-A subset/derivate of 5-digit zip code data provided by OpenStreetMap
+\url{https://www.suche-postleitzahl.org/downloads}
 }
 \details{
-: osm_plz <- sf::st_read("plz-5stellig.shp") |> dplyr::select("plz") |> sf::st_centroid() |> sf::st_transform("epsg:25832")
+A subset/derivate of 5-digit zip code data provided by OpenStreetMap
 }
 \note{
-: License: Open Data Commons Open Database License (ODbL)
+Last access: 2022-10-20
 
-: Copyright: OpenStreetMap contributors 2022 (modified)
+License: Open Data Commons Open Database License (ODbL)
+
+Copyright: OpenStreetMap contributors 2022 (modified)
 }
 \keyword{datasets}
