@@ -6,5 +6,7 @@ test_that("Getting return periods works.", {
 
   expect_equal(get_returnp(kostra, hn = 30.2, d = 1440) |> as.numeric(), c(0, 1))
 
+  expect_equal(get_returnp(kostra, hn = 80.2, d = 1440) |> as.numeric(), c(50, 100))
+
   expect_equal(get_returnp(kostra, hn = 86.3, d = 1440) |> as.numeric(), c(100, Inf))
 })
