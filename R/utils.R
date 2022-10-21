@@ -113,9 +113,9 @@ get_centroid <- function(x,
       # warn user in case the name provided was not unique with multiple results
     } else if (n > 1) {
 
-      paste("Warning: The name provided returned multiple non-unique results.",
+      paste("The name provided returned multiple non-unique results.",
             "Consider to visually inspect the returned object using e.g. `mapview::mapview(p)`.",
-            "Hint: Subsetting can be accomplished using brackets `p[1]`.", sep ="\n  ") |> message()
+            "Hint: Subsetting can be accomplished using brackets `p[1]`.", sep ="\n  ") |> warning()
 
     }
 
@@ -135,7 +135,7 @@ get_centroid <- function(x,
 
   } else {
 
-    stop("Your input could not be attributed properly. Please check the examples provided: `?get_centroid`.")
+    "Your input could not be attributed properly. Please check the examples provided: `?get_centroid`." |> stop()
   }
 
   # return object
