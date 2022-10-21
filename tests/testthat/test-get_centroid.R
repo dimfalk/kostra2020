@@ -7,9 +7,9 @@ test_that("Function working as intended.", {
 
   expect_equal(get_centroid(x = c(367773, 5703579)) |> sf::st_coordinates() |> as.numeric(), c(367773, 5703579))
 
-  expect_equal(get_centroid(x = "Aachen") |> sf::st_coordinates() |> as.numeric() |> round(0), c(294465, 5628692))
+  expect_equal(get_centroid(x = "Aachen") |> sf::st_coordinates() |> as.numeric() |> round(2), c(6.08, 50.77))
 
-  expect_equal(get_centroid(x = "52070") |> sf::st_coordinates() |> as.numeric() |> round(0), c(295359, 5630920))
+  expect_equal(get_centroid(x = "52070") |> sf::st_coordinates() |> as.numeric() |> round(2), c(6.10, 50.79))
 })
 
 test_that("Fallbacks working as intended.", {
@@ -24,4 +24,3 @@ test_that("Fallbacks working as intended.", {
 
   expect_error(get_centroid(x = "02114568201"))
 })
-

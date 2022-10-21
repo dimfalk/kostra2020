@@ -2,6 +2,6 @@
 
 vg250_pk <- sf::st_read("VG250_PK.shp") |>
   dplyr::select("GEN") |>
-  sf::st_transform("epsg:25832")
+  sf::st_transform("epsg:4326")
 
 usethis::use_data(vg250_pk, overwrite = TRUE)

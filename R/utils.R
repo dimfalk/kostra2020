@@ -163,7 +163,7 @@ get_idx <- function(location = NULL) {
 
   # main -----------------------------------------------------------------------
 
-  # reproject sf point to target crs of the data set
+  # reproject sf point to target crs of the dataset
   location <- sf::st_transform(location, 3034)
 
   # get first sf collection
