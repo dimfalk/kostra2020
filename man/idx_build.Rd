@@ -7,17 +7,16 @@
 idx_build(col = NULL, row = NULL)
 }
 \arguments{
-\item{col}{Integer {1:79}}
+\item{col}{integer. One pick from set {0:78}}
 
-\item{row}{Integer {1:107}}
+\item{row}{integer. One pick from set {0:106}}
 }
 \value{
-A string containing the unique representation of the relevant
-"INDEX_RC" field.
+character. Unique representation of the relevant "INDEX_RC" field.
 }
 \description{
 Construct "INDEX_RC" based on given X and Y information
 }
 \examples{
-idx_build(11, 49)
+idx_build(col = 11, row = 49)
 }

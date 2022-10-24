@@ -14,7 +14,7 @@ or string of nchar 5 representing a postal zip code.}
 \item{epsg}{(optional) Coordinate reference system definition.}
 }
 \value{
-An object of type \code{sfc_POINT}.
+Object of type \code{sfc_POINT}.
 }
 \description{
 Construct an geometry set object of type POINT based on user input

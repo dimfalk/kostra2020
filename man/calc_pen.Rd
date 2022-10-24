@@ -7,11 +7,11 @@
 calc_pen(data = NULL)
 }
 \arguments{
-\item{data}{A tibble containing grid cell statistics from KOSTRA-2010R.}
+\item{data}{Tibble containing grid cell statistics from KOSTRA-2010R.}
 }
 \value{
-A tibble containing extrapolated precipitation depths as a function
-of duration and return periods.
+Tibble containing extrapolated precipitation depths as a function of
+duration and return periods.
 }
 \description{
 Extrapolation of precipitation depths for Tn > 100 a according to PEN-LAWA

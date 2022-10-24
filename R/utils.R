@@ -1,8 +1,8 @@
 #' Check whether "INDEX_RC" provided is present in KOSTRA-2010R data set
 #'
-#' @param idx A string representing the grid cell index.
+#' @param idx character. Relevant "INDEX_RC" field to be queried.
 #'
-#' @return A boolean.
+#' @return logical.
 #' @export
 #'
 #' @examples
@@ -23,15 +23,14 @@ idx_exists <- function(idx = NULL) {
 
 #' Construct "INDEX_RC" based on given X and Y information
 #'
-#' @param col Integer {1:79}
-#' @param row Integer {1:107}
+#' @param col integer. One pick from set {0:78}
+#' @param row integer. One pick from set {0:106}
 #'
-#' @return A string containing the unique representation of the relevant
-#'   "INDEX_RC" field.
+#' @return character. Unique representation of the relevant "INDEX_RC" field.
 #' @export
 #'
 #' @examples
-#' idx_build(11, 49)
+#' idx_build(col = 11, row = 49)
 idx_build <- function(col = NULL, row = NULL) {
 
   # debugging ------------------------------------------------------------------
@@ -58,7 +57,7 @@ idx_build <- function(col = NULL, row = NULL) {
 #'   or string of nchar 5 representing a postal zip code.
 #' @param epsg (optional) Coordinate reference system definition.
 #'
-#' @return An object of type `sfc_POINT`.
+#' @return Object of type `sfc_POINT`.
 #' @export
 #'
 #' @examples
@@ -144,12 +143,11 @@ get_centroid <- function(x,
 
 
 
-#' Get index of KOSTRA-2010R cell by means of intersection with given location
+#' Get index of relevant KOSTRA-2010R cell based on user-defined geometry
 #'
-#' @param location An object of type `sfc_POINT`.
+#' @param location Object of type `sfc_POINT`, as provided by `get_centroid()`.
 #'
-#' @return A string containing the unique representation of the relevant
-#'   "INDEX_RC" field.
+#' @return character. Unique representation of the relevant "INDEX_RC" field.
 #' @export
 #'
 #' @examples
@@ -180,10 +178,10 @@ get_idx <- function(location = NULL) {
 
 #' Convert precipitation depth in precipitation yield as a function of duration.
 #'
-#' @param hn Precipitation depth in mm.
-#' @param d Duration in minutes.
+#' @param hn numeric. Precipitation depth in mm.
+#' @param d numeric. Duration in minutes.
 #'
-#' @return Precipitation yield in l/(s*ha).
+#' @return units. Precipitation yield in l/(s*ha).
 #' @export
 #'
 #' @examples
@@ -210,10 +208,10 @@ as_yield <- function(hn = NULL,
 
 #' Convert precipitation yield in precipitation depth as a function of duration.
 #'
-#' @param rn Precipitation yield in l/(s*ha).
-#' @param d Duration in minutes.
+#' @param rn numeric. Precipitation yield in l/(s*ha).
+#' @param d numeric. Duration in minutes.
 #'
-#' @return Precipitation depth in mm.
+#' @return units. Precipitation depth in mm.
 #' @export
 #'
 #' @examples

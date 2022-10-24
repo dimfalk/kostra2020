@@ -7,13 +7,13 @@
 calc_designstorm(data = NULL, tn = NULL, d = NULL, type = NULL)
 }
 \arguments{
-\item{data}{A tibble containing grid cell statistics from KOSTRA-DWD-2010R.}
+\item{data}{Tibble containing grid cell statistics from KOSTRA-DWD-2010R.}
 
-\item{tn}{Return periods in years.}
+\item{tn}{numeric. Return periods in years.}
 
-\item{d}{Duration in minutes.}
+\item{d}{numeric. Duration in minutes.}
 
-\item{type}{Precipitation distribution: EulerI | EulerII.}
+\item{type}{character. Precipitation distribution: "EulerI" or "EulerII".}
 }
 \value{
 An xts object.

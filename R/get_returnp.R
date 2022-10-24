@@ -1,11 +1,11 @@
 #' Get return period class for specified precipitation depth
 #'
-#' @param data A tibble containing grid cell statistics from KOSTRA-2010R.
-#' @param hn Precipitation depth in mm.
-#' @param d Duration in minutes.
+#' @param data Tibble containing grid cell statistics from KOSTRA-2010R.
+#' @param hn numeric. Precipitation depth in mm.
+#' @param d numeric. Duration in minutes.
 #'
-#' @return A numerical vector representing the upper and lower boundaries of the
-#'   return period class in years.
+#' @return units. Vector of length 2 representing the upper and lower boundaries
+#'   of the return period class in years.
 #' @export
 #'
 #' @examples

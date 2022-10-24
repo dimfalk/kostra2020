@@ -2,19 +2,18 @@
 % Please edit documentation in R/utils.R
 \name{get_idx}
 \alias{get_idx}
-\title{Get index of KOSTRA-2010R cell by means of intersection with given location}
+\title{Get index of relevant KOSTRA-2010R cell based on user-defined geometry}
 \usage{
 get_idx(location = NULL)
 }
 \arguments{
-\item{location}{An object of type \code{sfc_POINT}.}
+\item{location}{Object of type \code{sfc_POINT}, as provided by \code{get_centroid()}.}
 }
 \value{
-A string containing the unique representation of the relevant
-"INDEX_RC" field.
+character. Unique representation of the relevant "INDEX_RC" field.
 }
 \description{
-Get index of KOSTRA-2010R cell by means of intersection with given location
+Get index of relevant KOSTRA-2010R cell based on user-defined geometry
 }
 \examples{
 p <- get_centroid(x = c(367773, 5703579))

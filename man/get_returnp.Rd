@@ -7,15 +7,15 @@
 get_returnp(data = NULL, hn = NULL, d = NULL)
 }
 \arguments{
-\item{data}{A tibble containing grid cell statistics from KOSTRA-2010R.}
+\item{data}{Tibble containing grid cell statistics from KOSTRA-2010R.}
 
-\item{hn}{Precipitation depth in mm.}
+\item{hn}{numeric. Precipitation depth in mm.}
 
-\item{d}{Duration in minutes.}
+\item{d}{numeric. Duration in minutes.}
 }
 \value{
-A numerical vector representing the upper and lower boundaries of the
-return period class in years.
+units. Vector of length 2 representing the upper and lower boundaries
+of the return period class in years.
 }
 \description{
 Get return period class for specified precipitation depth

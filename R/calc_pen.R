@@ -1,9 +1,9 @@
 #' Extrapolation of precipitation depths for Tn > 100 a according to PEN-LAWA
 #'
-#' @param data A tibble containing grid cell statistics from KOSTRA-2010R.
+#' @param data Tibble containing grid cell statistics from KOSTRA-2010R.
 #'
-#' @return A tibble containing extrapolated precipitation depths as a function
-#'   of duration and return periods.
+#' @return Tibble containing extrapolated precipitation depths as a function of
+#'   duration and return periods.
 #' @export
 #'
 #' @examples

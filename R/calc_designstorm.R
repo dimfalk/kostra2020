@@ -1,9 +1,9 @@
 #' Design storm calculation based on statistical precipitation depths
 #'
-#' @param data A tibble containing grid cell statistics from KOSTRA-DWD-2010R.
-#' @param d Duration in minutes.
-#' @param tn Return periods in years.
-#' @param type Precipitation distribution: EulerI | EulerII.
+#' @param data Tibble containing grid cell statistics from KOSTRA-DWD-2010R.
+#' @param d numeric. Duration in minutes.
+#' @param tn numeric. Return periods in years.
+#' @param type character. Precipitation distribution: "EulerI" or "EulerII".
 #'
 #' @return An xts object.
 #' @export

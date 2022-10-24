@@ -7,14 +7,14 @@
 get_pdepth(data = NULL, d = NULL, tn = NULL)
 }
 \arguments{
-\item{data}{A tibble containing grid cell statistics from KOSTRA-2010R.}
+\item{data}{Tibble containing grid cell statistics from KOSTRA-2010R.}
 
-\item{d}{Duration in minutes.}
+\item{d}{numeric. Duration in minutes.}
 
-\item{tn}{Return period in years.}
+\item{tn}{numeric. Return period in years.}
 }
 \value{
-Precipitation depth.
+units. Precipitation depth in mm.
 }
 \description{
 Get precipitation depth for a specified duration and return period

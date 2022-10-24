@@ -1,10 +1,10 @@
 #' Get precipitation depth for a specified duration and return period
 #'
-#' @param data A tibble containing grid cell statistics from KOSTRA-2010R.
-#' @param d Duration in minutes.
-#' @param tn Return period in years.
+#' @param data Tibble containing grid cell statistics from KOSTRA-2010R.
+#' @param d numeric. Duration in minutes.
+#' @param tn numeric. Return period in years.
 #'
-#' @return Precipitation depth.
+#' @return units. Precipitation depth in mm.
 #' @export
 #'
 #' @examples

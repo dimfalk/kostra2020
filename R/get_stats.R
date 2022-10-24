@@ -1,8 +1,8 @@
 #' Get cell-specific statistics from the KOSTRA-2010R data set
 #'
-#' @param grid_index A String representing the relevant "INDEX_RC" field.
+#' @param grid_index character. Relevant "INDEX_RC" field to be queried.
 #'
-#' @return A tibble containing statistical precipitation depths as a function of
+#' @return Tibble containing statistical precipitation depths as a function of
 #'   duration and return periods for the KOSTRA-2010R grid cell specified.
 #' @export
 #'

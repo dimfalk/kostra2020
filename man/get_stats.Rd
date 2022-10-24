@@ -7,10 +7,10 @@
 get_stats(grid_index = NULL)
 }
 \arguments{
-\item{grid_index}{A String representing the relevant "INDEX_RC" field.}
+\item{grid_index}{character. Relevant "INDEX_RC" field to be queried.}
 }
 \value{
-A tibble containing statistical precipitation depths as a function of
+Tibble containing statistical precipitation depths as a function of
 duration and return periods for the KOSTRA-2010R grid cell specified.
 }
 \description{

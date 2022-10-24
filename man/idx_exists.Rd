@@ -7,10 +7,10 @@
 idx_exists(idx = NULL)
 }
 \arguments{
-\item{idx}{A string representing the grid cell index.}
+\item{idx}{character. Relevant "INDEX_RC" field to be queried.}
 }
 \value{
-A boolean.
+logical.
 }
 \description{
 Check whether "INDEX_RC" provided is present in KOSTRA-2010R data set
