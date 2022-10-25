@@ -1,6 +1,9 @@
+d <- 60
+
 kostra <- get_stats("49011")
 
-# get_stats("49011") |> dput()
+# get_stats("49011") |> dput() -------------------------------------------------
+
 kostra_ref <- structure(
   list(
     D_min   = c(5, 10, 15, 20, 30, 45, 60, 90, 120, 180, 240, 360, 540, 720, 1080, 1440, 2880, 4320),
@@ -38,6 +41,8 @@ kostra_ref <- structure(
   source = "KOSTRA-DWD-2010R"
   )
 
+
+
 # read_p_stats("rhj-2543.csv") -------------------------------------------------
 
 stats_ref <- structure(list(
@@ -67,13 +72,14 @@ stats_ref <- structure(list(
   source = "DWA-A 531"
   )
 
-# ------------------------------------------------------------------------------
+
 
 pen1 <- calc_pen(kostra_ref)
 
 pen2 <- calc_pen(stats_ref)
 
-# calc_pen(kostra_ref) |> dput()
+# calc_pen(kostra_ref) |> dput() -----------------------------------------------
+
 pen_ref <- structure(
   list(
     D_min     = c(5, 10, 15, 20, 30, 45, 60, 90, 120, 180, 240, 360, 540, 720, 1080, 1440, 2880, 4320),
@@ -108,17 +114,14 @@ pen_ref <- structure(
   source = "KOSTRA-DWD-2010R"
   )
 
-# ------------------------------------------------------------------------------
 
-d <- 60
-
-# ------------------------------------------------------------------------------
 
 xts1 <- calc_designstorm(kostra_ref, d = d, tn = 20, type = "EulerII")
 
 xts2 <- calc_designstorm(stats_ref, d = d, tn = 20, type = "EulerII")
 
-# calc_designstorm(kostra_ref, d = d, tn = 20, type = "EulerII") |> dput()
+# calc_designstorm(kostra_ref, d = d, tn = 20, type = "EulerII") |> dput() -----
+
 xts_ref <- structure(
   c(3.2, 4, 5.8, 11.3, 2.4, 2.4, 1.77, 1.77, 1.77, 1.43, 1.43, 1.43),
   dim = c(12L, 1L),
