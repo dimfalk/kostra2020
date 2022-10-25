@@ -12,7 +12,7 @@ test_that("Resolution of time series is according to specifications.", {
 
 test_that("Length of time series is according to specifications.", {
 
-  expect_equal(length(xts1), d / 5)
+  expect_length(xts1, d / 5)
 })
 
 test_that("Sum of time series values equals statistical depth from table.", {
