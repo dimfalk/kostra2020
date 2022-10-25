@@ -1,6 +1,6 @@
 test_that("Output class is as expected.", {
 
-  expect_true(inherits(kostra, "data.frame"))
+  expect_s3_class(kostra, c("tbl_df", "tbl", "data.frame"))
 })
 
 test_that("Column names are as expected", {

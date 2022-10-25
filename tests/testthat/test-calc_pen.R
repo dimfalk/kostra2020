@@ -1,8 +1,8 @@
 test_that("Output class is as expected.", {
 
-  expect_true(inherits(pen1, "data.frame"))
+  expect_s3_class(pen1, c("tbl_df", "tbl", "data.frame"))
 
-  expect_true(inherits(pen2, "data.frame"))
+  expect_s3_class(pen2, c("tbl_df", "tbl", "data.frame"))
 })
 
 test_that("Column names are as expected", {

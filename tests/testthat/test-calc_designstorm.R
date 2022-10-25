@@ -1,8 +1,8 @@
 test_that("Output class is as expected.", {
 
-  expect_true(inherits(xts1, c("xts", "zoo")))
+  expect_s3_class(xts1, c("xts", "zoo"))
 
-  expect_true(inherits(xts2, c("xts", "zoo")))
+  expect_s3_class(xts2, c("xts", "zoo"))
 })
 
 test_that("Resolution of time series is according to specifications.", {

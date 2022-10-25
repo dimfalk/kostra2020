@@ -33,4 +33,3 @@ test_that("Extraction of 'INDEX_RC' based on DHDN/GK3 coordinates works.", {
 
   expect_equal(get_idx(p3), "57002")
 })
-

@@ -1,6 +1,6 @@
 test_that("Output class is as expected.", {
 
-  expect_true(inherits(get_centroid(x = c(367773, 5703579)), c("sfc_POINT", "sfc")))
+  expect_s3_class(get_centroid(x = c(367773, 5703579)), c("sfc_POINT", "sfc"))
 })
 
 test_that("Function working as intended.", {

@@ -7,4 +7,3 @@ test_that("Random grid cell is not available in the dataset.", {
 
   expect_false(idx_exists("foobar"))
 })
-
