@@ -32,9 +32,9 @@ Abstract from the [official dataset description](https://opendata.dwd.de/climate
 
 You can install the development version of kostra2010R with:
 
-```{r}
-# install.packages("devtools")
-# devtools::install_github("falk-env/kostra2010R")
+``` r
+install.packages("devtools")
+devtools::install_github("falk-env/kostra2010R")
 ```
 
 and load the package via

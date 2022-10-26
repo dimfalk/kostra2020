@@ -36,8 +36,8 @@ describes the unique identifier of a grid cell.*
 You can install the development version of kostra2010R with:
 
 ``` r
-# install.packages("devtools")
-# devtools::install_github("falk-env/kostra2010R")
+install.packages("devtools")
+devtools::install_github("falk-env/kostra2010R")
 ```
 
 and load the package via
@@ -110,18 +110,18 @@ p3
 #> Geometry set for 1 feature 
 #> Geometry type: POINT
 #> Dimension:     XY
-#> Bounding box:  xmin: 414198 ymin: 5316361 xmax: 414198 ymax: 5316361
-#> Projected CRS: ETRS89 / UTM zone 32N
-#> POINT (414198 5316361)
+#> Bounding box:  xmin: 7.849877 ymin: 47.99479 xmax: 7.849877 ymax: 47.99479
+#> Geodetic CRS:  WGS 84
+#> POINT (7.849877 47.99479)
 
 p4 <- get_centroid(x = "52070")
 p4
 #> Geometry set for 1 feature 
 #> Geometry type: POINT
 #> Dimension:     XY
-#> Bounding box:  xmin: 295358.7 ymin: 5630920 xmax: 295358.7 ymax: 5630920
-#> Projected CRS: ETRS89 / UTM zone 32N
-#> POINT (295358.7 5630920)
+#> Bounding box:  xmin: 6.096218 ymin: 50.79385 xmax: 6.096218 ymax: 50.79385
+#> Geodetic CRS:  WGS 84
+#> POINT (6.096218 50.79385)
 ```
 
 These coordinates can be used subsequently to spatially query the
@@ -325,7 +325,7 @@ ggplot(longdata, aes(D_min, value, colour = name)) +
           subtitle = paste0("INDEX_RC: ", attr(kostra, "id")))
 ```
 
-<img src="man/figures/README-unnamed-chunk-20-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-19-1.png" width="100%" />
 
 … or exported to disk using `write.csv2()`.
 
