@@ -105,7 +105,7 @@ Now that we have messed a little with the grid cell identifiers, let's get a sne
 # duration and return periods for the grid cell specified.
 kostra <- get_stats("49011")
 
-head(kostra, 8)
+kostra
 ```
 
 Some describing attributes have been assigned to the tibble.
@@ -172,7 +172,8 @@ Since KOSTRA-2010R has an upper limit of Tn = 100 a, we can make use of e.g. PEN
 ```{r}
 # Output in a separate tibble to not mix up applied methods
 pen <- calc_pen(kostra) 
-head(pen, 8)
+
+pen
 ```
 
 ```{r}
