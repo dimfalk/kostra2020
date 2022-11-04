@@ -78,7 +78,15 @@ get_centroid <- function(x,
 
   # input validation -----------------------------------------------------------
 
+  checkmate::assert(
 
+    checkmate::testNumeric(x, len = 4, any.missing = FALSE),
+    checkmate::testCharacter(x, len = 1),
+  )
+
+  checkmate::assert_numeric(epsg, len = 1)
+
+  # main -----------------------------------------------------------------------
 
   # vector of length 2 containing numeric representing coordinates -------------
   if (inherits(x, "numeric") && length(x) == 2) {
