@@ -1,42 +1,22 @@
-## CHANGES IN ... 
+# version 0.6.3
 
-## v0.6.3
+## features
 
-* `get_centroid()` now makes use of the VG250_PK dataset instead of VG250_GEM centroids
-* `get_centroid()` now prompts a warning when the object returned contains multiple hits
-* `get_centroid()` now prompts an error when the object returned contains no hits
+- `get_pdepth()` now allows to determine statistical precipitation depths
+- `calc_pen()` now allows extrapolation of statistical precipitation based on PEN-LAWA (Verworn & Kummer 2006, Verworn & Draschoff 2008)
+- `get_centroid()` now allows determination of coordinates based on municipality names and postal codes
+- `calc_designstorm()` now allows generation of modelled rainfall from statistical precipitation
 
-## v0.6.2
 
-* implementation of additional unit tests in order to increase code coverage
-* `calc_designstorm()` now accepts `d = 5` as argument
+## enhancements
 
-## v0.6.1
+- `get_pdepth()` and `get_returnp()` now return values supplemented by units
+- `get_centroid()` now makes use of the VG250_PK dataset instead of VG250_GEM centroids
+- `get_centroid()` now prompts a warning when the object returned contains multiple hits
+- `get_centroid()` now prompts an error when the object returned contains no hits
 
-* `get_pdepth()` and `get_returnp()` now return values supplemented by units
 
-## v0.6
+## bug fixes 
 
-* `get_centroid()` now allows determination of coordinates based on municipality names and postal codes
-
-## v0.5
-
-* `calc_designstorm()` now allows generation of modelled rainfall from statistical precipitation
-
-## v0.4
-
-* `calc_pen()` now allows extrapolation of statistical precipitation based on PEN-LAWA (Verworn & Kummer (2006), Verworn & Draschoff (2008))
-
-## v0.3.2
-
-* initial implementation of several unit tests
-* minor refactoring of several functions due to relative/absolute paths
-
-## v0.3.1
-
-* initial generation of `NEWS.md` using `bumpr::bumpGitVersion()`
-* `get_returnp()` now returns consistent output for tn < 1 and tn > 100
-
-## v0.3
-
-* `get_pdepth()` now allows to determine statistical precipitation depths
+- `get_returnp()` now returns consistent output for tn < 1 and tn > 100
+- `calc_designstorm()` now accepts `d = 5` as argument
