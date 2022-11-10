@@ -1,3 +1,5 @@
+## run before tests, but not loaded via `load_all()` and not installed with package
+
 d <- 60
 
 kostra <- get_stats("49011")
