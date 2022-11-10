@@ -4,10 +4,10 @@
 \alias{get_pdepth}
 \title{Get precipitation depth for a specified duration and return period}
 \usage{
-get_pdepth(data = NULL, d = NULL, tn = NULL)
+get_pdepth(x = NULL, d = NULL, tn = NULL)
 }
 \arguments{
-\item{data}{Tibble containing grid cell statistics from KOSTRA-2010R.}
+\item{x}{Tibble containing grid cell statistics from KOSTRA-2010R.}
 
 \item{d}{numeric. Duration in minutes.}
 

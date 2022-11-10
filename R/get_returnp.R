@@ -1,6 +1,6 @@
 #' Get return period class for specified precipitation depth
 #'
-#' @param data Tibble containing grid cell statistics from KOSTRA-2010R.
+#' @param x Tibble containing grid cell statistics from KOSTRA-2010R.
 #' @param hn numeric. Precipitation depth in mm.
 #' @param d numeric. Duration in minutes.
 #'
@@ -11,34 +11,34 @@
 #' @examples
 #' kostra <- get_stats("49011")
 #' get_returnp(kostra, hn = 69.3, d = 1440)
-get_returnp <- function(data = NULL,
+get_returnp <- function(x = NULL,
                         hn = NULL,
                         d = NULL) {
 
   # debugging ------------------------------------------------------------------
 
-  # data <- kostra
+  # x <- kostra
   # hn <- 69.3
   # d <- 1440
 
   # input validation -----------------------------------------------------------
 
-  checkmate::assert_tibble(data)
+  checkmate::assert_tibble(x)
 
   checkmate::assert_numeric(hn, len = 1, lower = 0)
 
-  allowed_d <- attr(data, "durations_min")
+  allowed_d <- attr(x, "durations_min")
   checkmate::assert_numeric(d, len = 1)
   checkmate::assert_choice(d, allowed_d)
 
   # pre-processing -------------------------------------------------------------
 
   # extract return periods from column names
-  cnames <- colnames(data)[colnames(data) |> stringr::str_detect("HN_*")]
+  cnames <- colnames(x)[colnames(x) |> stringr::str_detect("HN_*")]
   rperiod <- cnames |> stringr::str_sub(start = 4, end = 6) |> as.numeric()
 
   # identify relevant row
-  row <- data[which(data[["D_min"]] == d), cnames]
+  row <- x[which(x[["D_min"]] == d), cnames]
 
   # main -----------------------------------------------------------------------
 

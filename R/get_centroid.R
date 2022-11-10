@@ -1,19 +1,19 @@
 #' Construct an geometry set object of type POINT based on user input
 #'
 #' @param x Vector of length 2 containing numeric representing coordinates,
-#'   or string of length 1 representing the name of a municipality,
-#'   or string of nchar 5 representing a postal zip code.
-#' @param epsg (optional) Coordinate reference system definition.
+#'   or character of length 1 representing the name of a municipality,
+#'   or character of nchar 5 representing a postal zip code.
+#' @param epsg numeric. Coordinate reference system definition.
 #'
 #' @return Object of type `sfc_POINT`.
 #' @export
 #'
 #' @examples
-#' p1 <- get_centroid(x = c(367773, 5703579))
-#' p2 <- get_centroid(x = c(6.09, 50.46), epsg = 4326)
-#' p3 <- get_centroid(x = "Aachen")
-#' p4 <- get_centroid(x = "52070")
-get_centroid <- function(x,
+#' p1 <- get_centroid(c(367773, 5703579))
+#' p2 <- get_centroid(c(6.09, 50.46), epsg = 4326)
+#' p3 <- get_centroid("Aachen")
+#' p4 <- get_centroid("52070")
+get_centroid <- function(x = NULL,
                          epsg = 25832) {
 
   # debugging ------------------------------------------------------------------

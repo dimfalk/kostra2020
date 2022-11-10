@@ -1,6 +1,6 @@
 #' Get cell-specific statistics from the KOSTRA-2010R data set
 #'
-#' @param grid_index character. Relevant "INDEX_RC" field to be queried.
+#' @param x character. Relevant "INDEX_RC" field to be queried.
 #'
 #' @return Tibble containing statistical precipitation depths as a function of
 #'   duration and return periods for the KOSTRA-2010R grid cell specified.
@@ -8,15 +8,17 @@
 #'
 #' @examples
 #' kostra <- get_stats("49011")
-get_stats <- function(grid_index = NULL) {
+get_stats <- function(x = NULL) {
 
   # debugging ------------------------------------------------------------------
 
-  # grid_index <- "49011"
+  # x <- "49011"
 
   # input validation -----------------------------------------------------------
 
-  checkmate::assert_character(grid_index, len = 1, min.chars = 1, max.chars = 6)
+  checkmate::assert_character(x, len = 1, min.chars = 1, max.chars = 6)
+
+  stopifnot("'INDEX_RC' specified does not exist." = idx_exists(x))
 
   # pre-processing -------------------------------------------------------------
 
@@ -37,14 +39,14 @@ get_stats <- function(grid_index = NULL) {
     as.numeric()
 
   # determine index based on user input
-  ind <- which(shp[["INDEX_RC"]] == grid_index)
+  ind <- which(shp[["INDEX_RC"]] == x)
 
   # main -----------------------------------------------------------------------
 
-  # built data.frame
+  # build data frame
   for (i in 1:length(intervals)) {
 
-    # read shapefile as sf / data.frame
+    # read shapefile as sf / data frame
     shp <- kostra_dwd_2010r[[i]]
 
     # subset original data.frame based on index, relevant columns
@@ -89,7 +91,7 @@ get_stats <- function(grid_index = NULL) {
   df <- df[c("D_min", "D_hour", "D_day", cnames)]
 
   # append meta data as attributes
-  attr(df, "id") <- grid_index
+  attr(df, "id") <- x
   attr(df, "period") <- c("01.01.1951", "31.12.2010") |> strptime("%d.%m.%Y", tz = "CET")
   attr(df, "returnperiods_a") <- rperiod
   attr(df, "durations_min") <- intervals

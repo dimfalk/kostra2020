@@ -8,7 +8,8 @@
 #'
 #' @examples
 #' idx_build(col = 11, row = 49)
-idx_build <- function(col = NULL, row = NULL) {
+idx_build <- function(col = NULL,
+                      row = NULL) {
 
   # debugging ------------------------------------------------------------------
 

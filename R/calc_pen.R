@@ -1,6 +1,6 @@
 #' Extrapolation of precipitation depths for Tn > 100 a according to PEN-LAWA
 #'
-#' @param data Tibble containing grid cell statistics from KOSTRA-2010R.
+#' @param x Tibble containing grid cell statistics from KOSTRA-2010R.
 #'
 #' @return Tibble containing extrapolated precipitation depths as a function of
 #'   duration and return periods.
@@ -12,36 +12,36 @@
 #'
 #' @references Verworn & Kummer (2006): Praxisrelevante Extremwerte des Niederschlages (PEN).
 #' @references Verworn & Draschoff (2008): PEN-Erweiterung.
-calc_pen <- function(data = NULL) {
+calc_pen <- function(x = NULL) {
 
   # debugging ------------------------------------------------------------------
 
-  # data <- kostra
+  # x <- kostra
 
   # input validation -----------------------------------------------------------
 
-  checkmate::assert_tibble(data)
+  checkmate::assert_tibble(x)
 
   # main -----------------------------------------------------------------------
 
   # hN for Tn = 1 a and Tn = 100 a
-  hN_lower <- data[["HN_001A"]]
-  hN_upper <- data[["HN_100A"]]
+  hN_lower <- x[["HN_001A"]]
+  hN_upper <- x[["HN_100A"]]
 
   # factors (-10 %, +20 %) to adjust for KOSTRA-related uncertainty taken from Malitz & Ertel (2015)
-  if (attr(data, "source") == "KOSTRA-DWD-2010R") {
+  if (attr(x, "source") == "KOSTRA-DWD-2010R") {
 
     u <- 0.9 * hN_lower
     w <- (1.2 * hN_upper - u) / log(100)
 
-  } else if (attr(data, "source") == "DWA-A 531") {
+  } else if (attr(x, "source") == "DWA-A 531") {
 
     u <- hN_lower
     w <- (hN_upper - u) / log(100)
   }
 
   # init tibble
-  tib <- data[c("D_min", "D_hour", "D_day")]
+  tib <- x[c("D_min", "D_hour", "D_day")]
 
   # define return periods to be used for calculation
   rperiod <- c(200, 500, 1000, 2000, 5000, 10000)

@@ -81,7 +81,7 @@ in terms of return periods.
 
 ``` r
 # Sf objects created based on specified coordinates. Don't forget to pass the CRS.
-p1 <- get_centroid(x = c(6.09, 50.46), epsg = 4326)
+p1 <- get_centroid(c(6.09, 50.46), epsg = 4326)
 p1
 #> Geometry set for 1 feature 
 #> Geometry type: POINT
@@ -90,7 +90,7 @@ p1
 #> Geodetic CRS:  WGS 84
 #> POINT (6.09 50.46)
 
-p2 <- get_centroid(x = c(367773, 5703579), epsg = 25832)
+p2 <- get_centroid(c(367773, 5703579), epsg = 25832)
 p2
 #> Geometry set for 1 feature 
 #> Geometry type: POINT
@@ -105,7 +105,7 @@ postal codes to derive coordinates.
 
 ``` r
 # Sf objects created based on names and zip codes
-p3 <- get_centroid(x = "Freiburg im Breisgau")
+p3 <- get_centroid("Freiburg im Breisgau")
 p3
 #> Geometry set for 1 feature 
 #> Geometry type: POINT
@@ -114,7 +114,7 @@ p3
 #> Geodetic CRS:  WGS 84
 #> POINT (7.849877 47.99479)
 
-p4 <- get_centroid(x = "52070")
+p4 <- get_centroid("52070")
 p4
 #> Geometry set for 1 feature 
 #> Geometry type: POINT
@@ -207,10 +207,10 @@ precipitation depth \[mm\] or vice versa, make use of the following
 helper function.
 
 ``` r
-as_yield(hn = 62.1, d = 240)
+as_yield(62.1, d = 240)
 #> 43.1 [L/ha/s]
 
-as_depth(rn = 43.1, d = 240)
+as_depth(43.1, d = 240)
 #> 62.1 [mm]
 ```
 

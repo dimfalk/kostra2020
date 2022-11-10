@@ -4,10 +4,10 @@
 \alias{idx_exists}
 \title{Check whether "INDEX_RC" provided is present in KOSTRA-2010R data set}
 \usage{
-idx_exists(idx = NULL)
+idx_exists(x = NULL)
 }
 \arguments{
-\item{idx}{character. Relevant "INDEX_RC" field to be queried.}
+\item{x}{character. Relevant "INDEX_RC" field to be queried.}
 }
 \value{
 logical.

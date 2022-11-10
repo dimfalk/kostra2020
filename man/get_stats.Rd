@@ -4,10 +4,10 @@
 \alias{get_stats}
 \title{Get cell-specific statistics from the KOSTRA-2010R data set}
 \usage{
-get_stats(grid_index = NULL)
+get_stats(x = NULL)
 }
 \arguments{
-\item{grid_index}{character. Relevant "INDEX_RC" field to be queried.}
+\item{x}{character. Relevant "INDEX_RC" field to be queried.}
 }
 \value{
 Tibble containing statistical precipitation depths as a function of

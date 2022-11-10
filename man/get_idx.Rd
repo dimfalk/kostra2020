@@ -4,10 +4,10 @@
 \alias{get_idx}
 \title{Get index of relevant KOSTRA-2010R cell based on user-defined geometry}
 \usage{
-get_idx(location = NULL)
+get_idx(x = NULL)
 }
 \arguments{
-\item{location}{Object of type \code{sfc_POINT}, as provided by \code{get_centroid()}.}
+\item{x}{Object of type \code{sfc_POINT}, as provided by \code{get_centroid()}.}
 }
 \value{
 character. Unique representation of the relevant "INDEX_RC" field.
@@ -16,6 +16,6 @@ character. Unique representation of the relevant "INDEX_RC" field.
 Get index of relevant KOSTRA-2010R cell based on user-defined geometry
 }
 \examples{
-p <- get_centroid(x = c(367773, 5703579))
+p <- get_centroid(c(367773, 5703579))
 get_idx(p)
 }

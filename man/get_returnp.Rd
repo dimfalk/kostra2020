@@ -4,10 +4,10 @@
 \alias{get_returnp}
 \title{Get return period class for specified precipitation depth}
 \usage{
-get_returnp(data = NULL, hn = NULL, d = NULL)
+get_returnp(x = NULL, hn = NULL, d = NULL)
 }
 \arguments{
-\item{data}{Tibble containing grid cell statistics from KOSTRA-2010R.}
+\item{x}{Tibble containing grid cell statistics from KOSTRA-2010R.}
 
 \item{hn}{numeric. Precipitation depth in mm.}
 

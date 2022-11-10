@@ -4,10 +4,10 @@
 \alias{calc_designstorm}
 \title{Design storm calculation based on statistical precipitation depths}
 \usage{
-calc_designstorm(data = NULL, tn = NULL, d = NULL, type = NULL)
+calc_designstorm(x = NULL, tn = NULL, d = NULL, type = NULL)
 }
 \arguments{
-\item{data}{Tibble containing grid cell statistics from KOSTRA-DWD-2010R.}
+\item{x}{Tibble containing grid cell statistics from KOSTRA-DWD-2010R.}
 
 \item{tn}{numeric. Return periods in years.}
 

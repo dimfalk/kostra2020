@@ -1,6 +1,6 @@
 #' Design storm calculation based on statistical precipitation depths
 #'
-#' @param data Tibble containing grid cell statistics from KOSTRA-DWD-2010R.
+#' @param x Tibble containing grid cell statistics from KOSTRA-DWD-2010R.
 #' @param d numeric. Duration in minutes.
 #' @param tn numeric. Return periods in years.
 #' @param type character. Precipitation distribution: "EulerI" or "EulerII".
@@ -11,27 +11,27 @@
 #' @examples
 #' kostra <- get_stats("49011")
 #' xts <- calc_designstorm(kostra, tn = 20, d = 60, type = "EulerII")
-calc_designstorm <- function(data = NULL,
+calc_designstorm <- function(x = NULL,
                              tn = NULL,
                              d = NULL,
                              type = NULL) {
 
   # debugging ------------------------------------------------------------------
 
-  # data <- kostra
+  # x <- kostra
   # tn <- 20
   # d <- 60
   # type <- "EulerII"
 
   # input validation -----------------------------------------------------------
 
-  checkmate::assert_tibble(data)
+  checkmate::assert_tibble(x)
 
-  allowed_tn <- attr(data, "returnperiods_a")
+  allowed_tn <- attr(x, "returnperiods_a")
   checkmate::assert_numeric(tn, len = 1)
   checkmate::assert_choice(tn, allowed_tn)
 
-  allowed_d <- attr(data, "durations_min")
+  allowed_d <- attr(x, "durations_min")
   checkmate::assert_numeric(d, len = 1)
   checkmate::assert_choice(d, allowed_d)
 
@@ -42,32 +42,32 @@ calc_designstorm <- function(data = NULL,
   # pre-processing -------------------------------------------------------------
 
   # locate index of specified duration, generate sequence for further indexing
-  d_pos <- which(data["D_min"] == d) |> seq() |> sort(decreasing = TRUE)
+  d_pos <- which(x["D_min"] == d) |> seq() |> sort(decreasing = TRUE)
 
   # init a new object using a subset of relevant duration levels
-  data_rel <- data[sort(d_pos), ]
+  x_rel <- x[sort(d_pos), ]
 
   if (d > 5) {
 
     # recalculate statistic to relative values per duration interval
-    data_rel[2:length(d_pos), -1:-3] <- data[2:length(d_pos), -1:-3] - data[1:(length(d_pos) - 1), -1:-3]
+    x_rel[2:length(d_pos), -1:-3] <- x[2:length(d_pos), -1:-3] - x[1:(length(d_pos) - 1), -1:-3]
   }
 
   # init new df object using time steps of 5 mins width, equidistant stats
-  data_5min <- data.frame(D_min = seq(5, d, 5)) |> tibble::as_tibble()
+  x_5min <- data.frame(D_min = seq(5, d, 5)) |> tibble::as_tibble()
 
-  n_timesteps <- data_5min[["D_min"]] |> length()
+  n_timesteps <- x_5min[["D_min"]] |> length()
 
   # merge constructed intervals with relative values from statistics
-  data_5min <- merge(data_5min,
-                     data_rel,
-                     by = "D_min",
-                     all = TRUE)
+  x_5min <- merge(x_5min,
+                  x_rel,
+                  by = "D_min",
+                  all = TRUE)
 
   if (d > 5) {
 
     # iterator definition, delta_t between intervals divided by resolution
-    steps <- (data[["D_min"]][1:d_pos[1]] |> diff() / 5) |>
+    steps <- (x[["D_min"]][1:d_pos[1]] |> diff() / 5) |>
       sort(decreasing = TRUE)
 
     # drop steps == 1, since these values can be adopted from original statistic
@@ -86,7 +86,7 @@ calc_designstorm <- function(data = NULL,
         recent_step <- c(n_timesteps - steps_cum[i], n_timesteps - steps_cum[i+1])
 
         # extract, divide and distribute values in corresponding rows
-        data_5min[recent_step[1]:(recent_step[2]+1), -1:-3] <- data_rel[d_pos[i], -1:-3] / steps[i]
+        x_5min[recent_step[1]:(recent_step[2]+1), -1:-3] <- x_rel[d_pos[i], -1:-3] / steps[i]
       }
     }
   }
@@ -101,8 +101,7 @@ calc_designstorm <- function(data = NULL,
   datetimes <- seq(from = start, by = 60 * 5, length.out = n_timesteps)
 
   # access relative 5 min values
-  values <- data_5min[, which(attr(data, "returnperiods_a") == tn) + 3] |>
-    round(2)
+  values <- x_5min[, which(attr(x, "returnperiods_a") == tn) + 3] |> round(2)
 
   # re-arrange values according to chosen precipitation distribution
   if (type == "EulerI") {
@@ -126,13 +125,13 @@ calc_designstorm <- function(data = NULL,
   # post-processing ------------------------------------------------------------
 
   # get centroid coordinates from KOSTRA-DWD-2010R tiles
-  if (attr(data, "source") == "KOSTRA-DWD-2010R") {
+  if (attr(x, "source") == "KOSTRA-DWD-2010R") {
 
     # read shapefile for centroid coordinate estimation
     tiles <- kostra_dwd_2010r[[1]]
 
     # subset shapefile to relevant tile
-    tile <- tiles |> dplyr::filter(INDEX_RC == attr(data, "id"))
+    tile <- tiles |> dplyr::filter(INDEX_RC == attr(x, "id"))
 
     # calculate centroid
     centroid <- tile[["geometry"]] |>
@@ -144,17 +143,17 @@ calc_designstorm <- function(data = NULL,
 
   # append meta data as attributes
   # TODO: timeseriesIO::xts_init("light")
-  if (attr(data, "source") == "KOSTRA-DWD-2010R") {
+  if (attr(x, "source") == "KOSTRA-DWD-2010R") {
 
-    attr(xts, "STAT_ID") <- attr(data, "id")
-    attr(xts, "STAT_NAME") <- attr(data, "source")
+    attr(xts, "STAT_ID") <- attr(x, "id")
+    attr(xts, "STAT_NAME") <- attr(x, "source")
     attr(xts, "X") <- centroid[1]
     attr(xts, "Y") <- centroid[2]
 
-  } else if (attr(data, "source") == "DWA-A 531") {
+  } else if (attr(x, "source") == "DWA-A 531") {
 
-    attr(xts, "STAT_ID") <- attr(data, "id")
-    attr(xts, "STAT_NAME") <- attr(data, "name")
+    attr(xts, "STAT_ID") <- attr(x, "id")
+    attr(xts, "STAT_NAME") <- attr(x, "name")
     attr(xts, "X") <- " "
     attr(xts, "Y") <- " "
   }
@@ -162,8 +161,8 @@ calc_designstorm <- function(data = NULL,
   attr(xts, "CRS_EPSG") <- "25832"
   attr(xts, "PARAMETER") <- "Niederschlagshoehe"
 
-  attr(xts, "TS_START") <- attr(data, "period")[1]
-  attr(xts, "TS_END") <- attr(data, "period")[2]
+  attr(xts, "TS_START") <- attr(x, "period")[1]
+  attr(xts, "TS_END") <- attr(x, "period")[2]
   attr(xts, "TS_TYPE") <- "simulation"
 
   attr(xts, "MEAS_UNIT") <- "mm"
@@ -177,7 +176,7 @@ calc_designstorm <- function(data = NULL,
                       "EulerI" = "Euler Typ I",
                       "EulerII" = "Euler Typ II")
 
-  attr(xts, "REMARKS") <- paste0("Modellregen ", type_long, " auf Grundlage von ", attr(data, "source"), "\n",
+  attr(xts, "REMARKS") <- paste0("Modellregen ", type_long, " auf Grundlage von ", attr(x, "source"), "\n",
                                  "Tn = ", tn, " a | D = ", d, " min | hN = ", zoo::coredata(xts) |> sum(), " mm\n",
                                  rep("-", 80) |> paste(collapse = ""), "\n")
 
