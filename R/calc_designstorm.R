@@ -140,7 +140,6 @@ calc_designstorm <- function(x = NULL,
       sf::st_coordinates()
   }
 
-
   # append meta data as attributes
   # TODO: timeseriesIO::xts_init("light")
   if (attr(x, "source") == "KOSTRA-DWD-2010R") {
