@@ -14,6 +14,7 @@
 - `get_centroid()` now makes use of the VG250_PK dataset instead of VG250_GEM centroids
 - `get_centroid()` now prompts a warning when the object returned contains multiple hits
 - `get_centroid()` now prompts an error when the object returned contains no hits
+- package data has been imported using `sf::read_sf()` instead of `sf::st_read()`
 
 
 ## bug fixes 
