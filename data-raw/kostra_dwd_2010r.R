@@ -8,7 +8,7 @@ for (i in 1:length(d)) {
 
   ds <- paste0("d", d[i])
 
-  assign(ds, paste0("GIS_KOSTRA-DWD-2010R_", ds, "/StatRR_KOSTRA-DWD-2010R_", ds, ".shp") |> sf::st_read())
+  assign(ds, paste0("GIS_KOSTRA-DWD-2010R_", ds, "/StatRR_KOSTRA-DWD-2010R_", ds, ".shp") |> sf::read_sf())
 }
 
 kostra_dwd_2010r <- list(

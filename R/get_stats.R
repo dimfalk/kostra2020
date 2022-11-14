@@ -98,5 +98,5 @@ get_stats <- function(x = NULL) {
   attr(df, "source") <- "KOSTRA-DWD-2010R"
 
   # return tibble
-  dplyr::tibble(df)
+  tibble::as_tibble(df)
 }
