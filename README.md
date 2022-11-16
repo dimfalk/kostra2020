@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 [![Codecov test
-coverage](https://codecov.io/gh/dmflk/kostra2010R/branch/main/graph/badge.svg)](https://app.codecov.io/gh/dmflk/kostra2010R?branch=main)
+coverage](https://codecov.io/gh/dimfalk/kostra2010R/branch/main/graph/badge.svg)](https://app.codecov.io/gh/dimfalk/kostra2010R?branch=main)
 <!-- badges: end -->
 
 The main goal of kostra2010R is to provide access to KOSTRA-DWD-2010R
@@ -37,7 +37,7 @@ You can install the development version of kostra2010R with:
 
 ``` r
 install.packages("devtools")
-devtools::install_github("dmflk/kostra2010R")
+devtools::install_github("dimfalk/kostra2010R")
 ```
 
 and load the package via
@@ -353,7 +353,7 @@ ggplot(longdata, aes(D_min, value, colour = name)) +
 ## Contributing
 
 See
-[here](https://github.com/dmflk/kostra2010R/blob/main/.github/CONTRIBUTING.md)
+[here](https://github.com/dimfalk/kostra2010R/blob/main/.github/CONTRIBUTING.md)
 if you’d like to contribute.
 
 ## Legal information
