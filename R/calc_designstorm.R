@@ -96,7 +96,7 @@ calc_designstorm <- function(x = NULL,
   # generate fictional datetime index
   start <- "2000-01-01 00:00" |>
     strptime(format="%Y-%m-%d %H:%M") |>
-    as.POSIXct()
+    as.POSIXct(tz = "UTC")
 
   datetimes <- seq(from = start, by = 60 * 5, length.out = n_timesteps)
 
