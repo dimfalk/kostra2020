@@ -17,7 +17,7 @@ get_idx <- function(x = NULL) {
   # main -----------------------------------------------------------------------
 
   # reproject sf point to target crs of the dataset
-  location <- sf::st_transform(x, 3034)
+  location <- sf::st_transform(x, "epsg:3034")
 
   # get first sf collection
   shp <- kostra_dwd_2010r[[1]]
