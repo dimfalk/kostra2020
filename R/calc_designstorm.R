@@ -120,7 +120,7 @@ calc_designstorm <- function(x = NULL,
   }
 
   # create xts object
-  xts <- xts::xts(values, order.by = datetimes)
+  xts <- xts::xts(values, order.by = datetimes, tzone = "UTC")
 
   # post-processing ------------------------------------------------------------
 
