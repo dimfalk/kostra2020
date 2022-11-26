@@ -96,7 +96,7 @@ calc_designstorm <- function(x = NULL,
   # generate fictional datetime index
   start <- "2000-01-01 00:00" |>
     strptime(format="%Y-%m-%d %H:%M") |>
-    as.POSIXct(tz = "etc/GMT-1")
+    as.POSIXct(tz = "Etc/GMT-1")
 
   datetimes <- seq(from = start, by = 60 * 5, length.out = n_timesteps)
 
@@ -120,7 +120,7 @@ calc_designstorm <- function(x = NULL,
   }
 
   # create xts object
-  xts <- xts::xts(values, order.by = datetimes, tzone = "etc/GMT-1")
+  xts <- xts::xts(values, order.by = datetimes, tzone = "Etc/GMT-1")
 
   # post-processing ------------------------------------------------------------
 

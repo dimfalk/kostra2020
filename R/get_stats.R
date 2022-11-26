@@ -92,7 +92,7 @@ get_stats <- function(x = NULL) {
 
   # append meta data as attributes
   attr(df, "id") <- x
-  attr(df, "period") <- c("01.01.1951", "31.12.2010") |> strptime("%d.%m.%Y", tz = "etc/GMT-1")
+  attr(df, "period") <- c("01.01.1951", "31.12.2010") |> strptime("%d.%m.%Y", tz = "Etc/GMT-1")
   attr(df, "returnperiods_a") <- rperiod
   attr(df, "durations_min") <- intervals
   attr(df, "source") <- "KOSTRA-DWD-2010R"
