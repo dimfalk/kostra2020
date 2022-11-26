@@ -9,7 +9,11 @@
 #' idx_exists("49011")
 idx_exists <- function(x = NULL) {
 
-  # input validation -----------------------------------------------------------
+  # debugging ------------------------------------------------------------------
+
+  # x <- "49011"
+
+  # check arguments ------------------------------------------------------------
 
   checkmate::assert_character(x, len = 1, min.chars = 1, max.chars = 6)
 

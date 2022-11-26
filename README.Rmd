@@ -186,7 +186,7 @@ attr(pen, "returnperiods_a")
 
 Furthermore, statistical precipitation depths can be used to create design storm time series data. Currently, Euler Type I + II are implemented.
 
-```{r}
+```{r, warning = FALSE}
 # Euler Type II design storm with a duration of 60 minutes and a return period of 100 a
 xts <- calc_designstorm(kostra, d = 60, tn = 100, type = "EulerII")
 

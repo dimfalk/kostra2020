@@ -16,7 +16,7 @@ as_depth <- function(x = NULL,
   # x <- 126.94
   # d <- 60
 
-  # input validation -----------------------------------------------------------
+  # check arguments ------------------------------------------------------------
 
   checkmate::assert_numeric(x, len = 1)
   checkmate::assert_numeric(d, len = 1)

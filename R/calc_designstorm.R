@@ -23,7 +23,7 @@ calc_designstorm <- function(x = NULL,
   # d <- 60
   # type <- "EulerII"
 
-  # input validation -----------------------------------------------------------
+  # check arguments ------------------------------------------------------------
 
   checkmate::assert_tibble(x)
 

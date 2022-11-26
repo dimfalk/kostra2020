@@ -16,7 +16,7 @@ idx_build <- function(col = NULL,
   # col <- 11
   # row <- 49
 
-  # input validation -----------------------------------------------------------
+  # check arguments ------------------------------------------------------------
 
   checkmate::assert_numeric(col, len = 1, lower = 0, upper = 78)
   checkmate::assert_numeric(row, len = 1, lower = 0, upper = 106)

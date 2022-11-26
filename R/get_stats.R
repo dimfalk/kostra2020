@@ -14,7 +14,7 @@ get_stats <- function(x = NULL) {
 
   # x <- "49011"
 
-  # input validation -----------------------------------------------------------
+  # check arguments ------------------------------------------------------------
 
   checkmate::assert_character(x, len = 1, min.chars = 1, max.chars = 6)
 

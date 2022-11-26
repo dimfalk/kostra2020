@@ -182,7 +182,7 @@ Some describing attributes have been assigned to the tibble.
 attr(kostra, "id")
 #> [1] "49011"
 attr(kostra, "period")
-#> [1] "1951-01-01 CET" "2010-12-31 CET"
+#> [1] "1951-01-01 +01" "2010-12-31 +01"
 attr(kostra, "returnperiods_a")
 #> [1]   1   2   3   5  10  20  30  50 100
 attr(kostra, "source")
