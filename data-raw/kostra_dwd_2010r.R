@@ -27,8 +27,7 @@ for (i in 1:length(d)) {
 
   ds <- paste0("D", d_pad[i])
 
-  # temporary fix r-cmd-check on ubuntu-latest due to GDAL 3.0.2?
-  assign(ds, files_shp[i] |> sf::read_sf() |> sf::st_set_crs("epsg:3034"))
+  assign(ds, files_shp[i] |> sf::read_sf())
 
   kostra_dwd_2010r[[ds]] <- get(ds)
 }
