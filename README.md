@@ -218,8 +218,7 @@ as_depth(43.1, d = 240)
 ### Get return periods
 
 Finally, we want to determine the return period according to the dataset
-(without interpolating values at the moment) for a precipitation depth
-and duration given.
+for a precipitation depth and duration given.
 
 ``` r
 # Let's assume we measured 72.3 mm in 24 h
@@ -253,6 +252,18 @@ get_returnp(kostra, hn = 30.2, d = 1440)
 get_returnp(kostra, hn = 86.3, d = 1440)
 #> Units: [a]
 #> [1] 100 Inf
+```
+
+### Return period interpolation
+
+Although it may be somewhat questionable from a scientific perspective,
+you might nevertheless be interested in the return period estimated
+using linear interpolation between adjacent nodes:
+
+``` r
+# Using the same example as above, previously resulting in tn = 30-50 a
+get_returnp(kostra, hn = 72.3, d = 1440, interpolate = TRUE)
+#> 39.9 [a]
 ```
 
 ### Return period extrapolation
@@ -347,7 +358,7 @@ ggplot(longdata, aes(D_min, value, colour = name)) +
           subtitle = paste0("INDEX_RC: ", attr(kostra, "id")))
 ```
 
-<img src="man/figures/README-unnamed-chunk-19-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-20-1.png" width="100%" />
 
 … or exported to disk using `write.csv2()`.
 

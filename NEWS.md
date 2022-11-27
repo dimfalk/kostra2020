@@ -1,4 +1,4 @@
-# version 0.6.5
+# version 0.7
 
 ## features
 
@@ -6,6 +6,7 @@
 - `calc_pen()` now allows extrapolation of statistical precipitation based on PEN-LAWA (Verworn & Kummer 2006, Verworn & Draschoff 2008)
 - `get_centroid()` now allows determination of coordinates based on municipality names and postal codes
 - `calc_designstorm()` now allows generation of modelled rainfall from statistical precipitation
+- `get_returnp()` now allows interpolation of return periods with `interpolate = TRUE`
 
 
 ## enhancements

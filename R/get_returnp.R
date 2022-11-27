@@ -1,19 +1,23 @@
-#' Get return period class for specified precipitation depth
+#' Get return period for specified precipitation depth
 #'
 #' @param x Tibble containing grid cell statistics from KOSTRA-2010R.
 #' @param hn numeric. Precipitation depth in mm.
 #' @param d numeric. Duration in minutes.
+#' @param interpolate logical. Return period as discrete value instead of an interval?
 #'
 #' @return units. Vector of length 2 representing the upper and lower boundaries
-#'   of the return period class in years.
+#'   of the return period class in years. Vector of length 1 with `interpolate = TRUE`.
 #' @export
 #'
 #' @examples
 #' kostra <- get_stats("49011")
+#'
 #' get_returnp(kostra, hn = 69.3, d = 1440)
+#' get_returnp(kostra, hn = 69.3, d = 1440, interpolate = TRUE)
 get_returnp <- function(x = NULL,
                         hn = NULL,
-                        d = NULL) {
+                        d = NULL,
+                        interpolate = FALSE) {
 
   # debugging ------------------------------------------------------------------
 
@@ -23,6 +27,7 @@ get_returnp <- function(x = NULL,
   # hn <- 72.3
   # hn <- 86.3
   # d <- 1440
+  # interpolate = TRUE
 
   # check arguments ------------------------------------------------------------
 
@@ -33,6 +38,8 @@ get_returnp <- function(x = NULL,
   allowed_d <- attr(x, "durations_min")
   checkmate::assert_numeric(d, len = 1)
   checkmate::assert_choice(d, allowed_d)
+
+  checkmate::assert_logical(interpolate)
 
   # pre-processing -------------------------------------------------------------
 
@@ -72,6 +79,34 @@ get_returnp <- function(x = NULL,
   } else if (closest < hn && ind == length(rperiod)) {
 
     p <- c(rperiod[which(row == closest)], Inf)
+  }
+
+  if (interpolate == TRUE) {
+
+    if (p[1] == 0) {
+
+      "Extrapolation of tn < 1 a is not allowed." |> stop()
+
+    } else if (p[2] == Inf) {
+
+      "Extrapolation of tn > 100 a is not allowed." |> stop()
+
+    } else if (p[1] == p[2]) {
+
+      tn_array <- p + c(-0.01, 0.01)
+
+      hn_array <- row[, which(rperiod == p[1]):which(rperiod == p[2])] |> as.numeric() + c(-0.01, 0.01)
+
+    } else {
+
+      tn_array <- p
+
+      hn_array <- row[, which(rperiod == p[1]):which(rperiod == p[2])] |> as.numeric()
+    }
+
+    guess <- stats::approx(tn_array, hn_array, n = 100, method = "linear")
+
+    p <- guess$x[abs(guess$y - hn) |> which.min()] |> round(1)
   }
 
   # return object

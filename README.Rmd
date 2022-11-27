@@ -139,7 +139,7 @@ as_depth(43.1, d = 240)
 
 ### Get return periods
 
-Finally, we want to determine the return period according to the dataset (without interpolating values at the moment) for a precipitation depth and duration given.
+Finally, we want to determine the return period according to the dataset for a precipitation depth and duration given.
 
 ```{r}
 # Let's assume we measured 72.3 mm in 24 h
@@ -163,6 +163,15 @@ get_returnp(kostra, hn = 30.2, d = 1440)
 ```{r}
 # 3) In case the return period tn is larger than 100, interval closes with Inf.
 get_returnp(kostra, hn = 86.3, d = 1440)
+```
+
+### Return period interpolation
+
+Although it may be somewhat questionable from a scientific perspective, you might nevertheless be interested in the return period estimated using linear interpolation between adjacent nodes:
+
+```{r}
+# Using the same example as above, previously resulting in tn = 30-50 a
+get_returnp(kostra, hn = 72.3, d = 1440, interpolate = TRUE)
 ```
 
 ### Return period extrapolation

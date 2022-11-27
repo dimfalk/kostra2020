@@ -2,9 +2,9 @@
 % Please edit documentation in R/get_returnp.R
 \name{get_returnp}
 \alias{get_returnp}
-\title{Get return period class for specified precipitation depth}
+\title{Get return period for specified precipitation depth}
 \usage{
-get_returnp(x = NULL, hn = NULL, d = NULL)
+get_returnp(x = NULL, hn = NULL, d = NULL, interpolate = FALSE)
 }
 \arguments{
 \item{x}{Tibble containing grid cell statistics from KOSTRA-2010R.}
@@ -12,15 +12,19 @@ get_returnp(x = NULL, hn = NULL, d = NULL)
 \item{hn}{numeric. Precipitation depth in mm.}
 
 \item{d}{numeric. Duration in minutes.}
+
+\item{interpolate}{logical. Return period as discrete value instead of an interval?}
 }
 \value{
 units. Vector of length 2 representing the upper and lower boundaries
-of the return period class in years.
+of the return period class in years. Vector of length 1 with \code{interpolate = TRUE}.
 }
 \description{
-Get return period class for specified precipitation depth
+Get return period for specified precipitation depth
 }
 \examples{
 kostra <- get_stats("49011")
+
 get_returnp(kostra, hn = 69.3, d = 1440)
+get_returnp(kostra, hn = 69.3, d = 1440, interpolate = TRUE)
 }
