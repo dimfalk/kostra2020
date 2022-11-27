@@ -7,7 +7,7 @@
 #' @export
 #'
 #' @examples
-#' kostra <- get_stats("49011")
+#' get_stats("49011")
 get_stats <- function(x = NULL) {
 
   # debugging ------------------------------------------------------------------

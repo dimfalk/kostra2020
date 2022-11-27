@@ -18,7 +18,8 @@ Extrapolation of precipitation depths for Tn > 100 a according to PEN-LAWA
 }
 \examples{
 kostra <- get_stats("49011")
-pen <- calc_pen(kostra)
+
+calc_pen(kostra)
 
 }
 \references{

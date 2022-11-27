@@ -17,5 +17,6 @@ Get index of relevant KOSTRA-2010R cell based on user-defined geometry
 }
 \examples{
 p <- get_centroid(c(367773, 5703579))
+
 get_idx(p)
 }

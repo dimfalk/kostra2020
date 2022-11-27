@@ -17,5 +17,5 @@ duration and return periods for the KOSTRA-2010R grid cell specified.
 Get cell-specific statistics from the KOSTRA-2010R data set
 }
 \examples{
-kostra <- get_stats("49011")
+get_stats("49011")
 }

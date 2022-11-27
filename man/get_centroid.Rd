@@ -20,8 +20,8 @@ Object of type \code{sfc_POINT}.
 Construct an geometry set object of type POINT based on user input
 }
 \examples{
-p1 <- get_centroid(c(367773, 5703579))
-p2 <- get_centroid(c(6.09, 50.46), epsg = 4326)
-p3 <- get_centroid("Aachen")
-p4 <- get_centroid("52070")
+get_centroid(c(367773, 5703579))
+get_centroid(c(6.09, 50.46), epsg = 4326)
+get_centroid("Aachen")
+get_centroid("52070")
 }
