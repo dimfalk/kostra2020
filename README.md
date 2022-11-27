@@ -261,7 +261,7 @@ you might nevertheless be interested in the return period estimated
 using linear interpolation between adjacent nodes:
 
 ``` r
-# Using the same example as above, previously resulting in tn = 30-50 a
+# Using the same example as above, previously resulting in 30 a < tn < 50 a
 get_returnp(kostra, hn = 72.3, d = 1440, interpolate = TRUE)
 #> 39.9 [a]
 ```
