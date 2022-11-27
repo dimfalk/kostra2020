@@ -1,4 +1,4 @@
-# version 0.6.3
+# version 0.6.5
 
 ## features
 
@@ -21,3 +21,4 @@
 
 - `get_returnp()` now returns consistent output for tn < 1 and tn > 100
 - `calc_designstorm()` now accepts `d = 5` as argument
+- `get_returnp()` now also works on tibbles returned by `calc_pen()`

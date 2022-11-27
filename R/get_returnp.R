@@ -18,7 +18,10 @@ get_returnp <- function(x = NULL,
   # debugging ------------------------------------------------------------------
 
   # x <- get_stats("49011")
-  # hn <- 69.3
+  # hn <- 30.2
+  # hn <- 42.8
+  # hn <- 72.3
+  # hn <- 86.3
   # d <- 1440
 
   # check arguments ------------------------------------------------------------
@@ -35,7 +38,7 @@ get_returnp <- function(x = NULL,
 
   # extract return periods from column names
   cnames <- colnames(x)[colnames(x) |> stringr::str_detect("HN_*")]
-  rperiod <- cnames |> stringr::str_sub(start = 4, end = 6) |> as.numeric()
+  rperiod <- cnames |> stringr::str_extract("[0-9]{1,5}") |> as.numeric()
 
   # identify relevant row
   row <- x[which(x[["D_min"]] == d), cnames]
