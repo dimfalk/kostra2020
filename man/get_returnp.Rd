@@ -9,15 +9,15 @@ get_returnp(x = NULL, hn = NULL, d = NULL, interpolate = FALSE)
 \arguments{
 \item{x}{Tibble containing grid cell statistics from KOSTRA-2010R.}
 
-\item{hn}{numeric. Precipitation depth in mm.}
+\item{hn}{numeric. Precipitation depth \code{[mm]}.}
 
-\item{d}{numeric. Duration in minutes.}
+\item{d}{numeric. Precipitation duration level \code{[min]}.}
 
-\item{interpolate}{logical. Return period as discrete value instead of an interval?}
+\item{interpolate}{logical. Return \code{tn} as discrete value instead of an interval?}
 }
 \value{
 units. Vector of length 2 representing the upper and lower boundaries
-of the return period class in years. Vector of length 1 with \code{interpolate = TRUE}.
+of the return period class in years \code{[a]}. Vector of length 1 with \code{interpolate = TRUE}.
 }
 \description{
 Get return period for specified precipitation depth

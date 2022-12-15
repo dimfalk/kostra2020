@@ -9,7 +9,7 @@ as_depth(x = NULL, d = NULL)
 \arguments{
 \item{x}{numeric. Precipitation yield \code{[l s-1 ha-1]}.}
 
-\item{d}{numeric. Precipitation duration \code{[min]}.}
+\item{d}{numeric. Precipitation duration level \code{[min]}.}
 }
 \value{
 units. Precipitation depth \code{[mm]}.

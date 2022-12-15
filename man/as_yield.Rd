@@ -9,7 +9,7 @@ as_yield(x = NULL, d = NULL)
 \arguments{
 \item{x}{numeric. Precipitation depth \code{[mm]}.}
 
-\item{d}{numeric. Precipitation duration \code{[min]}.}
+\item{d}{numeric. Precipitation duration level \code{[min]}.}
 }
 \value{
 units. Precipitation yield \code{[l s-1 ha-1]}.

@@ -1,12 +1,12 @@
 #' Get return period for specified precipitation depth
 #'
 #' @param x Tibble containing grid cell statistics from KOSTRA-2010R.
-#' @param hn numeric. Precipitation depth in mm.
-#' @param d numeric. Duration in minutes.
-#' @param interpolate logical. Return period as discrete value instead of an interval?
+#' @param hn numeric. Precipitation depth \code{[mm]}.
+#' @param d numeric. Precipitation duration level \code{[min]}.
+#' @param interpolate logical. Return `tn` as discrete value instead of an interval?
 #'
 #' @return units. Vector of length 2 representing the upper and lower boundaries
-#'   of the return period class in years. Vector of length 1 with `interpolate = TRUE`.
+#'   of the return period class in years \code{[a]}. Vector of length 1 with `interpolate = TRUE`.
 #' @export
 #'
 #' @examples

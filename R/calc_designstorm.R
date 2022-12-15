@@ -1,8 +1,8 @@
 #' Design storm calculation based on statistical precipitation depths
 #'
 #' @param x Tibble containing grid cell statistics from KOSTRA-DWD-2010R.
-#' @param d numeric. Duration in minutes.
-#' @param tn numeric. Return periods in years.
+#' @param d numeric. Precipitation duration level \code{[min]}.
+#' @param tn numeric. Return period \code{[a]}.
 #' @param type character. Precipitation distribution: "EulerI" or "EulerII".
 #'
 #' @return An xts object.

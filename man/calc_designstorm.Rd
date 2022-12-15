@@ -9,9 +9,9 @@ calc_designstorm(x = NULL, tn = NULL, d = NULL, type = NULL)
 \arguments{
 \item{x}{Tibble containing grid cell statistics from KOSTRA-DWD-2010R.}
 
-\item{tn}{numeric. Return periods in years.}
+\item{tn}{numeric. Return period \code{[a]}.}
 
-\item{d}{numeric. Duration in minutes.}
+\item{d}{numeric. Precipitation duration level \code{[min]}.}
 
 \item{type}{character. Precipitation distribution: "EulerI" or "EulerII".}
 }
