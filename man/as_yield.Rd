@@ -7,16 +7,19 @@
 as_yield(x = NULL, d = NULL)
 }
 \arguments{
-\item{x}{numeric. Precipitation depth in mm.}
+\item{x}{numeric. Precipitation depth \code{[mm]}.}
 
-\item{d}{numeric. Duration in minutes.}
+\item{d}{numeric. Precipitation duration \code{[min]}.}
 }
 \value{
-units. Precipitation yield in l/(s*ha).
+units. Precipitation yield \code{[l s-1 ha-1]}.
 }
 \description{
 Convert precipitation depth in precipitation yield as a function of duration.
 }
 \examples{
-as_yield(45.7, d = 60)
+as_yield(x = 45.7, d = 60)
+}
+\seealso{
+\code{\link{as_depth}}
 }

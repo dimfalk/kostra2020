@@ -1,13 +1,15 @@
 #' Convert precipitation yield in precipitation depth as a function of duration.
 #'
-#' @param x numeric. Precipitation yield in l/(s*ha).
-#' @param d numeric. Duration in minutes.
+#' @param x numeric. Precipitation yield \code{[l s-1 ha-1]}.
+#' @param d numeric. Precipitation duration \code{[min]}.
 #'
-#' @return units. Precipitation depth in mm.
+#' @return units. Precipitation depth \code{[mm]}.
 #' @export
 #'
+#' @seealso \code{\link{as_yield}}
+#'
 #' @examples
-#' as_depth(126.94, d = 60)
+#' as_depth(x = 126.94, d = 60)
 as_depth <- function(x = NULL,
                      d = NULL) {
 
@@ -21,7 +23,18 @@ as_depth <- function(x = NULL,
   checkmate::assert_numeric(x, len = 1)
   checkmate::assert_numeric(d, len = 1)
 
+  # conversion to units --------------------------------------------------------
+
+  if (inherits(x, "units")) NULL else x <- units::as_units(x, "l s-1 ha-1")
+
+  if (inherits(d, "units")) NULL else d <- units::as_units(d, "min")
+
   # main -----------------------------------------------------------------------
 
-  (as.numeric(x) / 10000 * 60 * d) |> round(1) |> units::as_units("mm")
+  units(x) <- "mm s-1"
+  units(d) <- "s"
+
+  hn <- x * d
+
+  hn |> round(1)
 }

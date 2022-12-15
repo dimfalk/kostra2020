@@ -1,7 +1,7 @@
 Package: kostra2010R
 Title: R interface for KOSTRA-DWD-2010R dataset
-Version: 0.7
-Date: 2022-11-27
+Version: 0.7.1
+Date: 2022-12-15
 Authors@R: 
     person("Dimitri", "Falk", , "falk.dimitri@eglv.de", role = c("aut", "cre"))
 Description: Extract cell-specific precipitation statistics from KOSTRA-DWD-2010R.

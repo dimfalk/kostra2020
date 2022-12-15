@@ -1,4 +1,4 @@
-# version 0.7
+# version 0.7.1
 
 ## features
 
@@ -16,6 +16,7 @@
 - `get_centroid()` now prompts a warning when the object returned contains multiple hits
 - `get_centroid()` now prompts an error when the object returned contains no hits
 - package data has been imported using `sf::read_sf()` instead of `sf::st_read()`
+- proper internal unit conversion when using `as_yield()` and `as_depth()`
 
 
 ## bug fixes 
