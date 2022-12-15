@@ -199,7 +199,7 @@ function helping you out.
 ``` r
 # So we are interested in the rainfall amount [mm] for an event lasting 240 min 
 # with a return period of 100 a.
-get_pdepth(kostra, d = 240, tn = 100)
+get_depth(kostra, d = 240, tn = 100)
 #> 62.1 [mm]
 ```
 

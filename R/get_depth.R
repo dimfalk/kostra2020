@@ -1,19 +1,19 @@
 #' Get precipitation depth for a specified duration and return period
 #'
 #' @param x Tibble containing grid cell statistics from KOSTRA-2010R.
-#' @param d numeric. Duration in minutes.
-#' @param tn numeric. Return period in years.
+#' @param d numeric. Precipitation duration level \code{[min]}.
+#' @param tn numeric. Return period \code{[a]}.
 #'
-#' @return units. Precipitation depth in mm.
+#' @return units. Precipitation depth \code{[mm]}.
 #' @export
 #'
 #' @examples
 #' kostra <- get_stats("49011")
 #'
-#' get_pdepth(kostra, d = 60, tn = 50)
-get_pdepth <- function(x = NULL,
-                       d = NULL,
-                       tn = NULL) {
+#' get_depth(kostra, d = 60, tn = 50)
+get_depth <- function(x = NULL,
+                      d = NULL,
+                      tn = NULL) {
 
   # debugging ------------------------------------------------------------------
 

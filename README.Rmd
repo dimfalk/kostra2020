@@ -124,7 +124,7 @@ If we now wanted to know the statistical precipitation depth e.g. for an event o
 ```{r}
 # So we are interested in the rainfall amount [mm] for an event lasting 240 min 
 # with a return period of 100 a.
-get_pdepth(kostra, d = 240, tn = 100)
+get_depth(kostra, d = 240, tn = 100)
 ```
 
 If you need precipitation yield values [l/(s*ha)] instead of precipitation depth [mm] or vice versa, make use of the following helper function.
