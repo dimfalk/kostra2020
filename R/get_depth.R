@@ -38,5 +38,7 @@ get_depth <- function(x = NULL,
   # get index and return object
   ind <- which(attr(x, "returnperiods_a") == tn)
 
-  x[x[["D_min"]] == d, ind + 3] |> as.numeric() |> units::as_units("mm")
+  hn <- x[x[["D_min"]] == d, ind + 3] |> as.numeric()
+
+  units::as_units(hn, "mm")
 }

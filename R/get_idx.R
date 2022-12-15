@@ -27,7 +27,7 @@ get_idx <- function(x = NULL) {
   # get first sf collection
   shp <- kostra_dwd_2010r[[1]]
 
-  # temporary fix r-cmd-check on ubuntu-latest due to GDAL 3.0.2?
+  # temporarily fixing r-cmd-check on ubuntu-latest due to GDAL 3.0.2?
   sf::st_crs(location) <- "epsg:3034"
   sf::st_crs(shp) <- "epsg:3034"
 

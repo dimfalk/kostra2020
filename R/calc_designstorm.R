@@ -176,8 +176,12 @@ calc_designstorm <- function(x = NULL,
                       "EulerI" = "Euler Typ I",
                       "EulerII" = "Euler Typ II")
 
-  attr(xts, "REMARKS") <- paste0("Modellregen ", type_long, " auf Grundlage von ", attr(x, "source"), "\n",
-                                 "Tn = ", tn, " a | D = ", d, " min | hN = ", zoo::coredata(xts) |> sum(), " mm\n",
+  attr(xts, "REMARKS") <- paste0("Modellregen ", type_long,
+                                 " auf Grundlage von ", attr(x, "source"), "\n",
+                                 "Tn = ", tn,
+                                 " a | D = ", d,
+                                 " min | hN = ", zoo::coredata(xts) |> sum(),
+                                 " mm\n",
                                  rep("-", 80) |> paste(collapse = ""), "\n")
 
   # return object

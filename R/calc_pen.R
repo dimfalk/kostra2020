@@ -3,16 +3,17 @@
 #' @param x Tibble containing grid cell statistics from KOSTRA-2010R.
 #'
 #' @return Tibble containing extrapolated precipitation depths as a function of
-#'   duration and return periods.
+#'     duration and return periods.
 #' @export
+#'
+#' @references
+#' Verworn & Kummer (2006): Praxisrelevante Extremwerte des Niederschlages (PEN).
+#' Verworn & Draschoff (2008): PEN-Erweiterung.
 #'
 #' @examples
 #' kostra <- get_stats("49011")
 #'
 #' calc_pen(kostra)
-#'
-#' @references Verworn & Kummer (2006): Praxisrelevante Extremwerte des Niederschlages (PEN).
-#' @references Verworn & Draschoff (2008): PEN-Erweiterung.
 calc_pen <- function(x = NULL) {
 
   # debugging ------------------------------------------------------------------
@@ -29,7 +30,7 @@ calc_pen <- function(x = NULL) {
   hN_lower <- x[["HN_001A"]]
   hN_upper <- x[["HN_100A"]]
 
-  # factors (-10 %, +20 %) to adjust for KOSTRA-related uncertainty taken from Malitz & Ertel (2015)
+  # factors (-10 %, +20 %) to adjust for KOSTRA-related uncertainty (Malitz/Ertel 2015)
   if (attr(x, "source") == "KOSTRA-DWD-2010R") {
 
     u <- 0.9 * hN_lower

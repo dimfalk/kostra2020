@@ -21,7 +21,7 @@ osm_plz_centroids
 \url{https://www.suche-postleitzahl.org/downloads}
 }
 \details{
-A subset/derivate of 5-digit zip code data provided by OpenStreetMap
+A subset/derivative of 5-digit zip code data provided by OpenStreetMap
 }
 \note{
 Last access: 2022-10-20

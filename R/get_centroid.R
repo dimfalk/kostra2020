@@ -41,7 +41,7 @@ get_centroid <- function(x = NULL,
 
     sf <- sf::st_point(x) |> sf::st_sfc(crs = epsg)
 
-    # string of length 1 representing the name of a municipality -----------------
+    # string of length 1 representing the name of a municipality ---------------
   } else if (inherits(x, "character") && length(x) == 1 && as.numeric(x) |> suppressWarnings() |> is.na()) {
 
     sf <- vg250_pk |> dplyr::filter(GEN == x) |> sf::st_geometry()
@@ -74,7 +74,7 @@ get_centroid <- function(x = NULL,
 
     }
 
-    # string of length 5 representing a postal zip code --------------------------
+    # string of length 5 representing a postal zip code ------------------------
   } else if (inherits(x, "character") && length(x) == 1 && nchar(x) == 5 && !is.na(as.numeric(x)) |> suppressWarnings()) {
 
     sf <- osm_plz_centroids |> dplyr::filter(plz == x) |> sf::st_geometry()

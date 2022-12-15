@@ -45,7 +45,7 @@
 
 #' Centroids of zip code areas in Germany
 #'
-#' A subset/derivate of 5-digit zip code data provided by OpenStreetMap
+#' A subset/derivative of 5-digit zip code data provided by OpenStreetMap
 #'
 #' @format Simple feature collection of type POINT with 8,170 features and 1 field:
 #' \describe{

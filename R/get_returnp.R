@@ -3,10 +3,12 @@
 #' @param x Tibble containing grid cell statistics from KOSTRA-2010R.
 #' @param hn numeric. Precipitation depth \code{[mm]}.
 #' @param d numeric. Precipitation duration level \code{[min]}.
-#' @param interpolate logical. Return `tn` as discrete value instead of an interval?
+#' @param interpolate logical.
+#'     Return `tn` as discrete value instead of an interval?
 #'
 #' @return units. Vector of length 2 representing the upper and lower boundaries
-#'   of the return period class in years \code{[a]}. Vector of length 1 with `interpolate = TRUE`.
+#'   of the return period class in years \code{[a]}.
+#'   Vector of length 1 with `interpolate = TRUE`.
 #' @export
 #'
 #' @examples
@@ -95,18 +97,21 @@ get_returnp <- function(x = NULL,
 
       tn_array <- p + c(-0.01, 0.01)
 
-      hn_array <- row[, which(rperiod == p[1]):which(rperiod == p[2])] |> as.numeric() + c(-0.01, 0.01)
+      hn_array <- row[, which(rperiod == p[1]):which(rperiod == p[2])] |>
+        as.numeric() + c(-0.01, 0.01)
 
     } else {
 
       tn_array <- p
 
-      hn_array <- row[, which(rperiod == p[1]):which(rperiod == p[2])] |> as.numeric()
+      hn_array <- row[, which(rperiod == p[1]):which(rperiod == p[2])] |>
+        as.numeric()
     }
 
     guess <- stats::approx(tn_array, hn_array, n = 100, method = "linear")
 
-    p <- guess$x[abs(guess$y - hn) |> which.min()] |> round(1)
+    p <- guess$x[abs(guess$y - hn) |> which.min()] |>
+      round(1)
   }
 
   # return object

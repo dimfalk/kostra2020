@@ -3,7 +3,7 @@
 #' @param x character. Relevant "INDEX_RC" field to be queried.
 #'
 #' @return Tibble containing statistical precipitation depths as a function of
-#'   duration and return periods for the KOSTRA-2010R grid cell specified.
+#'     duration and return periods for the KOSTRA-2010R grid cell specified.
 #' @export
 #'
 #' @examples
@@ -75,16 +75,16 @@ get_stats <- function(x = NULL) {
   # append interval duration
   df["D_min"] <- intervals
 
-  # recalculate durations in hours
+  # recalculate duration levels in hours
   df["D_hour"] <- df["D_min"] / 60
 
-  # representation in hours not relevant for durations < 60 min
+  # representation in hours not relevant for duration levels < 60 min
   df[["D_hour"]][which(df[["D_min"]] < 60)] <- NA
 
   # recalculate durations in days
   df["D_day"] <- df["D_hour"] / 24
 
-  # representation in days not relevant for durations < 24 hours
+  # representation in days not relevant for duration levels < 24 hours
   df[["D_day"]][which(df[["D_hour"]] < 24)] <- NA
 
   # re-arrange columns
@@ -92,11 +92,13 @@ get_stats <- function(x = NULL) {
 
   # append meta data as attributes
   attr(df, "id") <- x
-  attr(df, "period") <- c("01.01.1951", "31.12.2010") |> strptime("%d.%m.%Y", tz = "Etc/GMT-1") |> as.POSIXct()
+  attr(df, "period") <- c("01.01.1951", "31.12.2010") |>
+    strptime("%d.%m.%Y", tz = "Etc/GMT-1") |>
+    as.POSIXct()
   attr(df, "returnperiods_a") <- rperiod
   attr(df, "durations_min") <- intervals
   attr(df, "source") <- "KOSTRA-DWD-2010R"
 
-  # return tibble
+  # return object
   tibble::as_tibble(df)
 }

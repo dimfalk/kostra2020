@@ -20,10 +20,8 @@ Extrapolation of precipitation depths for Tn > 100 a according to PEN-LAWA
 kostra <- get_stats("49011")
 
 calc_pen(kostra)
-
 }
 \references{
 Verworn & Kummer (2006): Praxisrelevante Extremwerte des Niederschlages (PEN).
-
 Verworn & Draschoff (2008): PEN-Erweiterung.
 }
