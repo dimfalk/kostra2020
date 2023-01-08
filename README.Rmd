@@ -16,11 +16,12 @@ knitr::opts_chunk$set(
 # kostra2020
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/dimfalk/kostra2020/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/dimfalk/kostra2020/actions/workflows/R-CMD-check.yaml)
-[![Codecov test coverage](https://codecov.io/gh/dimfalk/kostra2020/branch/main/graph/badge.svg)](https://app.codecov.io/gh/dimfalk/kostra2020?branch=main)
+
+[![R-CMD-check](https://github.com/dimfalk/kostra2020/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/dimfalk/kostra2020/actions/workflows/R-CMD-check.yaml) [![Codecov test coverage](https://codecov.io/gh/dimfalk/kostra2020/branch/main/graph/badge.svg)](https://app.codecov.io/gh/dimfalk/kostra2020?branch=main)
+
 <!-- badges: end -->
 
-As of 01.01.2023, kostra2020 officially replaces kostra2010R (see [dimfalk/kostra2010R](https://github.com/dimfalk/kostra2010R)).
+--- As of 01.01.2023, kostra2020 officially replaces kostra2010R (see [dimfalk/kostra2010R](https://github.com/dimfalk/kostra2010R)). ---
 
 The main goal of kostra2020 is to provide access to KOSTRA-DWD-2020 dataset from within R.
 
@@ -87,7 +88,6 @@ p4 <- get_centroid("52070")
 p4
 ```
 
-
 These coordinates can be used subsequently to spatially query the relevant grid index.
 
 ```{r}
@@ -136,15 +136,13 @@ In order to respect estimated grid cell specific uncertainties now additionally 
 get_depth(kostra, d = 240, tn = 100, uncertain = TRUE)
 ```
 
-If you need precipitation yield values [l/(s*ha)] instead of precipitation depth [mm] or vice versa, make use of the following helper function.
+If you need precipitation yield values [l/(s\*ha)] instead of precipitation depth [mm] or vice versa, make use of the following helper function.
 
 ```{r}
 as_yield(55.6, d = 240)
 
 as_depth(38.6, d = 240)
 ```
-
-
 
 ### Get return periods
 
@@ -182,6 +180,7 @@ Although it may be somewhat questionable from a scientific perspective, you migh
 # Using the same example as above, previously resulting in 30 a < tn < 50 a
 get_returnp(kostra, hn = 75.3, d = 1440, interpolate = TRUE)
 ```
+
 ### Design storm generation
 
 Furthermore, statistical precipitation depths can be used to create design storm time series data. Currently, Euler Type I + II are implemented.
