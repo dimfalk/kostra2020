@@ -2,7 +2,9 @@
 
 ## features
 
-- `kostra_dwd_2010r` replaced by `kostra_dwd_2020_gis`
+- `kostra_dwd_2010r` replaced by `kostra_dwd_2020`
+- `get_uncertainties()` now allows to get cell-specific uncertainty estimates
+- `get_depth()` now allows to consider uncertainties with `uncertain = TRUE`
 
 
 ## enhancements
