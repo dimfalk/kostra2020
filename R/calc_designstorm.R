@@ -1,6 +1,7 @@
 #' Design storm calculation based on statistical precipitation depths
 #'
-#' @param x Tibble containing grid cell statistics from KOSTRA-DWD-2010R.
+#' @param x Tibble containing grid cell statistics from KOSTRA-DWD-2020,
+#'     as provided by `get_stats()`.
 #' @param d numeric. Precipitation duration level \code{[min]}.
 #' @param tn numeric. Return period \code{[a]}.
 #' @param type character. Precipitation distribution: "EulerI" or "EulerII".
@@ -8,8 +9,10 @@
 #' @return An xts object.
 #' @export
 #'
+#' @seealso \link{get_stats}
+#'
 #' @examples
-#' kostra <- get_stats("49011")
+#' kostra <- get_stats("49125")
 #'
 #' calc_designstorm(kostra, tn = 20, d = 60, type = "EulerII")
 calc_designstorm <- function(x = NULL,
@@ -125,11 +128,11 @@ calc_designstorm <- function(x = NULL,
 
   # post-processing ------------------------------------------------------------
 
-  # get centroid coordinates from KOSTRA-DWD-2010R tiles
-  if (attr(x, "source") == "KOSTRA-DWD-2010R") {
+  # get centroid coordinates from KOSTRA-DWD-2020 tiles
+  if (attr(x, "source") == "KOSTRA-DWD-2020") {
 
     # read shapefile for centroid coordinate estimation
-    tiles <- kostra_dwd_2010r[[1]]
+    tiles <- kostra_dwd_2020[[1]]
 
     # subset shapefile to relevant tile
     tile <- tiles |> dplyr::filter(INDEX_RC == attr(x, "id"))
@@ -143,7 +146,7 @@ calc_designstorm <- function(x = NULL,
 
   # append meta data as attributes
   # TODO: timeseriesIO::xts_init("light")
-  if (attr(x, "source") == "KOSTRA-DWD-2010R") {
+  if (attr(x, "source") == "KOSTRA-DWD-2020") {
 
     attr(xts, "STAT_ID") <- attr(x, "id")
     attr(xts, "STAT_NAME") <- attr(x, "source")

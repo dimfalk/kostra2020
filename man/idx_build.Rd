@@ -2,21 +2,21 @@
 % Please edit documentation in R/idx_build.R
 \name{idx_build}
 \alias{idx_build}
-\title{Construct "INDEX_RC" based on given X and Y information}
+\title{Build "INDEX_RC" identifier based on given X and Y information}
 \usage{
 idx_build(col = NULL, row = NULL)
 }
 \arguments{
-\item{col}{integer. One pick from set {0:78}.}
+\item{col}{integer. One pick from set {0:299}.}
 
-\item{row}{integer. One pick from set {0:106}.}
+\item{row}{integer. One pick from set {0:299}.}
 }
 \value{
 character. Unique representation of the relevant "INDEX_RC" field.
 }
 \description{
-Construct "INDEX_RC" based on given X and Y information
+Build "INDEX_RC" identifier based on given X and Y information
 }
 \examples{
-idx_build(col = 11, row = 49)
+idx_build(col = 125, row = 49)
 }

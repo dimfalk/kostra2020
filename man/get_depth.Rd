@@ -2,25 +2,33 @@
 % Please edit documentation in R/get_depth.R
 \name{get_depth}
 \alias{get_depth}
-\title{Get precipitation depth for a specified duration and return period}
+\title{Get precipitation depth for a specified duration level and return period}
 \usage{
-get_depth(x = NULL, d = NULL, tn = NULL)
+get_depth(x = NULL, d = NULL, tn = NULL, uncertain = FALSE)
 }
 \arguments{
-\item{x}{Tibble containing grid cell statistics from KOSTRA-2010R.}
+\item{x}{Tibble containing grid cell statistics from KOSTRA-DWD-2020,
+as provided by \code{get_stats()}.}
 
 \item{d}{numeric. Precipitation duration level \code{[min]}.}
 
 \item{tn}{numeric. Return period \code{[a]}.}
+
+\item{uncertain}{(optional) logical. Consider grid cell uncertainties from
+KOSTRA-DWD-2020, as provided by \code{get_uncertainties()}?}
 }
 \value{
 units. Precipitation depth \code{[mm]}.
 }
 \description{
-Get precipitation depth for a specified duration and return period
+Get precipitation depth for a specified duration level and return period
 }
 \examples{
-kostra <- get_stats("49011")
+kostra <- get_stats("49125")
 
 get_depth(kostra, d = 60, tn = 50)
+get_depth(kostra, d = 60, tn = 50, uncertain = TRUE)
+}
+\seealso{
+\link{get_stats}, \link{get_uncertainties}
 }

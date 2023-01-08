@@ -2,22 +2,22 @@
 % Please edit documentation in R/get_centroid.R
 \name{get_centroid}
 \alias{get_centroid}
-\title{Construct an geometry set object of type POINT based on user input}
+\title{Construct a geometry set object of type sfc_POINT based on user input}
 \usage{
 get_centroid(x = NULL, epsg = 25832)
 }
 \arguments{
-\item{x}{Vector of length 2 containing numeric representing coordinates,
-or character of length 1 representing the name of a municipality,
+\item{x}{Vector of length 2 containing numeric representing coordinates, \cr
+or character of length 1 representing the name of a municipality, \cr
 or character of nchar 5 representing a postal zip code.}
 
-\item{epsg}{numeric. Coordinate reference system definition.}
+\item{epsg}{numeric. Coordinate reference system identifier.}
 }
 \value{
 Object of type \code{sfc_POINT}.
 }
 \description{
-Construct an geometry set object of type POINT based on user input
+Construct a geometry set object of type sfc_POINT based on user input
 }
 \examples{
 get_centroid(c(367773, 5703579))

@@ -1,4 +1,4 @@
-#' Check whether "INDEX_RC" provided is present in KOSTRA-2010R data set
+#' Check whether given "INDEX_RC" is present in KOSTRA-DWD-2020 dataset
 #'
 #' @param x character. Relevant "INDEX_RC" field to be queried.
 #'
@@ -6,7 +6,8 @@
 #' @export
 #'
 #' @examples
-#' idx_exists("49011")
+#' idx_exists("49125")
+#' idx_exists("40477")
 idx_exists <- function(x = NULL) {
 
   # debugging ------------------------------------------------------------------
@@ -20,5 +21,5 @@ idx_exists <- function(x = NULL) {
   # main -----------------------------------------------------------------------
 
   # return boolean
-  x %in% kostra_dwd_2010r[[1]][["INDEX_RC"]]
+  x %in% kostra_dwd_2020[[1]][["INDEX_RC"]]
 }

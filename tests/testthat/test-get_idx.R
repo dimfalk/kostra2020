@@ -7,7 +7,7 @@ test_that("Extraction of 'INDEX_RC' based on WGS84 coordinates works.", {
     crs = 4326
   )
 
-  expect_equal(get_idx(p1), "57002")
+  expect_equal(get_idx(p1), "143089")
 })
 
 test_that("Extraction of 'INDEX_RC' based on ETRS89/UTM32N coordinates works.", {
@@ -19,7 +19,7 @@ test_that("Extraction of 'INDEX_RC' based on ETRS89/UTM32N coordinates works.", 
     crs = 25832
   )
 
-  expect_equal(get_idx(p2), "57002")
+  expect_equal(get_idx(p2), "143089")
 })
 
 test_that("Extraction of 'INDEX_RC' based on DHDN/GK3 coordinates works.", {
@@ -31,5 +31,5 @@ test_that("Extraction of 'INDEX_RC' based on DHDN/GK3 coordinates works.", {
     crs = 31466
   )
 
-  expect_equal(get_idx(p3), "57002")
+  expect_equal(get_idx(p3), "143089")
 })

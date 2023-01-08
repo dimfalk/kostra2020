@@ -1,6 +1,6 @@
 test_that("Output class is as expected.", {
 
-  get_stats("49011") # TODO: using `devtools::check`, all tests fail without this
+  get_stats("49125") # TODO: using `devtools::check`, all tests fail without this
 
   xts1 <- calc_designstorm(kostra_ref, d = 60, tn = 20, type = "EulerII")
 
@@ -29,14 +29,14 @@ test_that("Sum of time series values equals statistical depth from table.", {
 
   xts1 <- calc_designstorm(kostra_ref, d = 60, tn = 20, type = "EulerII")
 
-  expect_equal(zoo::coredata(xts1) |> sum(), 38.7)
+  expect_equal(zoo::coredata(xts1) |> sum(), 27.78)
 })
 
 test_that("Maximum time series value equals first value from table.", {
 
   xts1 <- calc_designstorm(kostra_ref, d = 60, tn = 20, type = "EulerII")
 
-  expect_equal(zoo::coredata(xts1) |> max(), 11.3)
+  expect_equal(zoo::coredata(xts1) |> max(), 12.4)
 })
 
 test_that("Maximum time series value is in correct position.", {

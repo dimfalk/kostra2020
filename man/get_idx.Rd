@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_idx.R
 \name{get_idx}
 \alias{get_idx}
-\title{Get index of relevant KOSTRA-2010R cell based on user-defined geometry}
+\title{Get relevant "INDEX_RC" based on user-defined geometry}
 \usage{
 get_idx(x = NULL)
 }
@@ -13,10 +13,13 @@ get_idx(x = NULL)
 character. Unique representation of the relevant "INDEX_RC" field.
 }
 \description{
-Get index of relevant KOSTRA-2010R cell based on user-defined geometry
+Get relevant "INDEX_RC" based on user-defined geometry
 }
 \examples{
 p <- get_centroid(c(367773, 5703579))
 
 get_idx(p)
+}
+\seealso{
+\link{get_centroid}
 }

@@ -1,4 +1,4 @@
 library(testthat)
-library(kostra2010R)
+library(kostra2020)
 
-test_check("kostra2010R")
+test_check("kostra2020")

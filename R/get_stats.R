@@ -1,18 +1,18 @@
-#' Get cell-specific statistics from the KOSTRA-2010R data set
+#' Get cell-specific statistics from the KOSTRA-DWD-2020 dataset
 #'
 #' @param x character. Relevant "INDEX_RC" field to be queried.
 #'
 #' @return Tibble containing statistical precipitation depths as a function of
-#'     duration and return periods for the KOSTRA-2010R grid cell specified.
+#'     duration and return periods for the KOSTRA-DWD-2020 grid cell specified.
 #' @export
 #'
 #' @examples
-#' get_stats("49011")
+#' get_stats("49125")
 get_stats <- function(x = NULL) {
 
   # debugging ------------------------------------------------------------------
 
-  # x <- "49011"
+  # x <- "49125"
 
   # check arguments ------------------------------------------------------------
 
@@ -23,12 +23,12 @@ get_stats <- function(x = NULL) {
   # pre-processing -------------------------------------------------------------
 
   # parse intervals from file names
-  intervals <- names(kostra_dwd_2010r) |>
-    stringr::str_sub(start = 2, end = 5) |>
+  intervals <- names(kostra_dwd_2020) |>
+    stringr::str_sub(start = 2, end = 6) |>
     as.numeric()
 
   # read sf object to extract column names and for index identification
-  shp <- kostra_dwd_2010r[[1]]
+  shp <- kostra_dwd_2020[[1]]
 
   # get return periods from column names for subsetting
   cnames <- colnames(shp)[colnames(shp) |> stringr::str_detect("HN_*")]
@@ -47,7 +47,7 @@ get_stats <- function(x = NULL) {
   for (i in 1:length(intervals)) {
 
     # read shapefile as sf / data frame
-    shp <- kostra_dwd_2010r[[i]]
+    shp <- kostra_dwd_2020[[i]]
 
     # subset original data.frame based on index, relevant columns
     temp <- shp[ind, cnames] |> sf::st_drop_geometry()
@@ -69,9 +69,6 @@ get_stats <- function(x = NULL) {
   cnames <- cnames |> stringr::str_sub(start = 1, end = -2)
   colnames(df) <- cnames
 
-  # NA values
-  df <- replace(df, df == -99.9, NA)
-
   # append interval duration
   df["D_min"] <- intervals
 
@@ -92,12 +89,13 @@ get_stats <- function(x = NULL) {
 
   # append meta data as attributes
   attr(df, "id") <- x
-  attr(df, "period") <- c("01.01.1951", "31.12.2010") |>
+  attr(df, "period") <- c("01.01.1951", "31.12.2020") |>
     strptime("%d.%m.%Y", tz = "Etc/GMT-1") |>
     as.POSIXct()
   attr(df, "returnperiods_a") <- rperiod
   attr(df, "durations_min") <- intervals
-  attr(df, "source") <- "KOSTRA-DWD-2010R"
+  attr(df, "type") <- "HN"
+  attr(df, "source") <- "KOSTRA-DWD-2020"
 
   # return object
   tibble::as_tibble(df)

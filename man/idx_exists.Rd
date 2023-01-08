@@ -2,7 +2,7 @@
 % Please edit documentation in R/idx_exists.R
 \name{idx_exists}
 \alias{idx_exists}
-\title{Check whether "INDEX_RC" provided is present in KOSTRA-2010R data set}
+\title{Check whether given "INDEX_RC" is present in KOSTRA-DWD-2020 dataset}
 \usage{
 idx_exists(x = NULL)
 }
@@ -13,8 +13,9 @@ idx_exists(x = NULL)
 logical.
 }
 \description{
-Check whether "INDEX_RC" provided is present in KOSTRA-2010R data set
+Check whether given "INDEX_RC" is present in KOSTRA-DWD-2020 dataset
 }
 \examples{
-idx_exists("49011")
+idx_exists("49125")
+idx_exists("40477")
 }

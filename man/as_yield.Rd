@@ -2,7 +2,7 @@
 % Please edit documentation in R/as_yield.R
 \name{as_yield}
 \alias{as_yield}
-\title{Convert precipitation depth in precipitation yield as a function of duration.}
+\title{Convert precipitation depth in precipitation yield as a function of duration}
 \usage{
 as_yield(x = NULL, d = NULL)
 }
@@ -15,11 +15,11 @@ as_yield(x = NULL, d = NULL)
 units. Precipitation yield \code{[l s-1 ha-1]}.
 }
 \description{
-Convert precipitation depth in precipitation yield as a function of duration.
+Convert precipitation depth in precipitation yield as a function of duration
 }
 \examples{
 as_yield(x = 45.7, d = 60)
 }
 \seealso{
-\code{\link{as_depth}}
+\link{as_depth}
 }

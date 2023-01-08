@@ -1,9 +1,9 @@
-#' Construct an geometry set object of type POINT based on user input
+#' Construct a geometry set object of type sfc_POINT based on user input
 #'
-#' @param x Vector of length 2 containing numeric representing coordinates,
-#'   or character of length 1 representing the name of a municipality,
+#' @param x Vector of length 2 containing numeric representing coordinates, \cr
+#'   or character of length 1 representing the name of a municipality, \cr
 #'   or character of nchar 5 representing a postal zip code.
-#' @param epsg numeric. Coordinate reference system definition.
+#' @param epsg numeric. Coordinate reference system identifier.
 #'
 #' @return Object of type `sfc_POINT`.
 #' @export
@@ -18,10 +18,10 @@ get_centroid <- function(x = NULL,
 
   # debugging ------------------------------------------------------------------
 
-  # x <- c(6.89, 51.34, 7.13, 51.53)
-  # x <- c(353034.1, 5689295.3, 370288.6, 5710875.9)
-  # x <- "Essen"
-  # x <- "45145"
+  # x <- c(6.09, 50.46)
+  # x <- c(367773, 5703579)
+  # x <- "Aachen"
+  # x <- "52070"
   # epsg <- 4326
 
   # check arguments ------------------------------------------------------------
@@ -29,7 +29,7 @@ get_centroid <- function(x = NULL,
   checkmate::assert(
 
     checkmate::testNumeric(x, len = 2, any.missing = FALSE),
-    checkmate::testCharacter(x, len = 1),
+    checkmate::testCharacter(x, len = 1)
   )
 
   checkmate::assert_numeric(epsg, len = 1)

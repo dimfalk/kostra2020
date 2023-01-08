@@ -1,6 +1,6 @@
 ## Contributing to kostra2010R
 
-The goal of this little guide is to help you contribute to kostra2010R as quickly and as easily possible. 
+The goal of this little guide is to help you contribute to kostra2020 as quickly and as easily possible. 
 Moreover, this remains a reminder and collection of useful hints when contributing myself. 
 
 The guide is divided into two main parts:
@@ -18,7 +18,7 @@ For more information about contributing, please check the following resources:
 
 Before you file an issue:
 
-1.  Check that you're using the latest version of kostra2010R. It's quite possible that the problem you're experiencing has already been fixed.
+1.  Check that you're using the latest version of kostra2020. It's quite possible that the problem you're experiencing has already been fixed.
 
 1.  Spend a few minutes looking at the existing issues. It's possible that your issue has already been filed.
     It's generally a bad idea to comment on a closed issue or a commit. 

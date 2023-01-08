@@ -3,7 +3,7 @@
 \docType{data}
 \name{osm_plz_centroids}
 \alias{osm_plz_centroids}
-\title{Centroids of zip code areas in Germany}
+\title{Data: Centroids of zip code areas in Germany}
 \format{
 Simple feature collection of type POINT with 8,170 features and 1 field:
 \describe{

@@ -3,7 +3,7 @@
 \docType{data}
 \name{vg250_pk}
 \alias{vg250_pk}
-\title{Point representation of municipalities in Germany (VG250 31.12.2021)}
+\title{Data: Point representation of municipalities in Germany (VG250 31.12.2021)}
 \format{
 Simple feature collection of type POINT with 10,994 features and 1 field:
 \describe{

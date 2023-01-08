@@ -7,7 +7,8 @@
 calc_designstorm(x = NULL, tn = NULL, d = NULL, type = NULL)
 }
 \arguments{
-\item{x}{Tibble containing grid cell statistics from KOSTRA-DWD-2010R.}
+\item{x}{Tibble containing grid cell statistics from KOSTRA-DWD-2020,
+as provided by \code{get_stats()}.}
 
 \item{tn}{numeric. Return period \code{[a]}.}
 
@@ -22,7 +23,10 @@ An xts object.
 Design storm calculation based on statistical precipitation depths
 }
 \examples{
-kostra <- get_stats("49011")
+kostra <- get_stats("49125")
 
 calc_designstorm(kostra, tn = 20, d = 60, type = "EulerII")
+}
+\seealso{
+\link{get_stats}
 }

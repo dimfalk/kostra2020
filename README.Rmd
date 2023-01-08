@@ -13,52 +13,54 @@ knitr::opts_chunk$set(
 )
 ```
 
-# kostra2010R
+# kostra2020
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/dimfalk/kostra2010R/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/dimfalk/kostra2010R/actions/workflows/R-CMD-check.yaml)
-[![Codecov test coverage](https://codecov.io/gh/dimfalk/kostra2010R/branch/main/graph/badge.svg)](https://app.codecov.io/gh/dimfalk/kostra2010R?branch=main)
+[![R-CMD-check](https://github.com/dimfalk/kostra2020/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/dimfalk/kostra2020/actions/workflows/R-CMD-check.yaml)
+[![Codecov test coverage](https://codecov.io/gh/dimfalk/kostra2020/branch/main/graph/badge.svg)](https://app.codecov.io/gh/dimfalk/kostra2020?branch=main)
 <!-- badges: end -->
 
-The main goal of kostra2010R is to provide access to KOSTRA-DWD-2010R dataset from within R.
+As of 01.01.2023, kostra2020 officially replaces kostra2010R (see [dimfalk/kostra2010R](https://github.com/dimfalk/kostra2010R)).
+
+The main goal of kostra2020 is to provide access to KOSTRA-DWD-2020 dataset from within R.
 
 Abstract from the [official dataset description](https://opendata.dwd.de/climate_environment/CDC/grids_germany/return_periods/precipitation/KOSTRA/KOSTRA_DWD_2010R/gis/DESCRIPTION_gridsgermany_return_periods_precipitation_KOSTRA_KOSTRA_DWD_2010R_gis_en.pdf):
 
 *These vector data sets for GIS contain statistical precipitation values as a function of the duration and the return period. The scope of the data is the engineering dimensioning of water management structures. These include, sewerage networks, sewage treatment plants, pumping stations and retention basins. They are also often used for the dimensioning of drainage systems and infiltration systems. With the help of the data, however, it is also possible to estimate the precipitation level of severe heavy precipitation events with regard to their return periods. This estimation is often used to assess damage events.*
 
-*The data set contains the vector data sets of all 18 duration levels. A vector data set contains the statistical precipitation (hN, design precipitation) of the present duration level D for nine return periods Tn (1-100 a) for the whole grid spanning 79 × 107 cells. INDEX_RC describes the unique identifier of a grid cell.*
+*The data set contains the vector data sets of all 22 duration levels. A vector data set contains the statistical precipitation (hN, design precipitation) of the present duration level D for nine return periods Tn (1-100 a) for the whole grid with actual data present spanning 15,989 cells. INDEX_RC describes the unique identifier of a grid cell.*
 
 ## Installation
 
-You can install the development version of kostra2010R with:
+You can install the development version of kostra2020 with:
 
 ``` r
 install.packages("devtools")
-devtools::install_github("dimfalk/kostra2010R")
+devtools::install_github("dimfalk/kostra2020")
 ```
 
 and load the package via
 
 ```{r}
-library(kostra2010R)
+library(kostra2020)
 ```
 
 ## Getting started
 
 ### Get "INDEX_RC" based on row and column information
 
-Sometimes identification of grid cells is not accomplished using "INDEX_RC" directly but rather using a combination of X and Y information (e.g. column 11, row 49). This information can easily be used to generate the necessary "INDEX_RC" field.
+Sometimes identification of grid cells is not accomplished using "INDEX_RC" directly but rather using a combination of X and Y information (e.g. column 125, row 49). This information can easily be used to generate the necessary "INDEX_RC" field.
 
 ```{r}
 # Generate "INDEX_RC" based on X and Y information
-idx_build(col = 11, row = 49)
+idx_build(col = 125, row = 49)
 ```
 
 If you wanted to check whether this constructed "INDEX_RC" field is really present in the dataset (or you found an ID in some report and are not sure, if it is still being used), make use of the following function.
 
 ```{r}
 # Is the following "INDEX_RC" entry present in the dataset?
-idx_exists("49011")
+idx_exists("49125")
 ```
 
 ### Get "INDEX_RC" based on spatial information
@@ -67,7 +69,7 @@ The most common use case will be to get the relevant "INDEX_RC" based on coordin
 
 ```{r}
 # Sf objects created based on specified coordinates. Don't forget to pass the CRS.
-p1 <- get_centroid(c(6.09, 50.46), epsg = 4326)
+p1 <- get_centroid(c(6.19, 50.46), epsg = 4326)
 p1
 
 p2 <- get_centroid(c(367773, 5703579), epsg = 25832)
@@ -96,14 +98,14 @@ get_idx(p3)
 get_idx(p4)
 ```
 
-### Construct cell-specific statistics from KOSTRA-DWD-2010R grid
+### Construct cell-specific statistics from KOSTRA-DWD-2020 grid
 
 Now that we have messed a little with the grid cell identifiers, let's get a sneak peek into the dataset itself based on the "INDEX_RC" specified.
 
 ```{r}
 # Build a tibble containing statistical precipitation depths as a function of 
 # duration and return periods for the grid cell specified.
-kostra <- get_stats("49011")
+kostra <- get_stats("49125")
 
 kostra
 ```
@@ -127,12 +129,19 @@ If we now wanted to know the statistical precipitation depth e.g. for an event o
 get_depth(kostra, d = 240, tn = 100)
 ```
 
+In order to respect estimated grid cell specific uncertainties now additionally included in kostra2020, make use of `uncertain = TRUE`, to get an interval centered around the single value above.
+
+```{r}
+# Same data, but with uncertainties considered.
+get_depth(kostra, d = 240, tn = 100, uncertain = TRUE)
+```
+
 If you need precipitation yield values [l/(s*ha)] instead of precipitation depth [mm] or vice versa, make use of the following helper function.
 
 ```{r}
-as_yield(62.1, d = 240)
+as_yield(55.6, d = 240)
 
-as_depth(43.1, d = 240)
+as_depth(38.6, d = 240)
 ```
 
 
@@ -143,16 +152,16 @@ Finally, we want to determine the return period according to the dataset for a p
 
 ```{r}
 # Let's assume we measured 72.3 mm in 24 h
-get_returnp(kostra, hn = 72.3, d = 1440)
+get_returnp(kostra, hn = 75.3, d = 1440)
 ```
 
-Accordingly, the approximate corresponding recurrence interval resp. annuality of this event amounts to something between 30 and 50 years as per KOSTRA-DWD-2010R.
+Accordingly, the approximate corresponding recurrence interval resp. annuality of this event amounts to something between 30 and 50 years as per KOSTRA-DWD-2020.
 
 The following edge cases are to be mentioned:
 
 ```{r}
 # 1) In case a class boundary is hit, the return period is replicated.
-get_returnp(kostra, hn = 42.8, d = 1440)
+get_returnp(kostra, hn = 39.5, d = 1440)
 ```
 
 ```{r}
@@ -162,7 +171,7 @@ get_returnp(kostra, hn = 30.2, d = 1440)
 
 ```{r}
 # 3) In case the return period tn is larger than 100, interval closes with Inf.
-get_returnp(kostra, hn = 86.3, d = 1440)
+get_returnp(kostra, hn = 96.3, d = 1440)
 ```
 
 ### Return period interpolation
@@ -171,26 +180,8 @@ Although it may be somewhat questionable from a scientific perspective, you migh
 
 ```{r}
 # Using the same example as above, previously resulting in 30 a < tn < 50 a
-get_returnp(kostra, hn = 72.3, d = 1440, interpolate = TRUE)
+get_returnp(kostra, hn = 75.3, d = 1440, interpolate = TRUE)
 ```
-
-### Return period extrapolation
-
-Since KOSTRA-2010R has an upper limit of Tn = 100 a, we can make use of e.g. PEN-LAWA method in order to extrapolate statistical precipitation depths for all duration levels.
-
-```{r}
-# Output in a separate tibble to not mix up applied methods
-pen <- calc_pen(kostra) 
-
-pen
-```
-
-```{r}
-# Former attribute names are preserved
-attr(pen, "id")
-attr(pen, "returnperiods_a")
-```
-
 ### Design storm generation
 
 Furthermore, statistical precipitation depths can be used to create design storm time series data. Currently, Euler Type I + II are implemented.
@@ -229,7 +220,7 @@ ggplot(longdata, aes(D_min, value, colour = name)) +
 
 ## Contributing
 
-See [here](https://github.com/dimfalk/kostra2010R/blob/main/.github/CONTRIBUTING.md) if you'd like to contribute.
+See [here](https://github.com/dimfalk/kostra2020/blob/main/.github/CONTRIBUTING.md) if you'd like to contribute.
 
 ## Legal information
 

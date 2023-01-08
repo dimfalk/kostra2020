@@ -1,4 +1,4 @@
-#' Convert precipitation depth in precipitation yield as a function of duration.
+#' Convert precipitation depth in precipitation yield as a function of duration
 #'
 #' @param x numeric. Precipitation depth \code{[mm]}.
 #' @param d numeric. Precipitation duration level \code{[min]}.
@@ -6,7 +6,7 @@
 #' @return units. Precipitation yield \code{[l s-1 ha-1]}.
 #' @export
 #'
-#' @seealso \code{\link{as_depth}}
+#' @seealso \link{as_depth}
 #'
 #' @examples
 #' as_yield(x = 45.7, d = 60)
