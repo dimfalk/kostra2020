@@ -6,9 +6,6 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/dimfalk/kostra2020/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/dimfalk/kostra2020/actions/workflows/R-CMD-check.yaml)
-[![Codecov test
-coverage](https://codecov.io/gh/dimfalk/kostra2020/branch/main/graph/badge.svg)](https://app.codecov.io/gh/dimfalk/kostra2020?branch=main)
-
 <!-- badges: end -->
 
 — As of 01.01.2023, kostra2020 officially replaces kostra2010R (see
@@ -200,7 +197,7 @@ get_depth(kostra, d = 240, tn = 100)
 ```
 
 In order to respect estimated grid cell specific uncertainties now
-additionally included in kostra2020, make use of `uncertain = TRUE`, to
+additionally included in kostra2020, make use of `uncertain = TRUE` to
 get an interval centered around the single value above.
 
 ``` r
