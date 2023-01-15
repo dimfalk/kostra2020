@@ -4,4 +4,5 @@ c("vg250_pk",
   "osm_plz_centroids",
   "plz",
   "kostra_dwd_2020",
-  "INDEX_RC") |> utils::globalVariables()
+  "INDEX_RC",
+  "addr") |> utils::globalVariables()

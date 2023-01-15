@@ -2,27 +2,31 @@
 #'
 #' @param x Vector of length 2 containing numeric representing coordinates, \cr
 #'   or character of length 1 representing the name of a municipality, \cr
-#'   or character of nchar 5 representing a postal zip code.
-#' @param epsg numeric. Coordinate reference system identifier.
+#'   a postal zip code or a full address to be geocoded via Nominatim API.
+#' @param epsg (optional) numeric. Coordinate reference system identifier.
 #'
 #' @return Object of type `sfc_POINT`.
 #' @export
 #'
 #' @examples
-#' get_centroid(c(367773, 5703579))
-#' get_centroid(c(6.09, 50.46), epsg = 4326)
-#' get_centroid("Aachen")
-#' get_centroid("52070")
+#' get_centroid(x = c(6.19, 50.46), epsg = 4326)
+#' get_centroid(x = c(367773, 5703579), epsg = 25832)
+#'
+#' get_centroid(x = "52070")
+#' get_centroid(x = "Freiburg im Breisgau")
+#' get_centroid(x = "Kronprinzenstr. 24, 45128 Essen")
 get_centroid <- function(x = NULL,
-                         epsg = 25832) {
+                         epsg = NULL) {
 
   # debugging ------------------------------------------------------------------
 
-  # x <- c(6.09, 50.46)
+  # x <- c(6.19, 50.46)
   # x <- c(367773, 5703579)
-  # x <- "Aachen"
-  # x <- "52070"
   # epsg <- 4326
+
+  # x <- "52070"
+  # x <- "Freiburg im Breisgau"
+  # x <- "Kronprinzenstr. 24, 45128 Essen"
 
   # check arguments ------------------------------------------------------------
 
@@ -32,7 +36,14 @@ get_centroid <- function(x = NULL,
     checkmate::testCharacter(x, len = 1)
   )
 
-  checkmate::assert_numeric(epsg, len = 1)
+  if (inherits(x, "numeric")) {
+
+    checkmate::assert_numeric(epsg, len = 1)
+
+  } else {
+
+    checkmate::assert_null(epsg)
+  }
 
   # main -----------------------------------------------------------------------
 
@@ -41,56 +52,30 @@ get_centroid <- function(x = NULL,
 
     sf <- sf::st_point(x) |> sf::st_sfc(crs = epsg)
 
-    # string of length 1 representing the name of a municipality ---------------
-  } else if (inherits(x, "character") && length(x) == 1 && as.numeric(x) |> suppressWarnings() |> is.na()) {
+    # string of length 1 representing input for Nominatim query ----------------
+  } else if (inherits(x, "character") && length(x) == 1) {
 
-    sf <- vg250_pk |> dplyr::filter(GEN == x) |> sf::st_geometry()
+    r <- tibble::tibble(addr = x) |>
+      tidygeocoder::geocode(.tbl = _, address = addr, method = "osm", quiet = TRUE, progress_bar = FALSE)
 
-    # number of objects present
-    n <- length(sf)
+    if (is.na(r[["lat"]]) || is.na(r[["long"]])) {
 
-    # capture typos and non-existent names in the dataset
-    if (n == 0) {
-
-      # partial matching successful?
-      pmatch <- vg250_pk[["GEN"]][grep(x, vg250_pk[["GEN"]])]
-
-      if (length(pmatch) == 0) {
-
-        "The name provided is not included in the dataset. Please try another." |> stop()
-
-      } else {
-
-        paste("The name provided is not included in the dataset. Did you mean one of the following entries?",
-              stringr::str_c(pmatch, collapse = ", "), sep ="\n  ") |> stop()
-      }
-
-      # warn user in case the name provided was not unique with multiple results
-    } else if (n > 1) {
-
-      paste("The name provided returned multiple non-unique results.",
-            "Consider to visually inspect the returned object using e.g. `mapview::mapview(p)`.",
-            "Hint: Subsetting can be accomplished using brackets `p[1]`.", sep ="\n  ") |> warning()
-
+      "Geocoding of `x` using Nominatim API failed. Please check the examples provided in `?get_centroid`." |> stop()
     }
 
-    # string of length 5 representing a postal zip code ------------------------
-  } else if (inherits(x, "character") && length(x) == 1 && nchar(x) == 5 && !is.na(as.numeric(x)) |> suppressWarnings()) {
+    sf <- sf::st_as_sf(r, coords = c("long", "lat"), crs = 4326) |>
+      sf::st_geometry()
+  }
 
-    sf <- osm_plz_centroids |> dplyr::filter(plz == x) |> sf::st_geometry()
+  # does the user input overlap with KOSTRA-DWD-2020 spatially?
+  hits <- sf::st_intersects(kostra_dwd_2020[[1]],
+                            sf::st_transform(sf, "epsg:3035"),
+                            sparse = FALSE) |> sum()
 
-    # number of objects present
-    n <- length(sf)
+  if (hits == 0) {
 
-    # capture typos and non-existent codes in the dataset
-    if (n == 0) {
+    "Caution: Geocoded `x` does not intersect spatially with KOSTRA-DWD-2020 tiles." |> warning()
 
-      "The postal code provided is not included in the dataset. Please try another." |> stop()
-    }
-
-  } else {
-
-    "Your input could not be attributed properly. Please check the examples provided: `?get_centroid`." |> stop()
   }
 
   # return object

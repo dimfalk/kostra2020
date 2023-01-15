@@ -53,7 +53,7 @@ library(kostra2020)
 Sometimes identification of grid cells is not accomplished using "INDEX_RC" directly but rather using a combination of X and Y information (e.g. column 125, row 49). This information can easily be used to generate the necessary "INDEX_RC" field.
 
 ```{r}
-# Generate "INDEX_RC" based on X and Y information
+# Generate "INDEX_RC" based on X and Y information.
 idx_build(col = 125, row = 49)
 ```
 
@@ -80,22 +80,26 @@ p2
 For convenience, it is also possible to provide municipality names or postal codes to derive coordinates.
 
 ```{r}
-# Sf objects created based on names and zip codes
-p3 <- get_centroid("Freiburg im Breisgau")
+# Sf objects created based on Nominatim API response. Internet access required!
+p3 <- get_centroid("52070")
 p3
 
-p4 <- get_centroid("52070")
+p4 <- get_centroid("Freiburg im Breisgau")
 p4
+
+p5 <- get_centroid("Kronprinzenstr. 24, 45128 Essen")
+p5
 ```
 
 These coordinates can be used subsequently to spatially query the relevant grid index.
 
 ```{r}
-# Get indices by topological intersection between location point and grid cells
+# Get indices by topological intersection between location point and grid cells.
 get_idx(p1)
 get_idx(p2)
 get_idx(p3)
 get_idx(p4)
+get_idx(p5)
 ```
 
 ### Construct cell-specific statistics from KOSTRA-DWD-2020 grid
@@ -149,7 +153,7 @@ as_depth(38.6, d = 240)
 Finally, we want to determine the return period according to the dataset for a precipitation depth and duration given.
 
 ```{r}
-# Let's assume we measured 72.3 mm in 24 h
+# Let's assume we measured 72.3 mm in 24 h.
 get_returnp(kostra, hn = 75.3, d = 1440)
 ```
 
@@ -177,7 +181,7 @@ get_returnp(kostra, hn = 96.3, d = 1440)
 Although it may be somewhat questionable from a scientific perspective, you might nevertheless be interested in the return period estimated using linear interpolation between adjacent nodes:
 
 ```{r}
-# Using the same example as above, previously resulting in 30 a < tn < 50 a
+# Using the same example as above, previously resulting in 30 a < tn < 50 a.
 get_returnp(kostra, hn = 75.3, d = 1440, interpolate = TRUE)
 ```
 
@@ -186,7 +190,7 @@ get_returnp(kostra, hn = 75.3, d = 1440, interpolate = TRUE)
 Furthermore, statistical precipitation depths can be used to create design storm time series data. Currently, Euler Type I + II are implemented.
 
 ```{r, warning = FALSE}
-# Euler Type II design storm with a duration of 60 minutes and a return period of 100 a
+# Euler Type II design storm with a duration of 60 minutes and a return period of 100 a.
 xts <- calc_designstorm(kostra, d = 60, tn = 100, type = "EulerII")
 
 xts

@@ -61,7 +61,7 @@ information (e.g. column 125, row 49). This information can easily be
 used to generate the necessary “INDEX_RC” field.
 
 ``` r
-# Generate "INDEX_RC" based on X and Y information
+# Generate "INDEX_RC" based on X and Y information.
 idx_build(col = 125, row = 49)
 #> [1] "49125"
 ```
@@ -109,39 +109,50 @@ For convenience, it is also possible to provide municipality names or
 postal codes to derive coordinates.
 
 ``` r
-# Sf objects created based on names and zip codes
-p3 <- get_centroid("Freiburg im Breisgau")
+# Sf objects created based on Nominatim API response. Internet access required!
+p3 <- get_centroid("52070")
 p3
 #> Geometry set for 1 feature 
 #> Geometry type: POINT
 #> Dimension:     XY
-#> Bounding box:  xmin: 7.849877 ymin: 47.99479 xmax: 7.849877 ymax: 47.99479
+#> Bounding box:  xmin: 6.096156 ymin: 50.79107 xmax: 6.096156 ymax: 50.79107
 #> Geodetic CRS:  WGS 84
-#> POINT (7.849877 47.99479)
+#> POINT (6.096156 50.79107)
 
-p4 <- get_centroid("52070")
+p4 <- get_centroid("Freiburg im Breisgau")
 p4
 #> Geometry set for 1 feature 
 #> Geometry type: POINT
 #> Dimension:     XY
-#> Bounding box:  xmin: 6.096218 ymin: 50.79385 xmax: 6.096218 ymax: 50.79385
+#> Bounding box:  xmin: 7.8494 ymin: 47.99609 xmax: 7.8494 ymax: 47.99609
 #> Geodetic CRS:  WGS 84
-#> POINT (6.096218 50.79385)
+#> POINT (7.8494 47.99609)
+
+p5 <- get_centroid("Kronprinzenstr. 24, 45128 Essen")
+p5
+#> Geometry set for 1 feature 
+#> Geometry type: POINT
+#> Dimension:     XY
+#> Bounding box:  xmin: 7.020153 ymin: 51.44617 xmax: 7.020153 ymax: 51.44617
+#> Geodetic CRS:  WGS 84
+#> POINT (7.020153 51.44617)
 ```
 
 These coordinates can be used subsequently to spatially query the
 relevant grid index.
 
 ``` r
-# Get indices by topological intersection between location point and grid cells
+# Get indices by topological intersection between location point and grid cells.
 get_idx(p1)
 #> [1] "150090"
 get_idx(p2)
 #> [1] "129103"
 get_idx(p3)
-#> [1] "206112"
-get_idx(p4)
 #> [1] "143089"
+get_idx(p4)
+#> [1] "206112"
+get_idx(p5)
+#> [1] "129102"
 ```
 
 ### Construct cell-specific statistics from KOSTRA-DWD-2020 grid
@@ -228,7 +239,7 @@ Finally, we want to determine the return period according to the dataset
 for a precipitation depth and duration given.
 
 ``` r
-# Let's assume we measured 72.3 mm in 24 h
+# Let's assume we measured 72.3 mm in 24 h.
 get_returnp(kostra, hn = 75.3, d = 1440)
 #> Units: [a]
 #> [1] 30 50
@@ -268,7 +279,7 @@ you might nevertheless be interested in the return period estimated
 using linear interpolation between adjacent nodes:
 
 ``` r
-# Using the same example as above, previously resulting in 30 a < tn < 50 a
+# Using the same example as above, previously resulting in 30 a < tn < 50 a.
 get_returnp(kostra, hn = 75.3, d = 1440, interpolate = TRUE)
 #> 37.3 [a]
 ```
@@ -280,7 +291,7 @@ design storm time series data. Currently, Euler Type I + II are
 implemented.
 
 ``` r
-# Euler Type II design storm with a duration of 60 minutes and a return period of 100 a
+# Euler Type II design storm with a duration of 60 minutes and a return period of 100 a.
 xts <- calc_designstorm(kostra, d = 60, tn = 100, type = "EulerII")
 
 xts

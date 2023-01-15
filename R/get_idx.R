@@ -8,7 +8,7 @@
 #' @seealso \link{get_centroid}
 #'
 #' @examples
-#' p <- get_centroid(c(367773, 5703579))
+#' p <- get_centroid(c(367773, 5703579), epsg = 25832)
 #'
 #' get_idx(p)
 get_idx <- function(x = NULL) {
