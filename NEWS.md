@@ -1,4 +1,4 @@
-# version 1.0.1
+# version 1.0.2
 
 ## features
 
@@ -14,7 +14,7 @@
 
 ## bug fixes 
 
-- 
+- `as_yield()` and `as_depth()` now accept `x` with a length of 2
 
 
 # version 0.7.3

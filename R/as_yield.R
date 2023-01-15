@@ -20,14 +20,14 @@ as_yield <- function(x = NULL,
 
   # check arguments ------------------------------------------------------------
 
-  checkmate::assert_numeric(x, len = 1)
+  checkmate::assert_numeric(x, min.len = 1, max.len = 2)
   checkmate::assert_numeric(d, len = 1)
 
   # conversion to units --------------------------------------------------------
 
-  if (inherits(x, "units")) NULL else x <- units::as_units(x, "mm")
+  if (!inherits(x, "units")) x <- units::as_units(x, "mm")
 
-  if (inherits(d, "units")) NULL else d <- units::as_units(d, "min")
+  if (!inherits(d, "units")) d <- units::as_units(d, "min")
 
   # main -----------------------------------------------------------------------
 
