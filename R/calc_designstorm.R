@@ -9,6 +9,8 @@
 #' @return An xts object.
 #' @export
 #'
+#' @import sf
+#'
 #' @seealso \link{get_stats}
 #'
 #' @examples
