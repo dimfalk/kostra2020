@@ -211,12 +211,12 @@ get_depth(kostra, d = 240, tn = 100)
 ```
 
 In order to respect estimated grid cell specific uncertainties now
-additionally included in kostra2020, make use of `uncertain = TRUE` to
-get an interval centered around the single value above.
+additionally included in kostra2020, make use of `uc = TRUE` to get an
+interval centered around the single value above.
 
 ``` r
 # Same data, but with uncertainties considered.
-get_depth(kostra, d = 240, tn = 100, uncertain = TRUE)
+get_depth(kostra, d = 240, tn = 100, uc = TRUE)
 #> Units: [mm]
 #> [1] 43.4 67.8
 ```

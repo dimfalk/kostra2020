@@ -133,11 +133,11 @@ If we now wanted to know the statistical precipitation depth e.g. for an event o
 get_depth(kostra, d = 240, tn = 100)
 ```
 
-In order to respect estimated grid cell specific uncertainties now additionally included in kostra2020, make use of `uncertain = TRUE` to get an interval centered around the single value above.
+In order to respect estimated grid cell specific uncertainties now additionally included in kostra2020, make use of `uc = TRUE` to get an interval centered around the single value above.
 
 ```{r}
 # Same data, but with uncertainties considered.
-get_depth(kostra, d = 240, tn = 100, uncertain = TRUE)
+get_depth(kostra, d = 240, tn = 100, uc = TRUE)
 ```
 
 If you need precipitation yield values [l/(s\*ha)] instead of precipitation depth [mm] or vice versa, make use of the following helper function.

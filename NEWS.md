@@ -1,10 +1,10 @@
-# version 1.0.3
+# version 1.0.4
 
 ## features
 
 - `kostra_dwd_2010r` replaced by `kostra_dwd_2020`
 - `get_uncertainties()` now allows to get cell-specific uncertainty estimates
-- `get_depth()` now allows to consider uncertainties with `uncertain = TRUE`
+- `get_depth()` now allows to consider uncertainties with `uc = TRUE`
 
 
 ## enhancements

@@ -4,7 +4,7 @@
 \alias{get_depth}
 \title{Get precipitation depth for a specified duration level and return period}
 \usage{
-get_depth(x = NULL, d = NULL, tn = NULL, uncertain = FALSE)
+get_depth(x = NULL, d = NULL, tn = NULL, uc = FALSE)
 }
 \arguments{
 \item{x}{Tibble containing grid cell statistics from KOSTRA-DWD-2020,
@@ -14,7 +14,7 @@ as provided by \code{get_stats()}.}
 
 \item{tn}{numeric. Return period \code{[a]}.}
 
-\item{uncertain}{(optional) logical. Consider grid cell uncertainties from
+\item{uc}{(optional) logical. Consider grid cell uncertainties from
 KOSTRA-DWD-2020, as provided by \code{get_uncertainties()}?}
 }
 \value{
@@ -27,7 +27,7 @@ Get precipitation depth for a specified duration level and return period
 kostra <- get_stats("49125")
 
 get_depth(kostra, d = 60, tn = 50)
-get_depth(kostra, d = 60, tn = 50, uncertain = TRUE)
+get_depth(kostra, d = 60, tn = 50, uc = TRUE)
 }
 \seealso{
 \link{get_stats}, \link{get_uncertainties}

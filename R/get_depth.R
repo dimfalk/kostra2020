@@ -4,7 +4,7 @@
 #'     as provided by `get_stats()`.
 #' @param d numeric. Precipitation duration level \code{[min]}.
 #' @param tn numeric. Return period \code{[a]}.
-#' @param uncertain (optional) logical. Consider grid cell uncertainties from
+#' @param uc (optional) logical. Consider grid cell uncertainties from
 #'     KOSTRA-DWD-2020, as provided by `get_uncertainties()`?
 #'
 #' @return units. Precipitation depth \code{[mm]}.
@@ -16,18 +16,18 @@
 #' kostra <- get_stats("49125")
 #'
 #' get_depth(kostra, d = 60, tn = 50)
-#' get_depth(kostra, d = 60, tn = 50, uncertain = TRUE)
+#' get_depth(kostra, d = 60, tn = 50, uc = TRUE)
 get_depth <- function(x = NULL,
                       d = NULL,
                       tn = NULL,
-                      uncertain = FALSE) {
+                      uc = FALSE) {
 
   # debugging ------------------------------------------------------------------
 
   # x <- get_stats("49125")
   # d <- 60
   # tn <- 50
-  # uncertain <- TRUE
+  # uc <- TRUE
 
   # check arguments ------------------------------------------------------------
 
@@ -41,7 +41,7 @@ get_depth <- function(x = NULL,
   checkmate::assert_numeric(tn, len = 1)
   checkmate::assert_choice(tn, allowed_tn)
 
-  checkmate::assert_logical(uncertain)
+  checkmate::assert_logical(uc)
 
   # main -----------------------------------------------------------------------
 
@@ -50,7 +50,7 @@ get_depth <- function(x = NULL,
 
   hn <- x[x[["D_min"]] == d, ind + 3] |> as.numeric()
 
-  if (uncertain == TRUE) {
+  if (uc == TRUE) {
 
     u <- get_uncertainties(attr(x, "id"))
 
