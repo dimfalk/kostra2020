@@ -1,6 +1,8 @@
 #' Get cell-specific statistics from the KOSTRA-DWD-2020 dataset
 #'
 #' @param x character. Relevant "INDEX_RC" field to be queried.
+#' @param hn logical. Returns precipitation depths when `TRUE` and precipitation
+#'     yields when `FALSE`.
 #'
 #' @return Tibble containing statistical precipitation depths as a function of
 #'     duration and return periods for the KOSTRA-DWD-2020 grid cell specified.
@@ -8,17 +10,22 @@
 #'
 #' @examples
 #' get_stats("49125")
-get_stats <- function(x = NULL) {
+#' get_stats("49125", hn = FALSE)
+get_stats <- function(x = NULL,
+                      hn = TRUE) {
 
   # debugging ------------------------------------------------------------------
 
   # x <- "49125"
+  # hn <- FALSE
 
   # check arguments ------------------------------------------------------------
 
   checkmate::assert_character(x, len = 1, min.chars = 1, max.chars = 6)
 
   stopifnot("'INDEX_RC' specified does not exist." = idx_exists(x))
+
+  checkmate::assert_logical(hn)
 
   # pre-processing -------------------------------------------------------------
 
@@ -66,7 +73,7 @@ get_stats <- function(x = NULL) {
   # post-processing ------------------------------------------------------------
 
   # column names
-  cnames <- cnames |> stringr::str_sub(start = 1, end = -2)
+  cnames <- stringr::str_sub(cnames, start = 1, end = -2)
   colnames(df) <- cnames
 
   # append interval duration
@@ -96,6 +103,17 @@ get_stats <- function(x = NULL) {
   attr(df, "durations_min") <- intervals
   attr(df, "type") <- "HN"
   attr(df, "source") <- "KOSTRA-DWD-2020"
+
+  # return depth or yield? -----------------------------------------------------
+
+  if (hn == FALSE) {
+
+    colnames(df) <- colnames(df) |> stringr::str_replace_all(pattern = "HN", "RN")
+
+    df[, 4:12] <- (df[, 4:12] * 166.67 / df[["D_min"]]) |> round(1)
+
+    attr(df, "type") <- "RN"
+  }
 
   # return object
   tibble::as_tibble(df)

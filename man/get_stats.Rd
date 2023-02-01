@@ -4,10 +4,13 @@
 \alias{get_stats}
 \title{Get cell-specific statistics from the KOSTRA-DWD-2020 dataset}
 \usage{
-get_stats(x = NULL)
+get_stats(x = NULL, hn = TRUE)
 }
 \arguments{
 \item{x}{character. Relevant "INDEX_RC" field to be queried.}
+
+\item{hn}{logical. Returns precipitation depths when \code{TRUE} and precipitation
+yields when \code{FALSE}.}
 }
 \value{
 Tibble containing statistical precipitation depths as a function of
@@ -18,4 +21,5 @@ Get cell-specific statistics from the KOSTRA-DWD-2020 dataset
 }
 \examples{
 get_stats("49125")
+get_stats("49125", hn = FALSE)
 }
