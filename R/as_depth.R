@@ -9,7 +9,7 @@
 #' @seealso \link{as_yield}
 #'
 #' @examples
-#' as_depth(x = 126.94, d = 60)
+#' as_depth(126.94, d = 60)
 as_depth <- function(x = NULL,
                      d = NULL) {
 

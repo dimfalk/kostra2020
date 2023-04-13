@@ -4,15 +4,15 @@
 \alias{calc_designstorm}
 \title{Design storm calculation based on statistical precipitation depths}
 \usage{
-calc_designstorm(x = NULL, tn = NULL, d = NULL, type = NULL)
+calc_designstorm(x = NULL, d = NULL, tn = NULL, type = NULL)
 }
 \arguments{
 \item{x}{Tibble containing grid cell statistics from KOSTRA-DWD-2020,
 as provided by \code{get_stats()}.}
 
-\item{tn}{numeric. Return period \code{[a]}.}
-
 \item{d}{numeric. Precipitation duration level \code{[min]}.}
+
+\item{tn}{numeric. Return period \code{[a]}.}
 
 \item{type}{character. Precipitation distribution: "EulerI" or "EulerII".}
 }
@@ -25,7 +25,7 @@ Design storm calculation based on statistical precipitation depths
 \examples{
 kostra <- get_stats("49125")
 
-calc_designstorm(kostra, tn = 20, d = 60, type = "EulerII")
+calc_designstorm(kostra, d = 60, tn = 20, type = "EulerII")
 }
 \seealso{
 \link{get_stats}

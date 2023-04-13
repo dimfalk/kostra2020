@@ -9,12 +9,12 @@
 #' @export
 #'
 #' @examples
-#' get_centroid(x = c(6.19, 50.46), epsg = 4326)
-#' get_centroid(x = c(367773, 5703579), epsg = 25832)
+#' get_centroid(c(6.19, 50.46), epsg = 4326)
+#' get_centroid(c(367773, 5703579), epsg = 25832)
 #'
-#' get_centroid(x = "52070")
-#' get_centroid(x = "Freiburg im Breisgau")
-#' get_centroid(x = "Kronprinzenstr. 24, 45128 Essen")
+#' get_centroid("52070")
+#' get_centroid("Freiburg im Breisgau")
+#' get_centroid("Kronprinzenstr. 24, 45128 Essen")
 get_centroid <- function(x = NULL,
                          epsg = NULL) {
 

@@ -1,7 +1,7 @@
 #' Get cell-specific statistics from the KOSTRA-DWD-2020 dataset
 #'
 #' @param x character. Relevant "INDEX_RC" field to be queried.
-#' @param hn logical. Returns precipitation depths when `TRUE` and precipitation
+#' @param as_depth logical. Returns precipitation depths when `TRUE` and precipitation
 #'     yields when `FALSE`.
 #'
 #' @return Tibble containing statistical precipitation depths as a function of
@@ -10,14 +10,14 @@
 #'
 #' @examples
 #' get_stats("49125")
-#' get_stats("49125", hn = FALSE)
+#' get_stats("49125", as_depth = FALSE)
 get_stats <- function(x = NULL,
-                      hn = TRUE) {
+                      as_depth = TRUE) {
 
   # debugging ------------------------------------------------------------------
 
   # x <- "49125"
-  # hn <- FALSE
+  # as_depth <- FALSE
 
   # check arguments ------------------------------------------------------------
 
@@ -25,7 +25,7 @@ get_stats <- function(x = NULL,
 
   stopifnot("'INDEX_RC' specified does not exist." = idx_exists(x))
 
-  checkmate::assert_logical(hn)
+  checkmate::assert_logical(as_depth)
 
   # pre-processing -------------------------------------------------------------
 
@@ -106,7 +106,7 @@ get_stats <- function(x = NULL,
 
   # return depth or yield? -----------------------------------------------------
 
-  if (hn == FALSE) {
+  if (as_depth == FALSE) {
 
     colnames(df) <- colnames(df) |> stringr::str_replace_all(pattern = "HN", "RN")
 

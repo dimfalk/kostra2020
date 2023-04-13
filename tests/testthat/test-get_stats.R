@@ -23,7 +23,7 @@ test_that("Column names are as expected.", {
               "RN_010A", "RN_020A", "RN_030A", "RN_050A",
               "RN_100A")
 
-  kostra_rn <- get_stats("49125", hn = FALSE)
+  kostra_rn <- get_stats("49125", as_depth = FALSE)
 
   expect_equal(colnames(kostra_rn), cnames)
 })
@@ -55,7 +55,7 @@ test_that("Types are as expected.", {
 
 
 
-  kostra_rn <- get_stats("49125", hn = FALSE)
+  kostra_rn <- get_stats("49125", as_depth = FALSE)
 
   expect_equal(attr(kostra_rn, "type"), "RN")
 })

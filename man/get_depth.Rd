@@ -14,7 +14,7 @@ as provided by \code{get_stats()}.}
 
 \item{tn}{numeric. Return period \code{[a]}.}
 
-\item{uc}{(optional) logical. Consider grid cell uncertainties from
+\item{uc}{logical. Consider grid cell uncertainties from
 KOSTRA-DWD-2020, as provided by \code{get_uncertainties()}?}
 }
 \value{

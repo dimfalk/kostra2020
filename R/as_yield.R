@@ -9,7 +9,7 @@
 #' @seealso \link{as_depth}
 #'
 #' @examples
-#' as_yield(x = 45.7, d = 60)
+#' as_yield(45.7, d = 60)
 as_yield <- function(x = NULL,
                      d = NULL) {
 

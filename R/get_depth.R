@@ -4,7 +4,7 @@
 #'     as provided by `get_stats()`.
 #' @param d numeric. Precipitation duration level \code{[min]}.
 #' @param tn numeric. Return period \code{[a]}.
-#' @param uc (optional) logical. Consider grid cell uncertainties from
+#' @param uc logical. Consider grid cell uncertainties from
 #'     KOSTRA-DWD-2020, as provided by `get_uncertainties()`?
 #'
 #' @return units. Precipitation depth \code{[mm]}.

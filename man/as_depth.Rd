@@ -18,7 +18,7 @@ units. Precipitation depth \code{[mm]}.
 Convert precipitation yield in precipitation depth as a function of duration
 }
 \examples{
-as_depth(x = 126.94, d = 60)
+as_depth(126.94, d = 60)
 }
 \seealso{
 \link{as_yield}

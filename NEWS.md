@@ -1,4 +1,4 @@
-# version 1.0.5
+# version 1.0.6
 
 ## features
 
@@ -11,6 +11,7 @@
 ## enhancements
 
 - `get_centroid()` now makes use of the Nominatim API via `tidygeocoder::geocode()` for forward geocoding instead of using datasets shipped with the package
+- `get_stats()` parameter `hn` renamed to `as_depth` for consistency reasons
 
 
 ## bug fixes 
