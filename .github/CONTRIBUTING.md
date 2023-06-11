@@ -1,4 +1,4 @@
-## Contributing to kostra2010R
+## Contributing to kostra2020
 
 The goal of this little guide is to help you contribute to kostra2020 as quickly and as easily possible. 
 Moreover, this remains a reminder and collection of useful hints when contributing myself. 
@@ -47,7 +47,7 @@ There are three things you need to include to make your example reproducible: re
 
 ## Pull requests
 
-*   Fork the package and clone it onto your computer. If you haven't done this before, we recommend using `usethis::create_from_github("falk-env/kostra2010R", fork = TRUE)`.
+*   Fork the package and clone it onto your computer. If you haven't done this before, we recommend using `usethis::create_from_github("falk-env/kostra2020", fork = TRUE)`.
 
 *   Install all development dependencies with `devtools::install_dev_deps()`, and then make sure the package passes R CMD check by running `devtools::check()`. 
     If R CMD check doesn't pass cleanly, it's a good idea to ask for help before continuing. 
