@@ -25,11 +25,13 @@ knitr::opts_chunk$set(
 
 The main goal of kostra2020 is to provide access to KOSTRA-DWD-2020 dataset from within R.
 
-Abstract from the [official dataset description](https://opendata.dwd.de/climate_environment/CDC/grids_germany/return_periods/precipitation/KOSTRA/KOSTRA_DWD_2010R/gis/DESCRIPTION_gridsgermany_return_periods_precipitation_KOSTRA_KOSTRA_DWD_2010R_gis_en.pdf):
+Abstract (slightly modified) from the [official dataset description](https://opendata.dwd.de/climate_environment/CDC/grids_germany/return_periods/precipitation/KOSTRA/KOSTRA_DWD_2020/Datensatzbeschreibung_KOSTRA-DWD-2020_en.pdf):
 
-*These vector data sets for GIS contain statistical precipitation values as a function of the duration and the return period. The scope of the data is the engineering dimensioning of water management structures. These include, sewerage networks, sewage treatment plants, pumping stations and retention basins. They are also often used for the dimensioning of drainage systems and infiltration systems. With the help of the data, however, it is also possible to estimate the precipitation level of severe heavy precipitation events with regard to their return periods. This estimation is often used to assess damage events.*
+*This vector dataset contains statistical precipitation values as a function of duration and return period. The scope of the data is the engineering dimensioning of water management structures. These include, sewerage networks, sewage treatment plants, pumping stations and retention basins. They are also often used for the dimensioning of drainage  and infiltration systems. With the help of the data, however, it is also possible to estimate the precipitation level of severe heavy precipitation events with regard to their return periods. This estimation is often used to assess damage events.*
 
-*The data set contains the vector data sets of all 22 duration levels. A vector data set contains the statistical precipitation (hN, design precipitation) of the present duration level D for nine return periods Tn (1-100 a) for the whole grid with actual data present spanning 15,989 cells. INDEX_RC describes the unique identifier of a grid cell.*
+*The dataset encompasses values of statistical precipitation (HN) and uncertainty range (UC) for 22 duration levels D (5 min - 7 days) and 9 return periods Tn (1-100 a). Here, the dataset has been filtered for grid cells with actual information available, reducing the full grid of 300 x 300 cells at a spatial resolution of 5 km to a relevant subset of 15,989 cells. Also, explicit rain donation (RN) information was removed since this data can be reproduced on the fly. INDEX_RC describes the unique identifier of a grid cell.*
+
+*Further information can be found in the support documents at https://www.dwd.de/kostra*
 
 ## Installation
 
@@ -123,7 +125,7 @@ attr(kostra, "returnperiods_a")
 attr(kostra, "source")
 ```
 
-### Get precipitation depths, calculate precipitation yield
+### Get precipitation depths and uncertainties, calculate precipitation yield
 
 If we now wanted to know the statistical precipitation depth e.g. for an event of 4 hours duration corresponding to a recurrence interval in 1:100 years, it's just a matter of indexing. However, there is a function helping you out.
 
@@ -138,6 +140,15 @@ In order to respect estimated grid cell specific uncertainties now additionally 
 ```{r}
 # Same data, but with uncertainties considered.
 get_depth(kostra, d = 240, tn = 100, uc = TRUE)
+```
+
+Uncertainties are caused on the one hand by the statistical procedures themselves, but on the other hand also by the regionalisation procedure and by erroneous or missing observations. The uncertainties vary regionally and depend on the duration level and return period. For example, the rarer an event occurs statistically, the greater the uncertainties.
+
+Specific uncertainty data is available for each grid cell and for each combination of duration level D and return period Tn. Please note that uncertainty ranges are given in ± %.
+
+```{r}
+# Inspect raw uncertainties used above.
+get_uncertainties("49125")
 ```
 
 If you need precipitation yield values [l/(s\*ha)] instead of precipitation depth [mm] or vice versa, make use of the following helper function.

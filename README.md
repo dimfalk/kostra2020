@@ -17,24 +17,30 @@ coverage](https://codecov.io/gh/dimfalk/kostra2020/branch/main/graph/badge.svg)]
 The main goal of kostra2020 is to provide access to KOSTRA-DWD-2020
 dataset from within R.
 
-Abstract from the [official dataset
-description](https://opendata.dwd.de/climate_environment/CDC/grids_germany/return_periods/precipitation/KOSTRA/KOSTRA_DWD_2010R/gis/DESCRIPTION_gridsgermany_return_periods_precipitation_KOSTRA_KOSTRA_DWD_2010R_gis_en.pdf):
+Abstract (slightly modified) from the [official dataset
+description](https://opendata.dwd.de/climate_environment/CDC/grids_germany/return_periods/precipitation/KOSTRA/KOSTRA_DWD_2020/Datensatzbeschreibung_KOSTRA-DWD-2020_en.pdf):
 
-*These vector data sets for GIS contain statistical precipitation values
-as a function of the duration and the return period. The scope of the
-data is the engineering dimensioning of water management structures.
-These include, sewerage networks, sewage treatment plants, pumping
-stations and retention basins. They are also often used for the
-dimensioning of drainage systems and infiltration systems. With the help
-of the data, however, it is also possible to estimate the precipitation
-level of severe heavy precipitation events with regard to their return
-periods. This estimation is often used to assess damage events.*
+*This vector dataset contains statistical precipitation values as a
+function of duration and return period. The scope of the data is the
+engineering dimensioning of water management structures. These include,
+sewerage networks, sewage treatment plants, pumping stations and
+retention basins. They are also often used for the dimensioning of
+drainage and infiltration systems. With the help of the data, however,
+it is also possible to estimate the precipitation level of severe heavy
+precipitation events with regard to their return periods. This
+estimation is often used to assess damage events.*
 
-*The data set contains the vector data sets of all 22 duration levels. A
-vector data set contains the statistical precipitation (hN, design
-precipitation) of the present duration level D for nine return periods
-Tn (1-100 a) for the whole grid with actual data present spanning 15,989
-cells. INDEX_RC describes the unique identifier of a grid cell.*
+*The dataset encompasses values of statistical precipitation (HN) and
+uncertainty range (UC) for 22 duration levels D (5 min - 7 days) and 9
+return periods Tn (1-100 a). Here, the dataset has been filtered for
+grid cells with actual information available, reducing the full grid of
+300 x 300 cells at a spatial resolution of 5 km to a relevant subset of
+15,989 cells. Also, explicit rain donation (RN) information was removed
+since this data can be reproduced on the fly. INDEX_RC describes the
+unique identifier of a grid cell.*
+
+*Further information can be found in the support documents at
+<https://www.dwd.de/kostra>*
 
 ## Installation
 
@@ -180,7 +186,8 @@ kostra
 #>  8    90    1.5    NA    15.1    18.4    20.5    23.2    27.2    31.2    33.9
 #>  9   120    2      NA    16.4    20      22.2    25.2    29.4    33.8    36.7
 #> 10   180    3      NA    18.3    22.4    24.9    28.2    32.9    37.9    41.1
-#> # … with 12 more rows, and 2 more variables: HN_050A <dbl>, HN_100A <dbl>
+#> # ℹ 12 more rows
+#> # ℹ 2 more variables: HN_050A <dbl>, HN_100A <dbl>
 ```
 
 Some describing attributes have been assigned to the tibble.
@@ -196,7 +203,7 @@ attr(kostra, "source")
 #> [1] "KOSTRA-DWD-2020"
 ```
 
-### Get precipitation depths, calculate precipitation yield
+### Get precipitation depths and uncertainties, calculate precipitation yield
 
 If we now wanted to know the statistical precipitation depth e.g. for an
 event of 4 hours duration corresponding to a recurrence interval in
@@ -219,6 +226,37 @@ interval centered around the single value above.
 get_depth(kostra, d = 240, tn = 100, uc = TRUE)
 #> Units: [mm]
 #> [1] 43.4 67.8
+```
+
+Uncertainties are caused on the one hand by the statistical procedures
+themselves, but on the other hand also by the regionalisation procedure
+and by erroneous or missing observations. The uncertainties vary
+regionally and depend on the duration level and return period. For
+example, the rarer an event occurs statistically, the greater the
+uncertainties.
+
+Specific uncertainty data is available for each grid cell and for each
+combination of duration level D and return period Tn. Please note that
+uncertainty ranges are given in ± %.
+
+``` r
+# Inspect raw uncertainties used above.
+get_uncertainties("49125")
+#> # A tibble: 22 × 12
+#>    D_min D_hour D_day UC_001A UC_002A UC_003A UC_005A UC_010A UC_020A UC_030A
+#>    <dbl>  <dbl> <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
+#>  1     5   NA      NA      16      17      18      19      20      20      21
+#>  2    10   NA      NA      17      19      20      21      22      23      24
+#>  3    15   NA      NA      18      20      21      22      24      25      25
+#>  4    20   NA      NA      18      21      22      23      24      25      26
+#>  5    30   NA      NA      18      21      22      23      24      25      26
+#>  6    45   NA      NA      18      20      21      22      24      25      25
+#>  7    60    1      NA      17      19      21      22      23      24      25
+#>  8    90    1.5    NA      16      18      19      21      22      23      24
+#>  9   120    2      NA      15      18      19      20      21      22      23
+#> 10   180    3      NA      14      16      17      19      20      21      21
+#> # ℹ 12 more rows
+#> # ℹ 2 more variables: UC_050A <dbl>, UC_100A <dbl>
 ```
 
 If you need precipitation yield values \[l/(s\*ha)\] instead of
@@ -334,7 +372,7 @@ ggplot(longdata, aes(D_min, value, colour = name)) +
           subtitle = paste0("INDEX_RC: ", attr(kostra, "id")))
 ```
 
-<img src="man/figures/README-unnamed-chunk-19-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-20-1.png" width="100%" />
 
 … or exported to disk using `write.csv2()`.
 
