@@ -47,7 +47,7 @@ unique identifier of a grid cell.*
 You can install the development version of kostra2020 with:
 
 ``` r
-install.packages("devtools")
+# install.packages("devtools")
 devtools::install_github("dimfalk/kostra2020")
 ```
 
@@ -55,6 +55,7 @@ and load the package via
 
 ``` r
 library(kostra2020)
+#> 1.0.7
 ```
 
 ## Getting started
@@ -116,14 +117,14 @@ postal codes to derive coordinates.
 
 ``` r
 # Sf objects created based on Nominatim API response. Internet access required!
-p3 <- get_centroid("52070")
+p3 <- get_centroid("40477")
 p3
 #> Geometry set for 1 feature 
 #> Geometry type: POINT
 #> Dimension:     XY
-#> Bounding box:  xmin: 6.096156 ymin: 50.79107 xmax: 6.096156 ymax: 50.79107
+#> Bounding box:  xmin: 6.784479 ymin: 51.23912 xmax: 6.784479 ymax: 51.23912
 #> Geodetic CRS:  WGS 84
-#> POINT (6.096156 50.79107)
+#> POINT (6.784479 51.23912)
 
 p4 <- get_centroid("Freiburg im Breisgau")
 p4
@@ -154,7 +155,7 @@ get_idx(p1)
 get_idx(p2)
 #> [1] "129103"
 get_idx(p3)
-#> [1] "143089"
+#> [1] "133099"
 get_idx(p4)
 #> [1] "206112"
 get_idx(p5)
