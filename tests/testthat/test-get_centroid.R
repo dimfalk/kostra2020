@@ -13,8 +13,8 @@ test_that("Function working as intended.", {
 
   # testthat::skip_if_offline()
 
-  p <- get_centroid("52070") |> sf::st_coordinates() |> as.numeric() |> round(1)
-  expect_equal(p, c(6.1, 50.8))
+  p <- get_centroid("40477") |> sf::st_coordinates() |> as.numeric() |> round(1)
+  expect_equal(p, c(6.8, 51.2))
 
   p <- get_centroid("Freiburg im Breisgau") |> sf::st_coordinates() |> as.numeric() |> round(1)
   expect_equal(p, c(7.8, 48.0))

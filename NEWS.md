@@ -1,17 +1,16 @@
-# version 1.0.6
+# version 1.0.7
 
 ## features
 
 - `kostra_dwd_2010r` replaced by `kostra_dwd_2020`
 - `get_uncertainties()` now allows to get cell-specific uncertainty estimates
 - `get_depth()` now allows to consider uncertainties with `uc = TRUE`
-- `get_stats()` now optionally return precipitation yield values with `hn = FALSE`
+- `get_stats()` now optionally return precipitation yield values with `as_depth = FALSE`
 
 
 ## enhancements
 
 - `get_centroid()` now makes use of the Nominatim API via `tidygeocoder::geocode()` for forward geocoding instead of using datasets shipped with the package
-- `get_stats()` parameter `hn` renamed to `as_depth` for consistency reasons
 
 
 ## bug fixes 
