@@ -52,11 +52,11 @@ get_depth <- function(x = NULL,
 
   if (uc == TRUE) {
 
-    u <- get_uncertainties(attr(x, "id"))
+    u <- attr(x, "id") |> get_uncertainties()
 
     p <- u[u[["D_min"]] == d, ind + 3] |> as.numeric() / 100
 
-    hn <- c(hn * (1 - p), hn * (1 + p)) |> round(1)
+    hn <- (hn * c(1 - p, 1 + p)) |> round(1)
   }
 
   units::as_units(hn, "mm")
