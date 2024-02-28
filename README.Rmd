@@ -230,7 +230,7 @@ ggplot(longdata, aes(D_min, value, colour = name)) +
           subtitle = paste0("INDEX_RC: ", attr(kostra, "id")))
 ```
 
-... or exported to disk using `write.csv2()`.
+... or exported to disk using `write_stats()`.
 
 ## Contributing
 

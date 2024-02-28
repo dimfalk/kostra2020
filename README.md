@@ -55,7 +55,7 @@ and load the package via
 
 ``` r
 library(kostra2020)
-#> 1.0.7
+#> 1.1.0
 ```
 
 ## Getting started
@@ -122,9 +122,9 @@ p3
 #> Geometry set for 1 feature 
 #> Geometry type: POINT
 #> Dimension:     XY
-#> Bounding box:  xmin: 6.784479 ymin: 51.23912 xmax: 6.784479 ymax: 51.23912
+#> Bounding box:  xmin: 6.784486 ymin: 51.23912 xmax: 6.784486 ymax: 51.23912
 #> Geodetic CRS:  WGS 84
-#> POINT (6.784479 51.23912)
+#> POINT (6.784486 51.23912)
 
 p4 <- get_centroid("Freiburg im Breisgau")
 p4
@@ -375,7 +375,7 @@ ggplot(longdata, aes(D_min, value, colour = name)) +
 
 <img src="man/figures/README-unnamed-chunk-20-1.png" width="100%" />
 
-… or exported to disk using `write.csv2()`.
+… or exported to disk using `write_stats()`.
 
 ## Contributing
 
