@@ -7,7 +7,6 @@
 #'
 #' @examples
 #' idx_exists("49125")
-#' idx_exists("40477")
 idx_exists <- function(x = NULL) {
 
   # debugging ------------------------------------------------------------------
