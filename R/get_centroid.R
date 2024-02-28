@@ -3,26 +3,26 @@
 #' @param x Vector of length 2 containing numeric representing coordinates, \cr
 #'   or character of length 1 representing the name of a municipality, \cr
 #'   a postal zip code or a full address to be geocoded via Nominatim API.
-#' @param epsg (optional) numeric. Coordinate reference system identifier.
+#' @param crs (optional) character. Spatial Reference System Identifier.
 #'
 #' @return Object of type `sfc_POINT`.
 #' @export
 #'
 #' @examples
-#' get_centroid(c(6.19, 50.46), epsg = 4326)
-#' get_centroid(c(367773, 5703579), epsg = 25832)
+#' get_centroid(c(6.19, 50.46), crs = "epsg:4326")
+#' get_centroid(c(367773, 5703579), crs = "epsg:25832")
 #'
 #' get_centroid("52070")
 #' get_centroid("Freiburg im Breisgau")
 #' get_centroid("Kronprinzenstr. 24, 45128 Essen")
 get_centroid <- function(x = NULL,
-                         epsg = NULL) {
+                         crs = NULL) {
 
   # debugging ------------------------------------------------------------------
 
   # x <- c(6.19, 50.46)
   # x <- c(367773, 5703579)
-  # epsg <- 4326
+  # crs <- "epsg:4326"
 
   # x <- "52070"
   # x <- "Freiburg im Breisgau"
@@ -38,11 +38,11 @@ get_centroid <- function(x = NULL,
 
   if (inherits(x, "numeric")) {
 
-    checkmate::assert_numeric(epsg, len = 1)
+    checkmate::assert_character(crs, len = 1, pattern = "epsg:[0-9]{4,6}")
 
   } else {
 
-    checkmate::assert_null(epsg)
+    checkmate::assert_null(crs)
   }
 
   # main -----------------------------------------------------------------------
@@ -50,7 +50,7 @@ get_centroid <- function(x = NULL,
   # vector of length 2 containing numeric representing coordinates -------------
   if (inherits(x, "numeric") && length(x) == 2) {
 
-    sf <- sf::st_point(x) |> sf::st_sfc(crs = epsg)
+    sf <- sf::st_point(x) |> sf::st_sfc(crs = crs)
 
     # string of length 1 representing input for Nominatim query ----------------
   } else if (inherits(x, "character") && length(x) == 1) {
@@ -63,7 +63,7 @@ get_centroid <- function(x = NULL,
       "Geocoding of `x` using Nominatim API failed. Please check the examples provided in `?get_centroid`." |> stop()
     }
 
-    sf <- sf::st_as_sf(r, coords = c("long", "lat"), crs = 4326) |>
+    sf <- sf::st_as_sf(r, coords = c("long", "lat"), crs = "epsg:4326") |>
       sf::st_geometry()
   }
 

@@ -16,7 +16,7 @@ character. Unique representation of the relevant "INDEX_RC" field.
 Get relevant "INDEX_RC" based on user-defined geometry
 }
 \examples{
-p <- get_centroid(c(367773, 5703579), epsg = 25832)
+p <- get_centroid(c(367773, 5703579), crs = "epsg:25832")
 
 get_idx(p)
 }

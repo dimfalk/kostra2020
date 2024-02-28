@@ -4,14 +4,14 @@
 \alias{get_centroid}
 \title{Construct a geometry set object of type sfc_POINT based on user input}
 \usage{
-get_centroid(x = NULL, epsg = NULL)
+get_centroid(x = NULL, crs = NULL)
 }
 \arguments{
 \item{x}{Vector of length 2 containing numeric representing coordinates, \cr
 or character of length 1 representing the name of a municipality, \cr
 a postal zip code or a full address to be geocoded via Nominatim API.}
 
-\item{epsg}{(optional) numeric. Coordinate reference system identifier.}
+\item{crs}{(optional) character. Spatial Reference System Identifier.}
 }
 \value{
 Object of type \code{sfc_POINT}.
@@ -20,8 +20,8 @@ Object of type \code{sfc_POINT}.
 Construct a geometry set object of type sfc_POINT based on user input
 }
 \examples{
-get_centroid(c(6.19, 50.46), epsg = 4326)
-get_centroid(c(367773, 5703579), epsg = 25832)
+get_centroid(c(6.19, 50.46), crs = "epsg:4326")
+get_centroid(c(367773, 5703579), crs = "epsg:25832")
 
 get_centroid("52070")
 get_centroid("Freiburg im Breisgau")
