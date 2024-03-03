@@ -1,8 +1,7 @@
 # quiets concerns of R CMD check
-c("vg250_pk",
-  "GEN",
-  "osm_plz_centroids",
-  "plz",
-  "kostra_dwd_2020",
+c("kostra_dwd_2020",
   "INDEX_RC",
-  "addr") |> utils::globalVariables()
+  "addr",
+  "D_min",
+  "value",
+  "name") |> utils::globalVariables()
