@@ -34,11 +34,9 @@ get_depth <- function(x = NULL,
   checkmate::assert_tibble(x)
 
   allowed_d <- attr(x, "durations_min")
-  checkmate::assert_numeric(d, len = 1)
   checkmate::assert_choice(d, allowed_d)
 
   allowed_tn <- attr(x, "returnperiods_a")
-  checkmate::assert_numeric(tn, len = 1)
   checkmate::assert_choice(tn, allowed_tn)
 
   checkmate::assert_logical(uc)

@@ -41,7 +41,6 @@ get_returnp <- function(x = NULL,
   checkmate::assert_numeric(hn, len = 1, lower = 0)
 
   allowed_d <- attr(x, "durations_min")
-  checkmate::assert_numeric(d, len = 1)
   checkmate::assert_choice(d, allowed_d)
 
   checkmate::assert_logical(interpolate)
