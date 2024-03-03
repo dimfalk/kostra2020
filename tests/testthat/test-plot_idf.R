@@ -11,4 +11,8 @@ test_that("Output class is as expected.", {
   gg3 <- get_stats("49125") |> plot_idf(tn = 100)
 
   expect_s3_class(gg3, c("gg", "ggplot"))
+
+  gg4 <- get_stats("49125") |> plot_idf(log10 = TRUE)
+
+  expect_s3_class(gg4, c("gg", "ggplot"))
 })

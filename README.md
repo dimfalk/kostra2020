@@ -55,7 +55,7 @@ and load the package via
 
 ``` r
 library(kostra2020)
-#> 1.3.0
+#> 1.3.2
 ```
 
 ## Getting started
@@ -355,7 +355,7 @@ Data can now additionally be visualized as intensity-duration-frequency
 curves using `plot_idf()`, underpinned by `{ggplot2}` …
 
 ``` r
-plot_idf(kostra)
+plot_idf(kostra, log10 = TRUE)
 ```
 
 <img src="man/figures/README-unnamed-chunk-20-1.png" width="100%" />

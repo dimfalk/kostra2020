@@ -3,6 +3,7 @@
 #' @param x Tibble containing grid cell statistics from KOSTRA-DWD-2010R,
 #'     as provided by `get_stats()`.
 #' @param tn (optional) numeric. Return period \code{[a]} to be used for filtering.
+#' @param log10 logical. Transform x axis to log10 scale?
 #'
 #' @return ggplot object.
 #' @export
@@ -13,8 +14,11 @@
 #' get_stats("49125") |> plot_idf()
 #'
 #' get_stats("49125") |> plot_idf(tn = 100)
+#'
+#' get_stats("49125") |> plot_idf(log10 = TRUE)
 plot_idf <- function(x = NULL,
-                     tn = NULL) {
+                     tn = NULL,
+                     log10 = FALSE) {
 
   # debugging ------------------------------------------------------------------
 
@@ -22,6 +26,8 @@ plot_idf <- function(x = NULL,
   # x <- get_stats("49011", as_depth = FALSE)
 
   # tn <- 100
+
+  # log10 <- TRUE
 
   # check arguments ------------------------------------------------------------
 
@@ -35,6 +41,8 @@ plot_idf <- function(x = NULL,
 
     checkmate::test_choice(tn, allowed_tn)
   )
+
+  checkmate::assert_logical(log10, len = 1)
 
   # pre-processing -------------------------------------------------------------
 
@@ -50,6 +58,7 @@ plot_idf <- function(x = NULL,
     attr(x, "returnperiods_a") <- tn
   }
 
+  # labels
   if (attr(x, "type") == "HN") {
 
     cnames <- colnames(x)[colnames(x) |> stringr::str_detect("HN_*")]
@@ -82,10 +91,24 @@ plot_idf <- function(x = NULL,
 
   lab_legend <- attr(x, "returnperiods_a") |> as.character()
 
+
+
+  # y-axis ticks
+  val_max <- x_long[["value"]] |> max() |> round(-1)
+
+  if(val_max < 200) {
+
+    y_ticks <- seq(from = 0, to = val_max, by = 10)
+
+  } else {
+
+    y_ticks <- seq(from = 0, to = val_max, by = 20)
+  }
+
   # main -----------------------------------------------------------------------
 
   # plot tile statistics, colours according to return periods
-  ggplot2::ggplot(x_long, ggplot2::aes(x = D_min, y = value, colour = name)) +
+  gg <- ggplot2::ggplot(x_long, ggplot2::aes(x = D_min, y = value, colour = name)) +
     ggplot2::geom_point() +
     ggplot2::geom_line() +
     ggplot2::labs(title = lab_title,
@@ -94,5 +117,18 @@ plot_idf <- function(x = NULL,
                   x = "duration [min]",
                   y = lab_y,
                   color = "return periods [a]") +
+    ggplot2::scale_y_continuous(breaks = y_ticks,
+                                labels = y_ticks) +
     ggplot2::scale_color_discrete(labels = lab_legend)
+
+  if (log10 == TRUE) {
+
+    gg <- gg + ggplot2::scale_x_continuous(trans = "log10",
+                                           breaks = attr(x, "durations_min"),
+                                           labels = attr(x, "durations_min"),
+                                           guide = ggplot2::guide_axis(angle = 90))
+  }
+
+  # return object
+  gg
 }
