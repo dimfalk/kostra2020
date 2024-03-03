@@ -1,25 +1,25 @@
-#' Build "INDEX_RC" identifier based on given X and Y information
+#' Build "INDEX_RC" identifier based on given row and column information
 #'
-#' @param col integer. One pick from set {0:299}.
-#' @param row integer. One pick from set {0:299}.
+#' @param row integer. Row number, one pick from set {0:299}.
+#' @param col integer. Column number, one pick from set {0:299}.
 #'
 #' @return character. Unique representation of the relevant "INDEX_RC" field.
 #' @export
 #'
 #' @examples
-#' idx_build(col = 125, row = 49)
-idx_build <- function(col = NULL,
-                      row = NULL) {
+#' idx_build(row = 49, col = 125)
+idx_build <- function(row = NULL,
+                      col = NULL) {
 
   # debugging ------------------------------------------------------------------
 
-  # col <- 125
   # row <- 49
+  # col <- 125
 
   # check arguments ------------------------------------------------------------
 
-  checkmate::assert_numeric(col, len = 1, lower = 0, upper = 299)
   checkmate::assert_numeric(row, len = 1, lower = 0, upper = 299)
+  checkmate::assert_numeric(col, len = 1, lower = 0, upper = 299)
 
   # main -----------------------------------------------------------------------
 
