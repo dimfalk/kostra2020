@@ -6,6 +6,8 @@
 #' @return character. Unique representation of the relevant "INDEX_RC" field.
 #' @export
 #'
+#' @seealso [idx_decompose()]
+#'
 #' @examples
 #' idx_build(row = 49, col = 125)
 idx_build <- function(row = NULL,
