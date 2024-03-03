@@ -2,6 +2,7 @@
 #'
 #' @param x Tibble containing grid cell statistics from KOSTRA-DWD-2010R,
 #'     as provided by `get_stats()`.
+#' @param tn (optional) numeric. Return period \code{[a]} to be used for filtering.
 #'
 #' @return ggplot object.
 #' @export
@@ -10,18 +11,44 @@
 #'
 #' @examples
 #' get_stats("49125") |> plot_idf()
-plot_idf <- function(x = NULL) {
+#'
+#' get_stats("49125") |> plot_idf(tn = 100)
+plot_idf <- function(x = NULL,
+                     tn = NULL) {
 
   # debugging ------------------------------------------------------------------
 
   # x <- get_stats("49011")
   # x <- get_stats("49011", as_depth = FALSE)
 
+  # tn <- 100
+
   # check arguments ------------------------------------------------------------
 
   checkmate::assert_tibble(x)
 
+  allowed_tn <- attr(x, "returnperiods_a")
+
+  checkmate::assert(
+
+    checkmate::test_null(tn),
+
+    checkmate::test_choice(tn, allowed_tn)
+  )
+
   # pre-processing -------------------------------------------------------------
+
+  # optionally filter for tn
+  if(!is.null(tn)) {
+
+    x <- dplyr::select(x,
+                       D_min,
+                       dplyr::contains(as.character(tn) |> stringr::str_pad(width = 3,
+                                                                            side = "left",
+                                                                            pad = "0")))
+
+    attr(x, "returnperiods_a") <- tn
+  }
 
   if (attr(x, "type") == "HN") {
 

@@ -4,11 +4,13 @@
 \alias{plot_idf}
 \title{Visualize intensity-duration-frequency curves per grid cell statistics}
 \usage{
-plot_idf(x = NULL)
+plot_idf(x = NULL, tn = NULL)
 }
 \arguments{
 \item{x}{Tibble containing grid cell statistics from KOSTRA-DWD-2010R,
 as provided by \code{get_stats()}.}
+
+\item{tn}{(optional) numeric. Return period \code{[a]} to be used for filtering.}
 }
 \value{
 ggplot object.
@@ -18,6 +20,8 @@ Visualize intensity-duration-frequency curves per grid cell statistics
 }
 \examples{
 get_stats("49125") |> plot_idf()
+
+get_stats("49125") |> plot_idf(tn = 100)
 }
 \seealso{
 \code{\link[=get_stats]{get_stats()}}

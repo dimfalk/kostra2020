@@ -7,4 +7,8 @@ test_that("Output class is as expected.", {
   gg2 <- get_stats("49125", as_depth = FALSE) |> plot_idf()
 
   expect_s3_class(gg2, c("gg", "ggplot"))
+
+  gg3 <- get_stats("49125") |> plot_idf(tn = 100)
+
+  expect_s3_class(gg3, c("gg", "ggplot"))
 })
