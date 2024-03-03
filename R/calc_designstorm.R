@@ -11,7 +11,7 @@
 #'
 #' @import sf
 #'
-#' @seealso \link{get_stats}
+#' @seealso [get_stats()]
 #'
 #' @examples
 #' kostra <- get_stats("49125")

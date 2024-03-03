@@ -6,6 +6,8 @@
 #'     duration and return periods for the KOSTRA-DWD-2020 grid cell specified.
 #' @export
 #'
+#' @seealso [idx_build()]
+#'
 #' @examples
 #' get_uncertainties("49125")
 get_uncertainties <- function(x = NULL) {

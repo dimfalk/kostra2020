@@ -13,8 +13,8 @@ get_stats(x = NULL, as_depth = TRUE)
 yields when \code{FALSE}.}
 }
 \value{
-Tibble containing statistical precipitation depths as a function of
-duration and return periods for the KOSTRA-DWD-2020 grid cell specified.
+Tibble containing statistical precipitation depths/yields as a function of
+duration and return period for the KOSTRA-DWD-2020 grid cell specified.
 }
 \description{
 Get cell-specific statistics from the KOSTRA-DWD-2020 dataset
@@ -22,4 +22,7 @@ Get cell-specific statistics from the KOSTRA-DWD-2020 dataset
 \examples{
 get_stats("49125")
 get_stats("49125", as_depth = FALSE)
+}
+\seealso{
+\code{\link[=idx_build]{idx_build()}}
 }

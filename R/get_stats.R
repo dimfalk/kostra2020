@@ -4,9 +4,11 @@
 #' @param as_depth logical. Returns precipitation depths when `TRUE` and precipitation
 #'     yields when `FALSE`.
 #'
-#' @return Tibble containing statistical precipitation depths as a function of
-#'     duration and return periods for the KOSTRA-DWD-2020 grid cell specified.
+#' @return Tibble containing statistical precipitation depths/yields as a function of
+#'     duration and return period for the KOSTRA-DWD-2020 grid cell specified.
 #' @export
+#'
+#' @seealso [idx_build()]
 #'
 #' @examples
 #' get_stats("49125")

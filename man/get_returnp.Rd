@@ -32,5 +32,5 @@ get_returnp(kostra, hn = 69.3, d = 1440)
 get_returnp(kostra, hn = 69.3, d = 1440, interpolate = TRUE)
 }
 \seealso{
-\link{get_stats}
+\code{\link[=get_stats]{get_stats()}}
 }

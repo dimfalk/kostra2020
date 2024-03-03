@@ -6,7 +6,7 @@
 #' @return units. Precipitation yield \code{[l s-1 ha-1]}.
 #' @export
 #'
-#' @seealso \link{as_depth}
+#' @seealso [as_depth()]
 #'
 #' @examples
 #' as_yield(45.7, d = 60)

@@ -30,5 +30,5 @@ get_depth(kostra, d = 60, tn = 50)
 get_depth(kostra, d = 60, tn = 50, uc = TRUE)
 }
 \seealso{
-\link{get_stats}, \link{get_uncertainties}
+\code{\link[=get_stats]{get_stats()}}, \code{\link[=get_uncertainties]{get_uncertainties()}}
 }

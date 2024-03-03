@@ -21,5 +21,5 @@ p <- get_centroid(c(367773, 5703579), crs = "epsg:25832")
 get_idx(p)
 }
 \seealso{
-\link{get_centroid}
+\code{\link[=get_centroid]{get_centroid()}}
 }

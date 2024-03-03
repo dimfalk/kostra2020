@@ -6,7 +6,7 @@
 #'
 #' @export
 #'
-#' @seealso \link{get_stats}
+#' @seealso [get_stats()]
 #'
 #' @examples
 #' \dontrun{

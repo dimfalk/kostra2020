@@ -5,7 +5,7 @@
 #' @return character. Unique representation of the relevant "INDEX_RC" field.
 #' @export
 #'
-#' @seealso \link{get_centroid}
+#' @seealso [get_centroid()]
 #'
 #' @examples
 #' p <- get_centroid(c(367773, 5703579), crs = "epsg:25832")

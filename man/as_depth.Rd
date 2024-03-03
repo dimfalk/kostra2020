@@ -21,5 +21,5 @@ Convert precipitation yield in precipitation depth as a function of duration
 as_depth(126.94, d = 60)
 }
 \seealso{
-\link{as_yield}
+\code{\link[=as_yield]{as_yield()}}
 }

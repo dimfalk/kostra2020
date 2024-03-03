@@ -10,7 +10,7 @@
 #' @return units. Precipitation depth \code{[mm]}.
 #' @export
 #'
-#' @seealso \link{get_stats}, \link{get_uncertainties}
+#' @seealso [get_stats()], [get_uncertainties()]
 #'
 #' @examples
 #' kostra <- get_stats("49125")

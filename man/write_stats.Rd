@@ -24,5 +24,5 @@ write_stats(kostra, file = tempfile(fileext = ".csv"))
 }
 }
 \seealso{
-\link{get_stats}
+\code{\link[=get_stats]{get_stats()}}
 }
