@@ -1,4 +1,4 @@
-# version 1.3.2
+# version 1.4.0
 
 ## features
 
@@ -8,6 +8,7 @@
 - `get_stats()` now optionally return precipitation yield values with `as_depth = FALSE`
 - `write_stats()` now wraps `write.table()` to facilitate dumping stats to disk
 - `plot_idf` now allows to visualize intensity-duration-frequency curves per tile
+- `view_spatial` now allows to interactively explore tile locations, with optional output to disk
 
 
 ## enhancements
