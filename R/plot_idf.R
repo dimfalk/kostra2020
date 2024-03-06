@@ -1,6 +1,6 @@
-#' Visualize intensity-duration-frequency curves per grid cell statistics
+#' Visualize intensity-duration-frequency curves per cell-specific statistics from KOSTRA-DWD-2020 dataset
 #'
-#' @param x Tibble containing grid cell statistics from KOSTRA-DWD-2010R,
+#' @param x Tibble containing grid cell statistics from KOSTRA-DWD-2020,
 #'     as provided by `get_stats()`.
 #' @param tn (optional) numeric. Return period \code{[a]} to be used for filtering.
 #' @param log10 logical. Transform x axis to log10 scale?

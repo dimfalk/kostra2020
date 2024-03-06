@@ -14,7 +14,7 @@ a postal zip code or a full address to be geocoded via Nominatim API.}
 \item{crs}{(optional) character. Spatial Reference System Identifier.}
 }
 \value{
-Object of type \code{sfc_POINT}.
+Object of class \code{c("sfc_POINT", "sfc")}.
 }
 \description{
 Construct a geometry set object of type sfc_POINT based on user input

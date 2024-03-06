@@ -1,4 +1,4 @@
-#' Get cell-specific statistics from the KOSTRA-DWD-2020 dataset
+#' Get cell-specific statistics from KOSTRA-DWD-2020 dataset
 #'
 #' @param x character. Relevant "INDEX_RC" field to be queried.
 #' @param as_depth logical. Returns precipitation depths when `TRUE` and precipitation

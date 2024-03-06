@@ -5,7 +5,7 @@
 #'   a postal zip code or a full address to be geocoded via Nominatim API.
 #' @param crs (optional) character. Spatial Reference System Identifier.
 #'
-#' @return Object of type `sfc_POINT`.
+#' @return Object of class `c("sfc_POINT", "sfc")`.
 #' @export
 #'
 #' @examples

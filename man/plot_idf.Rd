@@ -2,12 +2,12 @@
 % Please edit documentation in R/plot_idf.R
 \name{plot_idf}
 \alias{plot_idf}
-\title{Visualize intensity-duration-frequency curves per grid cell statistics}
+\title{Visualize intensity-duration-frequency curves per cell-specific statistics from KOSTRA-DWD-2020 dataset}
 \usage{
 plot_idf(x = NULL, tn = NULL, log10 = FALSE)
 }
 \arguments{
-\item{x}{Tibble containing grid cell statistics from KOSTRA-DWD-2010R,
+\item{x}{Tibble containing grid cell statistics from KOSTRA-DWD-2020,
 as provided by \code{get_stats()}.}
 
 \item{tn}{(optional) numeric. Return period \code{[a]} to be used for filtering.}
@@ -18,7 +18,7 @@ as provided by \code{get_stats()}.}
 ggplot object.
 }
 \description{
-Visualize intensity-duration-frequency curves per grid cell statistics
+Visualize intensity-duration-frequency curves per cell-specific statistics from KOSTRA-DWD-2020 dataset
 }
 \examples{
 get_stats("49125") |> plot_idf()
