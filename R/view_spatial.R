@@ -12,16 +12,16 @@
 #' \dontrun{
 #' view_spatial()
 #'
-#' view_spatial("49125")
-#' view_spatial("49125", file = "kostra2020_49125.png")
+#' view_spatial("117111")
+#' view_spatial("117111", file = "kostra2020_117111.png")
 #' }
 view_spatial <- function(x = NULL,
                          file = NULL) {
 
   # debugging ------------------------------------------------------------------
 
-  # x <- "49125"
-  # file <- "kostra2020_49125.png"
+  # x <- "117111"
+  # file <- "kostra2020_117111.png"
 
   # check arguments ------------------------------------------------------------
 

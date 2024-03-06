@@ -21,7 +21,7 @@ Interactive visualisation of tile locations from KOSTRA-DWD-2020 dataset
 \dontrun{
 view_spatial()
 
-view_spatial("49125")
-view_spatial("49125", file = "kostra2020_49125.png")
+view_spatial("117111")
+view_spatial("117111", file = "kostra2020_117111.png")
 }
 }

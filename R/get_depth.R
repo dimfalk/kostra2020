@@ -13,10 +13,10 @@
 #' @seealso [get_stats()], [get_uncertainties()]
 #'
 #' @examples
-#' kostra <- get_stats("49125")
+#' stats <- get_stats("117111")
 #'
-#' get_depth(kostra, d = 60, tn = 50)
-#' get_depth(kostra, d = 60, tn = 50, uc = TRUE)
+#' get_depth(stats, d = 60, tn = 50)
+#' get_depth(stats, d = 60, tn = 50, uc = TRUE)
 get_depth <- function(x = NULL,
                       d = NULL,
                       tn = NULL,
@@ -24,7 +24,7 @@ get_depth <- function(x = NULL,
 
   # debugging ------------------------------------------------------------------
 
-  # x <- get_stats("49125")
+  # x <- get_stats("117111")
   # d <- 60
   # tn <- 50
   # uc <- TRUE

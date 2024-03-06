@@ -26,10 +26,10 @@ Vector of length 1 with \code{interpolate = TRUE}.
 Get return period for specified duration level and precipitation depth
 }
 \examples{
-kostra <- get_stats("49125")
+stats <- get_stats("117111")
 
-get_returnp(kostra, hn = 69.3, d = 1440)
-get_returnp(kostra, hn = 69.3, d = 1440, interpolate = TRUE)
+get_returnp(stats, hn = 69.3, d = 1440)
+get_returnp(stats, hn = 69.3, d = 1440, interpolate = TRUE)
 }
 \seealso{
 \code{\link[=get_stats]{get_stats()}}

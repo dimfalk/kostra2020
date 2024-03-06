@@ -55,7 +55,7 @@ and load the package via
 
 ``` r
 library(kostra2020)
-#> 1.3.2
+#> 1.4.1
 ```
 
 ## Getting started
@@ -69,8 +69,8 @@ used to generate the necessary “INDEX_RC” field.
 
 ``` r
 # Generate "INDEX_RC" based on row and column information.
-idx_build(row = 49, col = 125)
-#> [1] "49125"
+idx_build(row = 117, col = 111)
+#> [1] "117111"
 ```
 
 If you wanted to check whether this constructed “INDEX_RC” field is
@@ -80,7 +80,7 @@ function.
 
 ``` r
 # Is the following "INDEX_RC" entry present in the dataset?
-idx_exists("49125")
+idx_exists("117111")
 #> [1] TRUE
 ```
 
@@ -171,22 +171,22 @@ specified.
 ``` r
 # Build a tibble containing statistical precipitation depths as a function of 
 # duration and return periods for the grid cell specified.
-kostra <- get_stats("49125")
+stats <- get_stats("117111")
 
-kostra
+stats
 #> # A tibble: 22 × 12
 #>    D_min D_hour D_day HN_001A HN_002A HN_003A HN_005A HN_010A HN_020A HN_030A
 #>    <dbl>  <dbl> <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-#>  1     5   NA      NA     6       7.4     8.2     9.3    10.8    12.4    13.5
-#>  2    10   NA      NA     7.8     9.5    10.6    12      14      16.1    17.4
-#>  3    15   NA      NA     8.9    10.9    12.1    13.7    16      18.4    19.9
-#>  4    20   NA      NA     9.7    11.9    13.2    15      17.5    20.1    21.8
-#>  5    30   NA      NA    11      13.4    15      16.9    19.8    22.8    24.7
-#>  6    45   NA      NA    12.4    15.1    16.8    19.1    22.3    25.6    27.8
-#>  7    60    1      NA    13.5    16.4    18.3    20.7    24.2    27.8    30.2
-#>  8    90    1.5    NA    15.1    18.4    20.5    23.2    27.2    31.2    33.9
-#>  9   120    2      NA    16.4    20      22.2    25.2    29.4    33.8    36.7
-#> 10   180    3      NA    18.3    22.4    24.9    28.2    32.9    37.9    41.1
+#>  1     5   NA      NA     7       8.8    10      11.4    13.6    15.8    17.2
+#>  2    10   NA      NA     8.9    11.3    12.7    14.6    17.3    20.1    21.9
+#>  3    15   NA      NA    10.1    12.8    14.4    16.5    19.6    22.8    24.9
+#>  4    20   NA      NA    11      13.9    15.7    18      21.4    24.8    27.1
+#>  5    30   NA      NA    12.4    15.6    17.6    20.2    23.9    27.8    30.4
+#>  6    45   NA      NA    13.8    17.4    19.6    22.5    26.7    31      33.9
+#>  7    60    1      NA    14.9    18.8    21.1    24.3    28.8    33.5    36.6
+#>  8    90    1.5    NA    16.5    20.8    23.5    27      32      37.2    40.6
+#>  9   120    2      NA    17.8    22.4    25.3    29      34.5    40.1    43.7
+#> 10   180    3      NA    19.7    24.9    28      32.2    38.2    44.4    48.4
 #> # ℹ 12 more rows
 #> # ℹ 2 more variables: HN_050A <dbl>, HN_100A <dbl>
 ```
@@ -194,13 +194,13 @@ kostra
 Some describing attributes have been assigned to the tibble.
 
 ``` r
-attr(kostra, "id")
-#> [1] "49125"
-attr(kostra, "period")
+attr(stats, "id")
+#> [1] "117111"
+attr(stats, "period")
 #> [1] "1951-01-01 +01" "2020-12-31 +01"
-attr(kostra, "returnperiods_a")
+attr(stats, "returnperiods_a")
 #> [1]   1   2   3   5  10  20  30  50 100
-attr(kostra, "source")
+attr(stats, "source")
 #> [1] "KOSTRA-DWD-2020"
 ```
 
@@ -214,8 +214,8 @@ function helping you out.
 ``` r
 # So we are interested in the rainfall amount [mm] for an event lasting 240 min 
 # with a return period of 100 a.
-get_depth(kostra, d = 240, tn = 100)
-#> 55.6 [mm]
+get_depth(stats, d = 240, tn = 100)
+#> 66 [mm]
 ```
 
 In order to respect estimated grid cell specific uncertainties now
@@ -224,9 +224,9 @@ interval centered around the single value above.
 
 ``` r
 # Same data, but with uncertainties considered.
-get_depth(kostra, d = 240, tn = 100, uc = TRUE)
+get_depth(stats, d = 240, tn = 100, uc = TRUE)
 #> Units: [mm]
-#> [1] 43.4 67.8
+#> [1] 52.1 79.9
 ```
 
 Uncertainties are caused on the one hand by the statistical procedures
@@ -242,20 +242,20 @@ uncertainty ranges are given in ± %.
 
 ``` r
 # Inspect raw uncertainties used above.
-get_uncertainties("49125")
+get_uncertainties("117111")
 #> # A tibble: 22 × 12
 #>    D_min D_hour D_day UC_001A UC_002A UC_003A UC_005A UC_010A UC_020A UC_030A
 #>    <dbl>  <dbl> <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-#>  1     5   NA      NA      16      17      18      19      20      20      21
-#>  2    10   NA      NA      17      19      20      21      22      23      24
-#>  3    15   NA      NA      18      20      21      22      24      25      25
-#>  4    20   NA      NA      18      21      22      23      24      25      26
-#>  5    30   NA      NA      18      21      22      23      24      25      26
-#>  6    45   NA      NA      18      20      21      22      24      25      25
-#>  7    60    1      NA      17      19      21      22      23      24      25
-#>  8    90    1.5    NA      16      18      19      21      22      23      24
-#>  9   120    2      NA      15      18      19      20      21      22      23
-#> 10   180    3      NA      14      16      17      19      20      21      21
+#>  1     5   NA      NA      10      11      12      13      14      15      15
+#>  2    10   NA      NA      13      15      16      17      18      19      20
+#>  3    15   NA      NA      14      17      18      19      20      21      21
+#>  4    20   NA      NA      15      17      18      20      21      22      22
+#>  5    30   NA      NA      16      18      19      20      22      23      23
+#>  6    45   NA      NA      16      18      19      20      22      23      23
+#>  7    60    1      NA      15      18      19      20      21      22      23
+#>  8    90    1.5    NA      15      17      18      19      21      22      22
+#>  9   120    2      NA      14      17      18      19      20      21      22
+#> 10   180    3      NA      13      16      17      18      19      20      21
 #> # ℹ 12 more rows
 #> # ℹ 2 more variables: UC_050A <dbl>, UC_100A <dbl>
 ```
@@ -278,8 +278,8 @@ Finally, we want to determine the return period according to the dataset
 for a precipitation depth and duration given.
 
 ``` r
-# Let's assume we measured 72.3 mm in 24 h.
-get_returnp(kostra, hn = 75.3, d = 1440)
+# Let's assume we measured 86.2 mm in 24 h.
+get_returnp(stats, hn = 86.2, d = 1440)
 #> Units: [a]
 #> [1] 30 50
 ```
@@ -292,21 +292,21 @@ The following edge cases are to be mentioned:
 
 ``` r
 # 1) In case a class boundary is hit, the return period is replicated.
-get_returnp(kostra, hn = 39.5, d = 1440)
+get_returnp(stats, hn = 41.8, d = 1440)
 #> Units: [a]
 #> [1] 2 2
 ```
 
 ``` r
 # 2) In case the return period tn is smaller than 1, interval opens with 0.
-get_returnp(kostra, hn = 30.2, d = 1440)
+get_returnp(stats, hn = 32.1, d = 1440)
 #> Units: [a]
 #> [1] 0 1
 ```
 
 ``` r
 # 3) In case the return period tn is larger than 100, interval closes with Inf.
-get_returnp(kostra, hn = 96.3, d = 1440)
+get_returnp(stats, hn = 110.8, d = 1440)
 #> Units: [a]
 #> [1] 100 Inf
 ```
@@ -319,8 +319,8 @@ using linear interpolation between adjacent nodes:
 
 ``` r
 # Using the same example as above, previously resulting in 30 a < tn < 50 a.
-get_returnp(kostra, hn = 75.3, d = 1440, interpolate = TRUE)
-#> 37.3 [a]
+get_returnp(stats, hn = 86.2, d = 1440, interpolate = TRUE)
+#> 40.5 [a]
 ```
 
 ### Design storm generation
@@ -331,22 +331,22 @@ implemented.
 
 ``` r
 # Euler Type II design storm with a duration of 60 minutes and a return period of 100 a.
-xts <- calc_designstorm(kostra, d = 60, tn = 100, type = "EulerII")
+xts <- calc_designstorm(stats, d = 60, tn = 100, type = "EulerII")
 
 xts
 #>                      [,1]
-#> 2000-01-01 00:00:00  2.40
-#> 2000-01-01 00:05:00  3.10
-#> 2000-01-01 00:10:00  4.90
-#> 2000-01-01 00:15:00 16.90
-#> 2000-01-01 00:20:00  1.75
-#> 2000-01-01 00:25:00  1.75
-#> 2000-01-01 00:30:00  1.30
-#> 2000-01-01 00:35:00  1.30
-#> 2000-01-01 00:40:00  1.30
-#> 2000-01-01 00:45:00  1.00
-#> 2000-01-01 00:50:00  1.00
-#> 2000-01-01 00:55:00  1.00
+#> 2000-01-01 00:00:00  2.80
+#> 2000-01-01 00:05:00  3.70
+#> 2000-01-01 00:10:00  6.00
+#> 2000-01-01 00:15:00 21.80
+#> 2000-01-01 00:20:00  2.10
+#> 2000-01-01 00:25:00  2.10
+#> 2000-01-01 00:30:00  1.47
+#> 2000-01-01 00:35:00  1.47
+#> 2000-01-01 00:40:00  1.47
+#> 2000-01-01 00:45:00  1.13
+#> 2000-01-01 00:50:00  1.13
+#> 2000-01-01 00:55:00  1.13
 ```
 
 ### Further utilization
@@ -355,7 +355,7 @@ Data can now additionally be visualized as intensity-duration-frequency
 curves using `plot_idf()`, underpinned by `{ggplot2}` …
 
 ``` r
-plot_idf(kostra, log10 = TRUE)
+plot_idf(stats, log10 = TRUE)
 ```
 
 <img src="man/figures/README-unnamed-chunk-20-1.png" width="100%" />

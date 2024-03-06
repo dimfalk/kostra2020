@@ -9,12 +9,12 @@
 #' @seealso [idx_build()]
 #'
 #' @examples
-#' get_uncertainties("49125")
+#' get_uncertainties("117111")
 get_uncertainties <- function(x = NULL) {
 
   # debugging ------------------------------------------------------------------
 
-  # x <- "49125"
+  # x <- "117111"
 
   # check arguments ------------------------------------------------------------
 

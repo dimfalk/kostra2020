@@ -8,14 +8,14 @@
 #' @seealso [get_centroid()]
 #'
 #' @examples
-#' p <- get_centroid(c(367773, 5703579), crs = "epsg:25832")
+#' p <- get_centroid(c(406658, 5761320), crs = "epsg:25832")
 #'
 #' get_idx(p)
 get_idx <- function(x = NULL) {
 
   # debugging ------------------------------------------------------------------
 
-  # x <- c(367773, 5703579) |> get_centroid()
+  # x <- get_centroid(c(406658, 5761320), crs = "epsg:25832")
 
   # check arguments ------------------------------------------------------------
 

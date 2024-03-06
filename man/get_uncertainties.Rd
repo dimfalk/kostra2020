@@ -17,7 +17,7 @@ duration and return periods for the KOSTRA-DWD-2020 grid cell specified.
 Get cell-specific uncertainty estimates from the KOSTRA-DWD-2020 dataset
 }
 \examples{
-get_uncertainties("49125")
+get_uncertainties("117111")
 }
 \seealso{
 \code{\link[=idx_build]{idx_build()}}

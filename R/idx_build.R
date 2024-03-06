@@ -9,14 +9,14 @@
 #' @seealso [idx_decompose()]
 #'
 #' @examples
-#' idx_build(row = 49, col = 125)
+#' idx_build(row = 117, col = 111)
 idx_build <- function(row = NULL,
                       col = NULL) {
 
   # debugging ------------------------------------------------------------------
 
-  # row <- 49
-  # col <- 125
+  # row <- 117
+  # col <- 111
 
   # check arguments ------------------------------------------------------------
 

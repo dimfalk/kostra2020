@@ -21,11 +21,11 @@ ggplot object.
 Visualize intensity-duration-frequency curves per cell-specific statistics from KOSTRA-DWD-2020 dataset
 }
 \examples{
-get_stats("49125") |> plot_idf()
+get_stats("117111") |> plot_idf()
 
-get_stats("49125") |> plot_idf(tn = 100)
+get_stats("117111") |> plot_idf(tn = 100)
 
-get_stats("49125") |> plot_idf(log10 = TRUE)
+get_stats("117111") |> plot_idf(log10 = TRUE)
 }
 \seealso{
 \code{\link[=get_stats]{get_stats()}}

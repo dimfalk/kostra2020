@@ -24,7 +24,7 @@ get_centroid <- function(x = NULL,
   # x <- c(367773, 5703579)
   # crs <- "epsg:4326"
 
-  # x <- "52070"
+  # x <- "40477"
   # x <- "Freiburg im Breisgau"
   # x <- "Kronprinzenstr. 24, 45128 Essen"
 

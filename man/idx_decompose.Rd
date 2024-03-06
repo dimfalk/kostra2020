@@ -16,7 +16,7 @@ integer. Vector of length 2 containing row and column numbers.
 Extract row and column information from "INDEX_RC" identifier
 }
 \examples{
-idx_decompose(x = "49011")
+idx_decompose(x = "117111")
 }
 \seealso{
 \code{\link[=idx_build]{idx_build()}}

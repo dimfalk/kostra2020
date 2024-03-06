@@ -11,19 +11,19 @@
 #' @seealso [get_stats()]
 #'
 #' @examples
-#' get_stats("49125") |> plot_idf()
+#' get_stats("117111") |> plot_idf()
 #'
-#' get_stats("49125") |> plot_idf(tn = 100)
+#' get_stats("117111") |> plot_idf(tn = 100)
 #'
-#' get_stats("49125") |> plot_idf(log10 = TRUE)
+#' get_stats("117111") |> plot_idf(log10 = TRUE)
 plot_idf <- function(x = NULL,
                      tn = NULL,
                      log10 = FALSE) {
 
   # debugging ------------------------------------------------------------------
 
-  # x <- get_stats("49011")
-  # x <- get_stats("49011", as_depth = FALSE)
+  # x <- get_stats("117111")
+  # x <- get_stats("117111", as_depth = FALSE)
 
   # tn <- 100
 

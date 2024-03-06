@@ -14,9 +14,9 @@
 #' @seealso [get_stats()]
 #'
 #' @examples
-#' kostra <- get_stats("49125")
+#' stats <- get_stats("117111")
 #'
-#' calc_designstorm(kostra, d = 60, tn = 20, type = "EulerII")
+#' calc_designstorm(stats, d = 60, tn = 20, type = "EulerII")
 calc_designstorm <- function(x = NULL,
                              d = NULL,
                              tn = NULL,
@@ -24,7 +24,7 @@ calc_designstorm <- function(x = NULL,
 
   # debugging ------------------------------------------------------------------
 
-  # x <- kostra
+  # x <- get_stats("117111")
   # d <- 60
   # tn <- 20
   # type <- "EulerII"

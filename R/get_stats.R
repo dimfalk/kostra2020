@@ -11,14 +11,14 @@
 #' @seealso [idx_build()]
 #'
 #' @examples
-#' get_stats("49125")
-#' get_stats("49125", as_depth = FALSE)
+#' get_stats("117111")
+#' get_stats("117111", as_depth = FALSE)
 get_stats <- function(x = NULL,
                       as_depth = TRUE) {
 
   # debugging ------------------------------------------------------------------
 
-  # x <- "49125"
+  # x <- "117111"
   # as_depth <- FALSE
 
   # check arguments ------------------------------------------------------------
