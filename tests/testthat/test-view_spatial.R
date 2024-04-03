@@ -17,11 +17,11 @@ test_that("Output class is as expected.", {
     webshot::install_phantomjs()
   }
 
-  filename <- tempfile(fileext = ".png")
+  fname <- tempfile(fileext = ".png")
 
-  m3 <- view_spatial("49125", file = filename)
+  m3 <- view_spatial("49125", file = fname)
 
   expect_s3_class(m3, c("leaflet", "htmlwidget"))
 
-  expect_true(file.exists(filename))
+  expect_true(file.exists(fname))
 })
