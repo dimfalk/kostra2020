@@ -20,27 +20,27 @@ dataset from within R.
 Abstract (slightly modified) from the [official dataset
 description](https://opendata.dwd.de/climate_environment/CDC/grids_germany/return_periods/precipitation/KOSTRA/KOSTRA_DWD_2020/Datensatzbeschreibung_KOSTRA-DWD-2020_en.pdf):
 
-*This vector dataset contains statistical precipitation values as a
-function of duration and return period. The scope of the data is the
-engineering dimensioning of water management structures. These include,
-sewerage networks, sewage treatment plants, pumping stations and
-retention basins. They are also often used for the dimensioning of
-drainage and infiltration systems. With the help of the data, however,
-it is also possible to estimate the precipitation level of severe heavy
-precipitation events with regard to their return periods. This
-estimation is often used to assess damage events.*
+> This vector dataset contains statistical precipitation values as a
+> function of duration and return period. The scope of the data is the
+> engineering dimensioning of water management structures. These
+> include, sewerage networks, sewage treatment plants, pumping stations
+> and retention basins. They are also often used for the dimensioning of
+> drainage and infiltration systems. With the help of the data, however,
+> it is also possible to estimate the precipitation level of severe
+> heavy precipitation events with regard to their return periods. This
+> estimation is often used to assess damage events.
 
-*The dataset encompasses values of statistical precipitation (HN) and
-uncertainty range (UC) for 22 duration levels D (5 min - 7 days) and 9
-return periods Tn (1-100 a). Here, the dataset has been filtered for
-grid cells with actual information available, reducing the full grid of
-300 x 300 cells at a spatial resolution of 5 km to a relevant subset of
-15,989 cells. Also, explicit rain donation (RN) information was removed
-since this data can be reproduced on the fly. INDEX_RC describes the
-unique identifier of a grid cell.*
+> The dataset encompasses values of statistical precipitation (HN) and
+> uncertainty range (UC) for 22 duration levels D (5 min - 7 days) and 9
+> return periods Tn (1-100 a). Here, the dataset has been filtered for
+> grid cells with actual information available, reducing the full grid
+> of 300 x 300 cells at a spatial resolution of 5 km to a relevant
+> subset of 15,989 cells. Also, explicit rain donation (RN) information
+> was removed since this data can be reproduced on the fly. INDEX_RC
+> describes the unique identifier of a grid cell.
 
-*Further information can be found in the support documents at
-<https://www.dwd.de/kostra>*
+Further information can be found in the support documents at
+<https://www.dwd.de/kostra>
 
 ## Installation
 
@@ -55,7 +55,7 @@ and load the package via
 
 ``` r
 library(kostra2020)
-#> 1.4.1
+#> 1.4.2
 ```
 
 ## Getting started
@@ -122,9 +122,9 @@ p3
 #> Geometry set for 1 feature 
 #> Geometry type: POINT
 #> Dimension:     XY
-#> Bounding box:  xmin: 6.784486 ymin: 51.23912 xmax: 6.784486 ymax: 51.23912
+#> Bounding box:  xmin: 6.785413 ymin: 51.23875 xmax: 6.785413 ymax: 51.23875
 #> Geodetic CRS:  WGS 84
-#> POINT (6.784486 51.23912)
+#> POINT (6.785413 51.23875)
 
 p4 <- get_centroid("Freiburg im Breisgau")
 p4
