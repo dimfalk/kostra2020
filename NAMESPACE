@@ -2,7 +2,6 @@
 
 export(as_depth)
 export(as_yield)
-export(calc_designstorm)
 export(get_centroid)
 export(get_depth)
 export(get_idx)
@@ -15,5 +14,4 @@ export(idx_exists)
 export(plot_idf)
 export(view_spatial)
 export(write_stats)
-import(sf)
 import(webshot)

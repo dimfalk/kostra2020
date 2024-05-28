@@ -1,7 +1,7 @@
 #' Build "INDEX_RC" identifier based on given row and column information
 #'
-#' @param row integer. Row number, one pick from set {0:299}.
-#' @param col integer. Column number, one pick from set {0:299}.
+#' @param row integer. Row number, one pick from set \{0:299\}.
+#' @param col integer. Column number, one pick from set \{0:299\}.
 #'
 #' @return character. Unique representation of the relevant "INDEX_RC" field.
 #' @export

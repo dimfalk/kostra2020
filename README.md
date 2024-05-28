@@ -55,7 +55,7 @@ and load the package via
 
 ``` r
 library(kostra2020)
-#> 1.4.2
+#> 1.5.0
 ```
 
 ## Getting started
@@ -101,6 +101,9 @@ p1
 #> Bounding box:  xmin: 6.19 ymin: 50.46 xmax: 6.19 ymax: 50.46
 #> Geodetic CRS:  WGS 84
 #> POINT (6.19 50.46)
+```
+
+``` r
 
 p2 <- get_centroid(c(367773, 5703579), crs = "epsg:25832")
 p2
@@ -125,6 +128,9 @@ p3
 #> Bounding box:  xmin: 6.785413 ymin: 51.23875 xmax: 6.785413 ymax: 51.23875
 #> Geodetic CRS:  WGS 84
 #> POINT (6.785413 51.23875)
+```
+
+``` r
 
 p4 <- get_centroid("Freiburg im Breisgau")
 p4
@@ -134,6 +140,9 @@ p4
 #> Bounding box:  xmin: 7.8494 ymin: 47.99609 xmax: 7.8494 ymax: 47.99609
 #> Geodetic CRS:  WGS 84
 #> POINT (7.8494 47.99609)
+```
+
+``` r
 
 p5 <- get_centroid("Kronprinzenstr. 24, 45128 Essen")
 p5
@@ -152,12 +161,24 @@ relevant grid index.
 # Get indices by topological intersection between location point and grid cells.
 get_idx(p1)
 #> [1] "150090"
+```
+
+``` r
 get_idx(p2)
 #> [1] "129103"
+```
+
+``` r
 get_idx(p3)
 #> [1] "133099"
+```
+
+``` r
 get_idx(p4)
 #> [1] "206112"
+```
+
+``` r
 get_idx(p5)
 #> [1] "129102"
 ```
@@ -196,10 +217,19 @@ Some describing attributes have been assigned to the tibble.
 ``` r
 attr(stats, "id")
 #> [1] "117111"
+```
+
+``` r
 attr(stats, "period")
 #> [1] "1951-01-01 +01" "2020-12-31 +01"
+```
+
+``` r
 attr(stats, "returnperiods_a")
 #> [1]   1   2   3   5  10  20  30  50 100
+```
+
+``` r
 attr(stats, "source")
 #> [1] "KOSTRA-DWD-2020"
 ```
@@ -267,6 +297,9 @@ helper function.
 ``` r
 as_yield(55.6, d = 240)
 #> 38.6 [L/ha/s]
+```
+
+``` r
 
 as_depth(38.6, d = 240)
 #> 55.6 [mm]
@@ -323,32 +356,6 @@ get_returnp(stats, hn = 86.2, d = 1440, interpolate = TRUE)
 #> 40.5 [a]
 ```
 
-### Design storm generation
-
-Furthermore, statistical precipitation depths can be used to create
-design storm time series data. Currently, Euler Type I + II are
-implemented.
-
-``` r
-# Euler Type II design storm with a duration of 60 minutes and a return period of 100 a.
-xts <- calc_designstorm(stats, d = 60, tn = 100, type = "EulerII")
-
-xts
-#>                      [,1]
-#> 2000-01-01 00:00:00  2.80
-#> 2000-01-01 00:05:00  3.70
-#> 2000-01-01 00:10:00  6.00
-#> 2000-01-01 00:15:00 21.80
-#> 2000-01-01 00:20:00  2.10
-#> 2000-01-01 00:25:00  2.10
-#> 2000-01-01 00:30:00  1.47
-#> 2000-01-01 00:35:00  1.47
-#> 2000-01-01 00:40:00  1.47
-#> 2000-01-01 00:45:00  1.13
-#> 2000-01-01 00:50:00  1.13
-#> 2000-01-01 00:55:00  1.13
-```
-
 ### Further utilization
 
 Data can now additionally be visualized as intensity-duration-frequency
@@ -358,9 +365,9 @@ curves using `plot_idf()`, underpinned by `{ggplot2}` …
 plot_idf(stats, log10 = TRUE)
 ```
 
-<img src="man/figures/README-unnamed-chunk-20-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-19-1.png" width="100%" />
 
-.. or exported to disk using `write_stats()` based on `write.table()`.
+… or exported to disk using `write_stats()` based on `write.table()`.
 
 ## Contributing
 

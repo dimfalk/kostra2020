@@ -7,9 +7,9 @@
 idx_build(row = NULL, col = NULL)
 }
 \arguments{
-\item{row}{integer. Row number, one pick from set {0:299}.}
+\item{row}{integer. Row number, one pick from set \{0:299\}.}
 
-\item{col}{integer. Column number, one pick from set {0:299}.}
+\item{col}{integer. Column number, one pick from set \{0:299\}.}
 }
 \value{
 character. Unique representation of the relevant "INDEX_RC" field.
