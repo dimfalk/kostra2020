@@ -209,9 +209,3 @@ plot_idf(stats, log10 = TRUE)
 ## Contributing
 
 See [here](https://github.com/dimfalk/kostra2020/blob/main/.github/CONTRIBUTING.md) if you'd like to contribute.
-
-## Legal information
-
-According to the [terms of use](https://opendata.dwd.de/climate_environment/CDC/Terms_of_use.pdf) for data on the CDC-OpenData area, freely accessible data may be re-used without any restrictions provided other than the source is referenced, as laid down in the [GeoNutzV](http://www.gesetze-im-internet.de/geonutzv/index.html) ordinance.
-
-Copyright \@ [Deutscher Wetterdienst](https://www.dwd.de/EN/service/copyright/templates_dwd_as_source.html)
