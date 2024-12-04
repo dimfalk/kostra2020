@@ -7,7 +7,7 @@
 #' @param interpolate logical.
 #'     Return `tn` as an interpolated value instead of an interval?
 #'
-#' @return units. Vector of length 2 representing the upper and lower boundaries
+#' @return units. Vector of length 2 representing the lower and upper boundaries
 #'   of the return period class in years \code{[a]}. \cr
 #'   Vector of length 1 with `interpolate = TRUE`.
 #' @export

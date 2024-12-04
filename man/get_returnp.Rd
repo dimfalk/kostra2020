@@ -18,7 +18,7 @@ as provided by \code{get_stats()}.}
 Return \code{tn} as an interpolated value instead of an interval?}
 }
 \value{
-units. Vector of length 2 representing the upper and lower boundaries
+units. Vector of length 2 representing the lower and upper boundaries
 of the return period class in years \code{[a]}. \cr
 Vector of length 1 with \code{interpolate = TRUE}.
 }

@@ -55,7 +55,7 @@ and load the package via
 
 ``` r
 library(kostra2020)
-#> 1.5.1
+#> 1.5.2
 ```
 
 ## Getting started
