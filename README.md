@@ -6,9 +6,7 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/dimfalk/kostra2020/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/dimfalk/kostra2020/actions/workflows/R-CMD-check.yaml)
-[![Codecov test
-coverage](https://codecov.io/gh/dimfalk/kostra2020/branch/main/graph/badge.svg)](https://app.codecov.io/gh/dimfalk/kostra2020?branch=main)
-
+[![Codecov](https://codecov.io/gh/dimfalk/kostra2020/graph/badge.svg)](https://app.codecov.io/gh/dimfalk/kostra2020)
 <!-- badges: end -->
 
 — As of 01.01.2023, kostra2020 officially replaces
