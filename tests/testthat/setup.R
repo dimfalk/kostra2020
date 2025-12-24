@@ -12,12 +12,12 @@ uncert_ref <- readRDS(test_path("testdata", "uncert_ref.rds"))
 
 
 
-# read_p_stats("rhj-2543.csv") |> saveRDS("stats_ref.rds") ---------------------
+# hymet::read_td_stats("rhj-2543.csv") |> saveRDS("stats_ref.rds") ---------------------
 
 stats_ref <- readRDS(test_path("testdata", "stats_ref.rds"))
 
 
 
-# calc_designstorm(kostra_ref, d = 60, tn = 20, type = "EulerII") |> saveRDS("xts_ref.rds")
+# hymet::calc_designstorm(kostra_ref, d = 60, tn = 20, type = "Euler-II") |> saveRDS("xts_ref.rds")
 
 xts_ref <- readRDS(test_path("testdata", "xts_ref.rds"))
