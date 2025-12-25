@@ -87,7 +87,7 @@ plot_idf <- function(x = NULL,
                          "(row ", idx[1], ", ",
                          "column ", idx[2], ")")
 
-  lab_caption <- paste0("Source: ", attr(x, "source"), ", German Weather Service 2022")
+  lab_caption <- paste0("Source: ", attr(x, "source"), ", Deutscher Wetterdienst 2022")
 
   lab_legend <- attr(x, "returnperiods_a") |> as.character()
 

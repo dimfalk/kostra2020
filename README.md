@@ -53,7 +53,7 @@ and load the package via
 
 ``` r
 library(kostra2020)
-#> 1.5.2
+#> 1.5.3
 ```
 
 ## Getting started
@@ -264,7 +264,7 @@ helper function.
 
 ``` r
 as_yield(55.6, d = 240)
-#> 38.6 [L/ha/s]
+#> 38.6 [L/(s*ha)]
 
 as_depth(38.6, d = 240)
 #> 55.6 [mm]
@@ -330,7 +330,7 @@ curves using `plot_idf()`, underpinned by `{ggplot2}` …
 plot_idf(stats, log10 = TRUE)
 ```
 
-<img src="man/figures/README-unnamed-chunk-19-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-19-1.png" alt="" width="100%" />
 
 … or exported to disk using `write_stats()` based on `write.table()`.
 
