@@ -11,14 +11,14 @@
 #' @seealso [get_stats()]
 #'
 #' @examples
-#' get_stats("117111") |> plot_idf()
+#' get_stats("117111") |> ggplot_idf()
 #'
-#' get_stats("117111") |> plot_idf(tn = 100)
+#' get_stats("117111") |> ggplot_idf(tn = 100)
 #'
-#' get_stats("117111") |> plot_idf(log10 = TRUE)
-plot_idf <- function(x = NULL,
-                     tn = NULL,
-                     log10 = FALSE) {
+#' get_stats("117111") |> ggplot_idf(log10 = TRUE)
+ggplot_idf <- function(x = NULL,
+                       tn = NULL,
+                       log10 = FALSE) {
 
   # debugging ------------------------------------------------------------------
 
