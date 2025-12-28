@@ -53,7 +53,7 @@ and load the package via
 
 ``` r
 library(kostra2020)
-#> 1.5.3
+#> 1.5.6
 ```
 
 ## Getting started
@@ -323,14 +323,22 @@ get_returnp(stats, hn = 86.2, d = 1440, interpolate = TRUE)
 
 ### Further utilization
 
-Data can now additionally be visualized as intensity-duration-frequency
-curves using `plot_idf()`, underpinned by `{ggplot2}` …
+Cell-specific statistical values can now additionally be visualized as
+intensity-duration-frequency curves …
 
 ``` r
-plot_idf(stats, log10 = TRUE)
+ggplot_idf(stats, log10 = TRUE)
 ```
 
 <img src="man/figures/README-unnamed-chunk-19-1.png" alt="" width="100%" />
+
+… examined spatially for defined duration levels and return periods …
+
+``` r
+ggplot_spatial(d = 1440, tn = 100)
+```
+
+<img src="man/figures/README-unnamed-chunk-20-1.png" alt="" width="100%" />
 
 … or exported to disk using `write_stats()` based on `write.table()`.
 
