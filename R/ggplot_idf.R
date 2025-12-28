@@ -1,4 +1,4 @@
-#' Visualize intensity-duration-frequency curves per cell-specific statistics from KOSTRA-DWD-2020 dataset
+#' Visualize intensity-duration-frequency curves per cell-specific statistics
 #'
 #' @param x Tibble containing grid cell statistics from KOSTRA-DWD-2020,
 #'     as provided by `get_stats()`.
@@ -11,11 +11,15 @@
 #' @seealso [get_stats()]
 #'
 #' @examples
+#' \dontrun{
 #' get_stats("117111") |> ggplot_idf()
 #'
 #' get_stats("117111") |> ggplot_idf(tn = 100)
 #'
 #' get_stats("117111") |> ggplot_idf(log10 = TRUE)
+#'
+#' get_stats("117111", as_depth = FALSE) |> ggplot_idf()
+#' }
 ggplot_idf <- function(x = NULL,
                        tn = NULL,
                        log10 = FALSE) {
