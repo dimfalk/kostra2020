@@ -49,7 +49,7 @@ ggplot_spatial <- function(d = NULL,
 
   gg <- ggplot2::ggplot() +
     ggplot2::geom_sf(data = kostra_dwd_2020[[d_name]],
-                     ggplot2::aes(fill = get(tn_name))) +
+                     ggplot2::aes(fill = get(tn_name)), colour = NA) +
     ggplot2::scale_fill_viridis_c(option = "plasma", trans = "sqrt", na.value = "white") +
     ggplot2::labs(title = lab_title,
                   subtitle = lab_subtitle,
