@@ -196,6 +196,14 @@ Although it may be somewhat questionable from a scientific perspective, you migh
 get_returnp(stats, hn = 86.2, d = 1440, interpolate = TRUE)
 ```
 
+A more sophisticated and robust approach would be to use the GEV parameters available for each grid cell in order to reconstruct the underlying extreme value distribution. Check the docs under `?kostra_dwd_2020_params` for more information.
+
+```{r}
+get_params("117111")
+```
+
+(... work in progress ...)
+
 ### Further utilization
 
 Cell-specific statistical values can now additionally be visualized as intensity-duration-frequency curves ...

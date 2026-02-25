@@ -53,7 +53,7 @@ and load the package via
 
 ``` r
 library(kostra2020)
-#> 1.5.7
+#> 1.5.8
 ```
 
 ## Getting started
@@ -264,7 +264,7 @@ helper function.
 
 ``` r
 as_yield(55.6, d = 240)
-#> 38.6 [L/ha/s]
+#> 38.6 [L/(s*ha)]
 
 as_depth(38.6, d = 240)
 #> 55.6 [mm]
@@ -321,6 +321,20 @@ get_returnp(stats, hn = 86.2, d = 1440, interpolate = TRUE)
 #> 40.5 [a]
 ```
 
+A more sophisticated and robust approach would be to use the GEV
+parameters available for each grid cell in order to reconstruct the
+underlying extreme value distribution.
+
+``` r
+get_params("117111")
+#> # A tibble: 1 × 6
+#>   INDEX_RC    XI ALPHA KAPPA  THETA   ETA
+#>   <chr>    <dbl> <dbl> <dbl>  <dbl> <dbl>
+#> 1 117111    15.1  5.45  -0.1 0.0185 0.752
+```
+
+(… work in progress …)
+
 ### Further utilization
 
 Cell-specific statistical values can now additionally be visualized as
@@ -330,7 +344,7 @@ intensity-duration-frequency curves …
 ggplot_idf(stats, log10 = TRUE)
 ```
 
-<img src="man/figures/README-unnamed-chunk-19-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-20-1.png" alt="" width="100%" />
 
 … examined spatially for defined duration levels and return periods …
 
@@ -338,7 +352,7 @@ ggplot_idf(stats, log10 = TRUE)
 ggplot_spatial(d = 1440, tn = 100)
 ```
 
-<img src="man/figures/README-unnamed-chunk-20-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-21-1.png" alt="" width="100%" />
 
 … or exported to disk using `write_stats()` based on `write.table()`.
 

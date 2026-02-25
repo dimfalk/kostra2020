@@ -34,3 +34,24 @@
 #' @note License: CC BY 4.0
 #' @note Copyright: Deutscher Wetterdienst 2022 (format modified)
 "kostra_dwd_2020"
+
+#' Data: KOSTRA-DWD-2020 parameters
+#'
+#' Estimated GEV parameters per KOSTRA-DWD-2020 grid cell to reconstruct underlying extreme value distributions
+#'
+#' @format A tibble with 15,989 rows and 6 columns:
+#' \describe{
+#'   \item{INDEX_RC}{numeric. Unique grid cell identifier.}
+#'
+#'   \item{XI}{numeric. GEV location parameter.}
+#'   \item{ALPHA}{numeric. GEV scale parameter.}
+#'   \item{KAPPA}{numeric. GEV shape parameter.}
+#'   \item{THETA}{numeric. First Koutsoyiannis parameter.}
+#'   \item{ETA}{numeric. Second Koutsoyiannis parameter.}
+#' }
+#' @source <https://opendata.dwd.de/climate_environment/CDC/grids_germany/return_periods/precipitation/KOSTRA/KOSTRA_DWD_2020/tab/>
+#' @note Last access: 2025-02-25
+#' @description <https://www.dwd.de/DE/leistungen/kostra_dwd_rasterwerte/kostra_dwd_rasterwerte.html>
+#' @note License: CC BY 4.0
+#' @note Copyright: Deutscher Wetterdienst 2022 (format modified)
+"kostra_dwd_2020_params"

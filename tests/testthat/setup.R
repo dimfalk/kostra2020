@@ -12,6 +12,12 @@ uncert_ref <- readRDS(test_path("testdata", "uncert_ref.rds"))
 
 
 
+# get_params("49125") |> saveRDS("params_ref.rds") ----------------------
+
+params_ref <- readRDS(test_path("testdata", "params_ref.rds"))
+
+
+
 # hymet::read_td_stats("rhj-2543.csv") |> saveRDS("stats_ref.rds") ---------------------
 
 stats_ref <- readRDS(test_path("testdata", "stats_ref.rds"))
