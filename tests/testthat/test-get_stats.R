@@ -7,10 +7,9 @@ test_that("Output class is as expected.", {
 
 test_that("Column names are as expected.", {
 
-  cnames <- c("D_min", "D_hour", "D_day",
-              "HN_001A", "HN_002A", "HN_003A", "HN_005A",
-              "HN_010A", "HN_020A", "HN_030A", "HN_050A",
-              "HN_100A")
+  cnames <- c("D_min",
+              "HN_001A", "HN_002A", "HN_003A", "HN_005A", "HN_010A",
+              "HN_020A", "HN_030A", "HN_050A", "HN_100A")
 
   kostra_hn <- get_stats("49125")
 
@@ -18,10 +17,9 @@ test_that("Column names are as expected.", {
 
 
 
-  cnames <- c("D_min", "D_hour", "D_day",
-              "RN_001A", "RN_002A", "RN_003A", "RN_005A",
-              "RN_010A", "RN_020A", "RN_030A", "RN_050A",
-              "RN_100A")
+  cnames <- c("D_min",
+              "RN_001A", "RN_002A", "RN_003A", "RN_005A", "RN_010A",
+              "RN_020A", "RN_030A", "RN_050A", "RN_100A")
 
   kostra_rn <- get_stats("49125", as_depth = FALSE)
 

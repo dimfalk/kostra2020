@@ -74,20 +74,8 @@ get_uncertainties <- function(x = NULL) {
   # append interval duration
   df["D_min"] <- intervals
 
-  # recalculate duration levels in hours
-  df["D_hour"] <- df["D_min"] / 60
-
-  # representation in hours not relevant for duration levels < 60 min
-  df[["D_hour"]][which(df[["D_min"]] < 60)] <- NA
-
-  # recalculate durations in days
-  df["D_day"] <- df["D_hour"] / 24
-
-  # representation in days not relevant for duration levels < 24 hours
-  df[["D_day"]][which(df[["D_hour"]] < 24)] <- NA
-
   # re-arrange columns
-  df <- df[c("D_min", "D_hour", "D_day", cnames)]
+  df <- df[c("D_min", cnames)]
 
   # append meta data as attributes
   attr(df, "id") <- x

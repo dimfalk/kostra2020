@@ -46,13 +46,13 @@ get_depth <- function(x = NULL,
   # get index and return object
   ind <- which(attr(x, "returnperiods_a") == tn)
 
-  hn <- x[x[["D_min"]] == d, ind + 3] |> as.numeric()
+  hn <- x[x[["D_min"]] == d, ind + 1] |> as.numeric()
 
   if (uc == TRUE) {
 
     u <- attr(x, "id") |> get_uncertainties()
 
-    p <- u[u[["D_min"]] == d, ind + 3] |> as.numeric() / 100
+    p <- u[u[["D_min"]] == d, ind + 1] |> as.numeric() / 100
 
     hn <- (hn * c(1 - p, 1 + p)) |> round(1)
   }
