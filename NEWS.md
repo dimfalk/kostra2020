@@ -1,4 +1,4 @@
-# version 1.5.9
+# version 1.5.10
 
 ## features
 
@@ -6,7 +6,6 @@
 - `get_uncertainties()` now allows to get cell-specific uncertainty estimates
 - `get_depth()` now allows to consider uncertainties with `uc = TRUE`
 - `get_stats()` now optionally return precipitation yield values with `as_depth = FALSE`
-- `write_stats()` now wraps `write.table()` to facilitate dumping stats to disk
 - `plot_idf` now allows to visualize intensity-duration-frequency curves per tile
 - `view_spatial` now allows to interactively explore tile locations, with optional output to disk
 
