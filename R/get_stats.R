@@ -64,11 +64,11 @@ get_stats <- function(x = NULL,
     # init data.frame, otherwise rbind
     if (i == 1) {
 
-      df <- temp
+      res <- temp
 
     } else {
 
-      df <- rbind(df, temp)
+      res <- rbind(res, temp)
     }
   }
 
@@ -76,35 +76,35 @@ get_stats <- function(x = NULL,
 
   # column names
   cnames <- stringr::str_sub(cnames, start = 1, end = -2)
-  colnames(df) <- cnames
+  colnames(res) <- cnames
 
   # append interval duration
-  df["D_min"] <- intervals
+  res["D_min"] <- intervals
 
   # re-arrange columns
-  df <- df[c("D_min", cnames)]
+  res <- res[c("D_min", cnames)]
 
   # append meta data as attributes
-  attr(df, "id") <- x
-  attr(df, "period") <- c("01.01.1951", "31.12.2020") |>
+  attr(res, "id") <- x
+  attr(res, "period") <- c("01.01.1951", "31.12.2020") |>
     strptime("%d.%m.%Y", tz = "Etc/GMT-1") |>
     as.POSIXct()
-  attr(df, "returnperiods_a") <- rperiod
-  attr(df, "durations_min") <- intervals
-  attr(df, "type") <- "HN"
-  attr(df, "source") <- "KOSTRA-DWD-2020"
+  attr(res, "returnperiods_a") <- rperiod
+  attr(res, "durations_min") <- intervals
+  attr(res, "type") <- "HN"
+  attr(res, "source") <- "KOSTRA-DWD-2020"
 
   # return depth or yield? -----------------------------------------------------
 
   if (as_depth == FALSE) {
 
-    colnames(df) <- colnames(df) |> stringr::str_replace_all(pattern = "HN", "RN")
+    colnames(res) <- colnames(res) |> stringr::str_replace_all(pattern = "HN", "RN")
 
-    df[, 4:10] <- (df[, 4:10] * 166.67 / df[["D_min"]]) |> round(1)
+    res[, 4:10] <- (res[, 4:10] * 166.67 / res[["D_min"]]) |> round(1)
 
-    attr(df, "type") <- "RN"
+    attr(res, "type") <- "RN"
   }
 
   # return object
-  tibble::as_tibble(df)
+  tibble::as_tibble(res)
 }

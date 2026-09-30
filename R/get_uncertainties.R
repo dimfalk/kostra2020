@@ -57,11 +57,11 @@ get_uncertainties <- function(x = NULL) {
     # init data.frame, otherwise rbind
     if (i == 1) {
 
-      df <- temp
+      res <- temp
 
     } else {
 
-      df <- rbind(df, temp)
+      res <- rbind(res, temp)
     }
   }
 
@@ -69,24 +69,24 @@ get_uncertainties <- function(x = NULL) {
 
   # column names
   cnames <- cnames |> stringr::str_sub(start = 1, end = -2)
-  colnames(df) <- cnames
+  colnames(res) <- cnames
 
   # append interval duration
-  df["D_min"] <- intervals
+  res["D_min"] <- intervals
 
   # re-arrange columns
-  df <- df[c("D_min", cnames)]
+  res <- res[c("D_min", cnames)]
 
   # append meta data as attributes
-  attr(df, "id") <- x
-  attr(df, "period") <- c("01.01.1951", "31.12.2020") |>
+  attr(res, "id") <- x
+  attr(res, "period") <- c("01.01.1951", "31.12.2020") |>
     strptime("%d.%m.%Y", tz = "Etc/GMT-1") |>
     as.POSIXct()
-  attr(df, "returnperiods_a") <- rperiod
-  attr(df, "durations_min") <- intervals
-  attr(df, "type") <- "UC"
-  attr(df, "source") <- "KOSTRA-DWD-2020"
+  attr(res, "returnperiods_a") <- rperiod
+  attr(res, "durations_min") <- intervals
+  attr(res, "type") <- "UC"
+  attr(res, "source") <- "KOSTRA-DWD-2020"
 
   # return object
-  tibble::as_tibble(df)
+  tibble::as_tibble(res)
 }
