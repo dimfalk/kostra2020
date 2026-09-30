@@ -53,7 +53,7 @@ and load the package via
 
 ``` r
 library(kostra2020)
-#> 1.5.8
+#> 1.5.11
 ```
 
 ## Getting started
@@ -120,9 +120,9 @@ p3
 #> Geometry set for 1 feature 
 #> Geometry type: POINT
 #> Dimension:     XY
-#> Bounding box:  xmin: 6.785413 ymin: 51.23875 xmax: 6.785413 ymax: 51.23875
+#> Bounding box:  xmin: 6.785717 ymin: 51.23945 xmax: 6.785717 ymax: 51.23945
 #> Geodetic CRS:  WGS 84
-#> POINT (6.785413 51.23875)
+#> POINT (6.785717 51.23945)
 
 p4 <- get_centroid("Freiburg im Breisgau")
 p4
@@ -138,9 +138,9 @@ p5
 #> Geometry set for 1 feature 
 #> Geometry type: POINT
 #> Dimension:     XY
-#> Bounding box:  xmin: 7.020153 ymin: 51.44617 xmax: 7.020153 ymax: 51.44617
+#> Bounding box:  xmin: 7.020191 ymin: 51.44614 xmax: 7.020191 ymax: 51.44614
 #> Geodetic CRS:  WGS 84
-#> POINT (7.020153 51.44617)
+#> POINT (7.020191 51.44614)
 ```
 
 These coordinates can be used subsequently to spatially query the
@@ -172,21 +172,20 @@ specified.
 stats <- get_stats("117111")
 
 stats
-#> # A tibble: 22 × 12
-#>    D_min D_hour D_day HN_001A HN_002A HN_003A HN_005A HN_010A HN_020A HN_030A
-#>    <dbl>  <dbl> <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-#>  1     5   NA      NA     7       8.8    10      11.4    13.6    15.8    17.2
-#>  2    10   NA      NA     8.9    11.3    12.7    14.6    17.3    20.1    21.9
-#>  3    15   NA      NA    10.1    12.8    14.4    16.5    19.6    22.8    24.9
-#>  4    20   NA      NA    11      13.9    15.7    18      21.4    24.8    27.1
-#>  5    30   NA      NA    12.4    15.6    17.6    20.2    23.9    27.8    30.4
-#>  6    45   NA      NA    13.8    17.4    19.6    22.5    26.7    31      33.9
-#>  7    60    1      NA    14.9    18.8    21.1    24.3    28.8    33.5    36.6
-#>  8    90    1.5    NA    16.5    20.8    23.5    27      32      37.2    40.6
-#>  9   120    2      NA    17.8    22.4    25.3    29      34.5    40.1    43.7
-#> 10   180    3      NA    19.7    24.9    28      32.2    38.2    44.4    48.4
+#> # A tibble: 22 × 10
+#>    D_min HN_001A HN_002A HN_003A HN_005A HN_010A HN_020A HN_030A HN_050A HN_100A
+#>    <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
+#>  1     5     7       8.8    10      11.4    13.6    15.8    17.2    19.1    21.8
+#>  2    10     8.9    11.3    12.7    14.6    17.3    20.1    21.9    24.4    27.8
+#>  3    15    10.1    12.8    14.4    16.5    19.6    22.8    24.9    27.6    31.5
+#>  4    20    11      13.9    15.7    18      21.4    24.8    27.1    30.1    34.3
+#>  5    30    12.4    15.6    17.6    20.2    23.9    27.8    30.4    33.7    38.5
+#>  6    45    13.8    17.4    19.6    22.5    26.7    31      33.9    37.6    42.9
+#>  7    60    14.9    18.8    21.1    24.3    28.8    33.5    36.6    40.6    46.3
+#>  8    90    16.5    20.8    23.5    27      32      37.2    40.6    45.1    51.4
+#>  9   120    17.8    22.4    25.3    29      34.5    40.1    43.7    48.5    55.4
+#> 10   180    19.7    24.9    28      32.2    38.2    44.4    48.4    53.8    61.4
 #> # ℹ 12 more rows
-#> # ℹ 2 more variables: HN_050A <dbl>, HN_100A <dbl>
 ```
 
 Some describing attributes have been assigned to the tibble.
@@ -241,21 +240,20 @@ uncertainty ranges are given in ± %.
 ``` r
 # Inspect raw uncertainties used above.
 get_uncertainties("117111")
-#> # A tibble: 22 × 12
-#>    D_min D_hour D_day UC_001A UC_002A UC_003A UC_005A UC_010A UC_020A UC_030A
-#>    <dbl>  <dbl> <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-#>  1     5   NA      NA      10      11      12      13      14      15      15
-#>  2    10   NA      NA      13      15      16      17      18      19      20
-#>  3    15   NA      NA      14      17      18      19      20      21      21
-#>  4    20   NA      NA      15      17      18      20      21      22      22
-#>  5    30   NA      NA      16      18      19      20      22      23      23
-#>  6    45   NA      NA      16      18      19      20      22      23      23
-#>  7    60    1      NA      15      18      19      20      21      22      23
-#>  8    90    1.5    NA      15      17      18      19      21      22      22
-#>  9   120    2      NA      14      17      18      19      20      21      22
-#> 10   180    3      NA      13      16      17      18      19      20      21
+#> # A tibble: 22 × 10
+#>    D_min UC_001A UC_002A UC_003A UC_005A UC_010A UC_020A UC_030A UC_050A UC_100A
+#>    <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
+#>  1     5      10      11      12      13      14      15      15      16      16
+#>  2    10      13      15      16      17      18      19      20      20      21
+#>  3    15      14      17      18      19      20      21      21      22      23
+#>  4    20      15      17      18      20      21      22      22      23      24
+#>  5    30      16      18      19      20      22      23      23      24      24
+#>  6    45      16      18      19      20      22      23      23      24      24
+#>  7    60      15      18      19      20      21      22      23      23      24
+#>  8    90      15      17      18      19      21      22      22      23      24
+#>  9   120      14      17      18      19      20      21      22      22      23
+#> 10   180      13      16      17      18      19      20      21      21      22
 #> # ℹ 12 more rows
-#> # ℹ 2 more variables: UC_050A <dbl>, UC_100A <dbl>
 ```
 
 If you need precipitation yield values \[l/(s\*ha)\] instead of
@@ -323,7 +321,8 @@ get_returnp(stats, hn = 86.2, d = 1440, interpolate = TRUE)
 
 A more sophisticated and robust approach would be to use the GEV
 parameters available for each grid cell in order to reconstruct the
-underlying extreme value distribution.
+underlying extreme value distribution. Check the docs under
+`?kostra_dwd_2020_params` for more information.
 
 ``` r
 get_params("117111")
@@ -354,7 +353,7 @@ ggplot_spatial(d = 1440, tn = 100)
 
 <img src="man/figures/README-unnamed-chunk-21-1.png" alt="" width="100%" />
 
-… or exported to disk using `write_stats()` based on `write.table()`.
+… or exported to disk using `hymet::write_stats()`.
 
 ## Contributing
 
