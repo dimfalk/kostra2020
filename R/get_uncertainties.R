@@ -72,10 +72,10 @@ get_uncertainties <- function(x = NULL) {
   colnames(res) <- cnames
 
   # append interval duration
-  res["D_min"] <- intervals
+  res["D_MIN"] <- intervals
 
   # re-arrange columns
-  res <- res[c("D_min", cnames)]
+  res <- res[c("D_MIN", cnames)]
 
   # append meta data as attributes
   attr(res, "id") <- x

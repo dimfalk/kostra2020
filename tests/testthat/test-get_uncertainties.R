@@ -7,7 +7,7 @@ test_that("Output class is as expected.", {
 
 test_that("Column names are as expected", {
 
-  cnames <- c("D_min",
+  cnames <- c("D_MIN",
               "UC_001A", "UC_002A", "UC_003A", "UC_005A", "UC_010A",
               "UC_020A", "UC_030A", "UC_050A", "UC_100A")
 
@@ -23,7 +23,7 @@ test_that("All duration levels are included.", {
 
   uncert <- get_uncertainties("49125")
 
-  expect_equal(uncert[["D_min"]], durations)
+  expect_equal(uncert[["D_MIN"]], durations)
 })
 
 test_that("All return periods are appended as attributes.", {

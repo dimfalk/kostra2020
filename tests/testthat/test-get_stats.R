@@ -7,7 +7,7 @@ test_that("Output class is as expected.", {
 
 test_that("Column names are as expected.", {
 
-  cnames <- c("D_min",
+  cnames <- c("D_MIN",
               "HN_001A", "HN_002A", "HN_003A", "HN_005A", "HN_010A",
               "HN_020A", "HN_030A", "HN_050A", "HN_100A")
 
@@ -17,7 +17,7 @@ test_that("Column names are as expected.", {
 
 
 
-  cnames <- c("D_min",
+  cnames <- c("D_MIN",
               "RN_001A", "RN_002A", "RN_003A", "RN_005A", "RN_010A",
               "RN_020A", "RN_030A", "RN_050A", "RN_100A")
 
@@ -33,7 +33,7 @@ test_that("All duration levels are included.", {
 
   kostra_hn <- get_stats("49125")
 
-  expect_equal(kostra_hn[["D_min"]], durations)
+  expect_equal(kostra_hn[["D_MIN"]], durations)
 })
 
 test_that("All return periods are appended as attributes.", {

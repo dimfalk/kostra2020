@@ -1,4 +1,4 @@
-# version 1.5.12
+# version 1.5.13
 
 ## features
 
@@ -24,14 +24,14 @@
 
 ## features
 
-- `get_pdepth()` now allows to determine statistical precipitation depths
+- `get_depth()` now allows to determine statistical precipitation depths
 - `get_centroid()` now allows determination of coordinates based on municipality names and postal codes
 - `get_returnp()` now allows interpolation of return periods with `interpolate = TRUE`
 
 
 ## enhancements
 
-- `get_pdepth()` and `get_returnp()` now return values supplemented by units
+- `get_depth()` and `get_returnp()` now return values supplemented by units
 - `get_centroid()` now makes use of the VG250_PK dataset instead of VG250_GEM centroids
 - `get_centroid()` now prompts a warning when the object returned contains multiple hits
 - `get_centroid()` now prompts an error when the object returned contains no hits

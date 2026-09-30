@@ -54,7 +54,7 @@ ggplot_idf <- function(x = NULL,
   if(!is.null(tn)) {
 
     x <- dplyr::select(x,
-                       D_min,
+                       D_MIN,
                        dplyr::contains(as.character(tn) |> stringr::str_pad(width = 3,
                                                                             side = "left",
                                                                             pad = "0")))
@@ -112,7 +112,7 @@ ggplot_idf <- function(x = NULL,
   # main -----------------------------------------------------------------------
 
   # plot tile statistics, colours according to return periods
-  gg <- ggplot2::ggplot(x_long, ggplot2::aes(x = D_min, y = value, colour = name)) +
+  gg <- ggplot2::ggplot(x_long, ggplot2::aes(x = D_MIN, y = value, colour = name)) +
     ggplot2::geom_point() +
     ggplot2::geom_line() +
     ggplot2::labs(title = lab_title,

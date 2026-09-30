@@ -52,7 +52,7 @@ get_returnp <- function(x = NULL,
   rperiod <- cnames |> stringr::str_extract("[0-9]{1,5}") |> as.numeric()
 
   # identify relevant row
-  row <- x[which(x[["D_min"]] == d), cnames]
+  row <- x[which(x[["D_MIN"]] == d), cnames]
 
   # main -----------------------------------------------------------------------
 

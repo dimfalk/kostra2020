@@ -53,7 +53,7 @@ and load the package via
 
 ``` r
 library(kostra2020)
-#> 1.5.11
+#> 1.5.13
 ```
 
 ## Getting started
@@ -173,7 +173,7 @@ stats <- get_stats("117111")
 
 stats
 #> # A tibble: 22 × 10
-#>    D_min HN_001A HN_002A HN_003A HN_005A HN_010A HN_020A HN_030A HN_050A HN_100A
+#>    D_MIN HN_001A HN_002A HN_003A HN_005A HN_010A HN_020A HN_030A HN_050A HN_100A
 #>    <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
 #>  1     5     7       8.8    10      11.4    13.6    15.8    17.2    19.1    21.8
 #>  2    10     8.9    11.3    12.7    14.6    17.3    20.1    21.9    24.4    27.8
@@ -241,7 +241,7 @@ uncertainty ranges are given in ± %.
 # Inspect raw uncertainties used above.
 get_uncertainties("117111")
 #> # A tibble: 22 × 10
-#>    D_min UC_001A UC_002A UC_003A UC_005A UC_010A UC_020A UC_030A UC_050A UC_100A
+#>    D_MIN UC_001A UC_002A UC_003A UC_005A UC_010A UC_020A UC_030A UC_050A UC_100A
 #>    <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
 #>  1     5      10      11      12      13      14      15      15      16      16
 #>  2    10      13      15      16      17      18      19      20      20      21
