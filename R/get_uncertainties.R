@@ -79,6 +79,7 @@ get_uncertainties <- function(x = NULL) {
 
   # append meta data as attributes
   attr(res, "id") <- x
+  attr(res, "name") <- NA
   attr(res, "period") <- c("01.01.1951", "31.12.2020") |>
     strptime("%d.%m.%Y", tz = "Etc/GMT-1") |>
     as.POSIXct()
