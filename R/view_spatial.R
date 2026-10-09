@@ -103,8 +103,7 @@ view_spatial <- function(x = NULL,
 
       mapview::mapshot(m,
                        file = file,
-                       remove_controls = c("zoomControl",
-                                           "layersControl"))
+                       remove_controls = c("zoomControl", "layersControl"))
     }
 
   } else {

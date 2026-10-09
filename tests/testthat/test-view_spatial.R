@@ -9,8 +9,12 @@ test_that("Output class is as expected.", {
   m2 <- view_spatial("49125")
 
   expect_s3_class(m2, c("leaflet", "htmlwidget"))
+})
 
+test_that("PNG snapshot is created.", {
 
+  testthat::skip_if(Sys.info()[["sysname"]] == "Linux" && identical(Sys.getenv("CI"), "true"),
+                    "PhantomJS install fails for ubuntu-latest, 24.04.5 LTS")
 
   if (!webshot::is_phantomjs_installed()) {
 

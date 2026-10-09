@@ -1,7 +1,7 @@
 Package: kostra2020
 Title: R Interface for KOSTRA-DWD-2020 Dataset
 Version: 1.5.14
-Date: 2026-10-01
+Date: 2026-10-09
 Authors@R: 
     person("Dimitri", "Falk", role = c("aut", "cre"), email = "falk.dimitri@eglv.de")
 Description: Extract cell-specific precipitation statistics from KOSTRA-DWD-2020.
